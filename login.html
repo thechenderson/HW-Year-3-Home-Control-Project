@@ -1,0 +1,25 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="login.css">
+		<title> Eco Spark </title>
+		<meta http-equiv="Content-type" content="text/html; charset=us-ascii">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+	</head>
+	<body>
+		<form action="query.php" method="post" >
+		<div class="inputContainer">
+			<label> Username</label>
+			<input class="inputBox" type="text" name="username" id="username" placeholder="username" required>
+			<br></br>
+			<label> Password</label>
+			<input class="inputBox" type="text" name="password" id="password" placeholder="password" required>
+			<button class="button" type="submit"> login </button>
+			<p id="display"></p>
+		</div>
+	</body>
+</html>
+
+<?php
+include 'query.php';
+?>

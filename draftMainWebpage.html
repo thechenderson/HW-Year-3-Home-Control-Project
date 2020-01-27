@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		* {
+		  box-sizing: border-box;
+		}
+
+		body {
+		  font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		/* Style the header */
+		header {
+		  background-color: MediumSeaGreen;
+		  padding: 10px;
+		  text-align: center;
+		  font-size: 25px;
+		  color: white;
+		}
+		
+		.icon-bar {
+		  width: 100%;
+		  background-color: #555;
+		  overflow: auto;
+		}
+
+		.icon-bar a {
+		  float: left;
+		  width: 25%;
+		  text-align: center;
+		  padding: 12px 0;
+		  transition: all 0.3s ease;
+		  color: white;
+		  font-size: 36px;
+		}
+
+		.icon-bar a:hover {
+		  background-color: #000;
+		}
+		
+		.centerInfo {
+		  text-align: center;
+		}
+		
+		.btn {
+			border: 2px solid MediumSeaGreen;
+			background-color: white;
+			color: black;
+			align: center;
+			padding: 14px 28px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+	
+	</style>
+	
+	
+	<head>
+		<title>EcoSpark</title>
+		<script>
+			window.onload = function () {
+                
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2",
+				title:{
+					text: "Your Energy Insight"
+				},
+				axisY:{
+					includeZero: false
+				},
+				data: [{        
+					type: "line",
+					lineColor: "black",
+					color: "black",     
+					dataPoints: [
+						{ y: 450},
+						{ y: 414},
+						{ y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+						{ y: 460 },
+						{ y: 450 },
+						{ y: 500 },
+						{ y: 480 },
+						{ y: 480 },
+						{ y: 410 , indexLabel: "lowest",markerColor: "green", markerType: "cross" },
+						{ y: 500 },
+						{ y: 480 },
+						{ y: 510 }
+					]
+				}]
+			});
+			chart.render();
+
+			}
+		</script>
+	</head>
+	
+	<body>
+		<header>
+			<h1>EcoSpark</h1>
+		</header>
+		
+		<div class="icon-bar">
+		  <a href="#"><i class="fa fa-home"></i></a> 
+		  <a href="#"><i class="fa fa-search"></i></a> 
+		  <a href="#"><i class="fa fa-envelope"></i></a> 
+		  <a href="#"><i class="fa fa-fw fa-user"></i></a> 
+		</div>
+		
+		<p>
+			<div id="chartContainer" style="width: 100%; height: 300px;"></div>
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		</p>
+		
+		<p>
+			<div class="centerInfo">
+				<p> Select How to View Your Energy Information</p>
+				
+				<button class="btn">Daily</button>
+				<button class="btn">Weekly</button>
+				<button class="btn">Monthly</button>
+				
+			</div>
+		</p>
+		
+		
+	</body>
+</html> 

@@ -2,6 +2,7 @@
 CREATE TABLE `devices` (
   `deviceID` int(11) NOT NULL,
   `deviceDisplayName` varchar(20) NOT NULL,
+  `devicePower` int(11) NOT NULL,
   `deviceType` int(11) NOT NULL,
   `roomAssigned` int(3) NOT NULL,
   PRIMARY KEY (deviceID)

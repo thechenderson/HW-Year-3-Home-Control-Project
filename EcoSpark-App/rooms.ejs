@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html>
+	<head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/homePage.css">  
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
+		<title> Eco Spark - Rooms </title>
+    </head>
+
+    <body>
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
+            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">Eco Spark</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div style="font-weight: bold; font-size:120%; color: white;" class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> Profile </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="#">My account</a>
+                        <a class="dropdown-item" href="/">Log out</a>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br></br>
+        <h4 class="card-title text-center font-weight-bold">Choose a Room</h4>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <% rooms.forEach(function(room) {%>
+                    <% if (room.roomType == "Kitchen") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-utensils fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (room.roomType == "Bedroom") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-bed fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (room.roomType == "LivingRoom") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-couch fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (room.roomType == "Bathroom") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-bath fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-plus fa-stack-1x icon" style="color:white" href="/add-room"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Add Room</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+    </body>
+</html>

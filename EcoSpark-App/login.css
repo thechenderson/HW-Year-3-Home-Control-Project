@@ -1,0 +1,52 @@
+.title {
+  font-size: 30px;
+  margin-left: 45%;
+  margin-top: 2%;
+}
+
+.inputBox {
+  width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #d5e8d6;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.loginCardHolder {
+  margin-top: 5%;
+  margin-left: 30%; 
+  width: 40%;
+  padding: 1%;
+  border-radius: 8px;
+}
+
+.button {
+  width: 50%;
+  margin: 3% 25% 0%;
+  background-color: #dbdab4;
+  border-style: double;
+  border-color: #aca953;
+  padding: 2%;
+}
+
+
+body {
+  background-image: url('loginBack.jpg');
+  background-color: #add2af;
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+
+h2 {
+margin-left: 50%;
+color: white;
+font-size: 70pt;
+}
+
+
+
+
+
+

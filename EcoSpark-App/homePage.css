@@ -1,0 +1,99 @@
+body {
+    background-color: rgba(76, 175, 80, 0.3) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+  }
+
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+
+.slideshow-container {
+  position: relative;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 1px grey;
+  width: 100%;
+}
+
+
+.mySlides {
+  display: none;
+  padding: 7%;
+  text-align: center;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(150, 150, 150, 0.8);
+  color: white;
+}
+
+.dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+q {font-style: italic;}
+
+.tip {color: cornflowerblue;}
+
+
+.icon-background {
+    color: #4db6ac !important;
+    text-shadow: 0px 2px 1px grey !important;
+}
+  
+.icon {
+    opacity: 1;
+    transition: 0.3s !important;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer !important;
+   
+}
+
+.icon-background:hover {
+  color: #5e9261 !important;
+  text-shadow: 0px 2px 1px grey !important;
+}
+
+.icon:hover {
+    opacity: 0.3 !important;
+    text-shadow: 0px 2px 1px grey !important;
+}
+
+.iconLabels {
+    display: block !important;
+}

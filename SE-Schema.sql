@@ -12,6 +12,7 @@ CREATE TABLE `devices` (
 CREATE TABLE `rooms` (
   `roomID` int(3) NOT NULL,
   `roomDisplayName` varchar(20) NOT NULL,
+  `roomDisplayName` varchar(20) NOT NULL,
   `assignedUsers` varchar(20) NOT NULL,
   `assignedDevices` int(3) NOT NULL,
   PRIMARY KEY (roomID)

@@ -1,9 +1,9 @@
  --Device Table
 CREATE TABLE `devices` (
   `deviceID` int(11) NOT NULL,
-  `deviceDisplayName` varchar(20) NOT NULL,
-  `devicePower` int(11) NOT NULL,
-  `deviceType` int(11) NOT NULL,
+  `deviceDisplayName` varchar(20) NOT NULL DEFAULT 'deviceD',
+  `devicePower` int(11) NOT NULL DEFAULT 0,
+  `deviceType` int(11) NOT NULL DEFAULT 0,
   `roomAssigned` int(3) NOT NULL,
   PRIMARY KEY (deviceID)
 ) ENGINE=INNODB;
@@ -11,8 +11,8 @@ CREATE TABLE `devices` (
 --Room Table
 CREATE TABLE `rooms` (
   `roomID` int(3) NOT NULL,
-  `roomDisplayName` varchar(20) NOT NULL,
-  `roomType` varchar(20) NOT NULL,
+  `roomDisplayName` varchar(20) NOT NULL DEFAULT 'roomD',
+  `roomType` varchar(20) NOT NULL DEFAULT 0,
   `assignedUsers` varchar(20) NOT NULL,
   `assignedDevices` int(3) NOT NULL,
   PRIMARY KEY (roomID)

@@ -48,6 +48,10 @@ app.use('/users', usersRouter);
 
 
   var connection = mysql.createConnection({
+    /*host: '137.195.115.107',
+    user: "monty",
+    password: "some_pass",
+    database: "ecoSpark",*/
     host: '127.0.0.1',
     user: "root",
     password: "countlich1",

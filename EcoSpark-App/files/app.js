@@ -11,6 +11,8 @@ var roomsRouter = require('./routes/rooms');
 var energyDataRouter = require('./routes/energy-data');
 var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
+var addRoomRouter = require('./routes/add-room');
+
 
 var app = express();
 
@@ -44,14 +46,11 @@ app.use('/rooms', roomsRouter);
 app.use('/energy-data', energyDataRouter);
 app.use('/devices', devicesRouter);
 app.use('/users', usersRouter);
+app.use('/add-room', addRoomRouter);
 
 
 
   var connection = mysql.createConnection({
-    /*host: '137.195.115.107',
-    user: "monty",
-    password: "some_pass",
-    database: "ecoSpark",*/
     host: '127.0.0.1',
     user: "root",
     password: "countlich1",
@@ -72,12 +71,13 @@ app.use('/users', usersRouter);
     console.log(username);
     console.log(password);
     if (username && password) {
-      var sql = "SELECT username, password FROM users WHERE username = '" + username + "' AND password ='" + password + "'";
+      var sql = "SELECT displayName FROM users WHERE username = '" + username + "' AND password ='" + password + "'";
       connection.query(sql, function (err, result, fields) {
-      console.log(result);
+      console.log(result[0].displayName);
       if (result != "") {
           request.session.loggedin = true;
-          request.session.username = username;
+          request.session.nickname = result[0].displayName;
+          request.session.user = username;
           response.redirect('/home');
         } else {
           response.redirect('/');
@@ -96,29 +96,63 @@ app.use('/users', usersRouter);
     var username = request.body.username;
     var password1 = request.body.password1;
     var password2 = request.body.password2;
+    var nickname = request.body.nickname;
     console.log(username);
-    console.log(password1);
+    console.log(nickname);
     if (username && (password1 == password2)) {
-      var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "')";
+      var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
       connection.query(sql, function (err, result, fields) {
-
+        console.log(result);
       });
         
-      var sql = "SELECT user, password FROM accounts WHERE user = '" + username + "' AND password ='" + password1 + "'";
+      var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
       connection.query(sql, function (err, result, fields) {
         console.log(result);
         if (result != "") {
             request.session.loggedin = true;
-            request.session.username = username;
+            request.session.nickname = result[0].displayName;
+            request.session.user = username;
             response.redirect('/home');
           } else {
             response.redirect('/sign-up');
-            console.log(result);
           }			
           response.end();
       });
     } else {
       response.redirect('/sign-up');
+      response.end();
+    }
+  });
+
+  app.post('/addRoom', function(request, response) {
+    var roomName = request.body.roomName;
+    var roomType = request.body.roomType;
+    console.log(roomName);
+    console.log(roomType);
+    if (roomName && roomType) {
+      var sql = "INSERT INTO rooms(roomDisplayName,roomType) VALUES ('" + roomName + "', '" + roomType + "')";
+      connection.query(sql, function (err, result, fields) {
+        console.log(result);
+      });
+      
+      console.log("user" + request.session.user);
+      var sql = "INSERT INTO homes(username) VALUES('" + request.session.user + "')";
+      connection.query(sql, function (err, result, fields) {
+        console.log(result);
+      });
+      
+        
+      var sql = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
+      connection.query(sql, function (err, result, fields) {
+      if (result != "") {
+          response.redirect('/rooms');
+        } else {
+          response.redirect('/add-room');
+        }			
+        response.end();
+      });
+    } else {
+      response.redirect('/add-room');
       response.end();
     }
   });

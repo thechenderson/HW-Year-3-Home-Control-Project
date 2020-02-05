@@ -1,0 +1,74 @@
+<!DOCTYPE html >
+<html>
+	<head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/homePage.css">  
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
+		<title> Eco Spark - Rooms </title>
+    </head>
+
+    <body>
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
+            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">Eco Spark</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div style="font-weight: bold; font-size:120%; color: white;" class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> Profile </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="#">My account</a>
+                        <a class="dropdown-item" href="/">Log out</a>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="loginCardHolder green lighten-5">
+            <div class="card rgba-green-light text-dark">
+                <div class="card-body">
+                    <form action="addRoom" method="post">
+                        <p class="h4 text-center py-4">Add Room</p>
+                        <div class="md-form">
+                            <i class="fas fa-pencil-alt prefix"></i>
+                            <input type="text" id="inputIconEx2" class="form-control" name="roomName">
+                            <label for="inputIconEx2">Room Name</label>
+                        </div>
+                        <select class="browser-default custom-select" name="roomType">
+                            <option value="" disabled selected>Choose Room Type</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="Bedroom">Bedroom</option>
+                            <option value="Living Room">Living Room</option>
+                            <option value="Bathroom">Bathroom</option>
+                            <option value="Hallway">Hallway</option>
+                            <option value="Dining Room">Dining Room</option>
+                          </select>
+                        <div class="text-center py-4 mt-3">
+                            <div class="form-group">
+                                <a href="/rooms" class="btn  green lighten-2">Back</a>
+                                <button class="btn  green lighten-2" type="submit">Add Room</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+    </body>
+</html>

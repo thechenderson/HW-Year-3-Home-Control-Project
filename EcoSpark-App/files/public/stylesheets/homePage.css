@@ -8,6 +8,23 @@ body {
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
 
+.loginCardHolder {
+  margin-top: 5%;
+  margin-left: 30%; 
+  width: 40%;
+  padding: 1%;
+  border-radius: 8px;
+}
+
+.button {
+  width: 50%;
+  margin: 3% 25% 0%;
+  background-color: #dbdab4;
+  border-style: double;
+  border-color: #aca953;
+  padding: 2%;
+}
+
 .slideshow-container {
   position: relative;
   background: white;

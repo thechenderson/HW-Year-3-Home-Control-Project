@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         console.log(JSON.parse(data).currently.windSpeed);
         console.log(JSON.parse(data).currently.precipProbability);
         console.log("YES");
-        res.render('home', ({ title: 'Express' },{user:req.session.username , timezone: JSON.parse(data).timezone, time: 
+        res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
           JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
           precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed}));
       });

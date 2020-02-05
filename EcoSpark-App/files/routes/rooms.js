@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 
       var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
-        console.log("quer rooms " + result);
       
       
         res.render('rooms', ({ title: 'Express' },{rooms: result}));

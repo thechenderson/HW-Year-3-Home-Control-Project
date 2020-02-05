@@ -73,7 +73,6 @@ app.use('/add-room', addRoomRouter);
     if (username && password) {
       var sql = "SELECT displayName FROM users WHERE username = '" + username + "' AND password ='" + password + "'";
       connection.query(sql, function (err, result, fields) {
-      console.log(result[0].displayName);
       if (result != "") {
           request.session.loggedin = true;
           request.session.nickname = result[0].displayName;
@@ -99,25 +98,39 @@ app.use('/add-room', addRoomRouter);
     var nickname = request.body.nickname;
     console.log(username);
     console.log(nickname);
-    if (username && (password1 == password2)) {
-      var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+    if (username && nickname && (password1 == password2)) {
+
+      var sql = "SELECT username FROM users WHERE uesrname = '" + username + "'";
       connection.query(sql, function (err, result, fields) {
-        console.log(result);
+        if (result != ""){
+          request.session.uniqueUser = false;
+        }
       });
-        
-      var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
-      connection.query(sql, function (err, result, fields) {
-        console.log(result);
-        if (result != "") {
-            request.session.loggedin = true;
-            request.session.nickname = result[0].displayName;
-            request.session.user = username;
-            response.redirect('/home');
-          } else {
-            response.redirect('/sign-up');
-          }			
-          response.end();
-      });
+
+      if (request.session.uniqueUser) {
+
+        var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+        connection.query(sql, function (err, result, fields) {
+          console.log(result);
+        });
+          
+        var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
+        connection.query(sql, function (err, result, fields) {
+          console.log(result);
+          if (result != "") {
+              request.session.loggedin = true;
+              request.session.nickname = result[0].displayName;
+              request.session.user = username;
+              response.redirect('/home');
+            } else {
+              response.redirect('/sign-up');
+            }			
+            response.end();
+        });
+      } else {
+        response.redirect('/sign-up');
+        response.end();
+      }
     } else {
       response.redirect('/sign-up');
       response.end();
@@ -125,31 +138,40 @@ app.use('/add-room', addRoomRouter);
   });
 
   app.post('/addRoom', function(request, response) {
-    var roomName = request.body.roomName;
-    var roomType = request.body.roomType;
+    var roomNameOld = request.body.roomName;
+    var roomIDOld = request.body.roomID;
+    var roomTypeOld = request.body.roomType;
+    var roomName = roomNameOld.replace(/[|&;$%@"<>()+,]/g, "");
+    var roomID = roomIDOld.replace(/[|&;$%@"<>()+,]/g, "");
+    var roomType = roomTypeOld.replace(/[|&;$%@"<>()+,]/g, "");
     console.log(roomName);
     console.log(roomType);
-    if (roomName && roomType) {
-      var sql = "INSERT INTO rooms(roomDisplayName,roomType) VALUES ('" + roomName + "', '" + roomType + "')";
-      connection.query(sql, function (err, result, fields) {
-        console.log(result);
-      });
+    
+    if (roomName && roomType && roomID) {
       
-      console.log("user" + request.session.user);
-      var sql = "INSERT INTO homes(username) VALUES('" + request.session.user + "')";
-      connection.query(sql, function (err, result, fields) {
-        console.log(result);
-      });
+          var sql = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "')";
+          connection.query(sql, function (err, result, fields) {
+            console.log(result);
+            if (!result) {
+              response.redirect('/add-room');
+            } else {
+           
+          
+              var sql2 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
+              connection.query(sql2, function (err, result2, fields) {
+                console.log(result2);
+              });
       
-        
-      var sql = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
-      connection.query(sql, function (err, result, fields) {
-      if (result != "") {
-          response.redirect('/rooms');
-        } else {
-          response.redirect('/add-room');
-        }			
-        response.end();
+              var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
+              connection.query(sql3, function (err, result3, fields) {
+              if (result3 != "") {
+                  response.redirect('/rooms');
+                } else {
+                  response.redirect('/add-room');
+                }			
+                response.end();
+              });
+        }
       });
     } else {
       response.redirect('/add-room');

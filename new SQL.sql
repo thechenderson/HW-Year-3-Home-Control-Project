@@ -1,5 +1,5 @@
 CREATE TABLE `rooms` (
-  `roomID` int(3),
+  `roomID` int(3) NOT NULL AUTO_INCREMENT,
   `roomDisplayName` varchar(20) NOT NULL,
   `roomType` varchar(20) NOT NULL,
   PRIMARY KEY (roomID)
@@ -8,7 +8,7 @@ CREATE TABLE `rooms` (
 
 
 CREATE TABLE `devices` (
-  `deviceID` int(11) NOT NULL,
+  `deviceID` int(11) NOT NULL AUTO_INCREMENT,
   `deviceDisplayName` varchar(20) NOT NULL,
   `devicePower` int(11) NOT NULL,
   `deviceType` int(11) NOT NULL,
@@ -36,3 +36,7 @@ CREATE TABLE `homes` (
   FOREIGN KEY (username) REFERENCES users(username),
   FOREIGN KEY (roomID) REFERENCES rooms(roomID)
 ) ENGINE=INNODB;
+
+
+
+

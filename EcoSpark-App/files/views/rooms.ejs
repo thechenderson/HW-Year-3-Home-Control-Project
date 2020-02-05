@@ -90,6 +90,32 @@
                             </div>
                         </div>
                     <% } %>
+                    <% if (room.roomType == "Hallway") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-door-open fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (room.roomType == "Dining Room") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-door-chair fa-stack-1x icon" style="color:white" href="/specific-room"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
                 <% }) %>
                 <div class="shadow-none card green lighten-4">
                     <div class="view overlay text-center">

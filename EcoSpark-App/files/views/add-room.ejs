@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/homePage.css">  
+        <link rel="stylesheet" type="text/css" href="/stylesheets/addRoom.css">  
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
@@ -34,42 +34,68 @@
             </div>
         </nav>
 
-
-        <div class="loginCardHolder green lighten-5">
-            <div class="card rgba-green-light text-dark">
-                <div class="card-body">
-                    <form action="addRoom" method="post">
-                        <p class="h4 text-center py-4">Add Room</p>
-                        <div class="md-form">
-                            <i class="fas fa-pencil-alt prefix"></i>
-                            <input type="text" id="inputIconEx2" class="form-control" name="roomID" required>
-                            <label for="inputIconEx2">Create Unique Room Code</label>
-                        </div>
-                        <div class="md-form">
-                            <i class="fas fa-pencil-alt prefix"></i>
-                            <input type="text" id="inputIconEx2" class="form-control" name="roomName" required>
-                            <label for="inputIconEx2">Room Name</label>
-                        </div>
-                        <select class="browser-default custom-select" name="roomType">
-                            <option value="" disabled selected>Choose Room Type</option>
-                            <option value="Kitchen">Kitchen</option>
-                            <option value="Bedroom">Bedroom</option>
-                            <option value="Living Room">Living Room</option>
-                            <option value="Bathroom">Bathroom</option>
-                            <option value="Hallway">Hallway</option>
-                            <option value="Dining Room">Dining Room</option>
-                          </select>
-                        <div class="text-center py-4 mt-3">
-                            <div class="form-group">
-                                <a href="/rooms" class="btn  green lighten-2">Back</a>
-                                <button class="btn  green lighten-2" type="submit">Add Room</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="loginCardHolder green lighten-5">
+                        <div class="card rgba-green-light text-dark">
+                            <div class="card-body">
+                                <form action="addRoom" method="post">
+                                    <p class="h4 text-center py-4">Add Room By Room Code</p>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="roomIDC" required>
+                                        <label for="inputIconEx2"> Room Code</label>
+                                    </div>
+                                    <div class="text-center py-4 mt-3">
+                                        <div class="form-group">
+                                            <a href="/rooms" class="btn  green lighten-2">Back</a>
+                                            <button class="btn  green lighten-2" type="submit">Add Room</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="loginCardHolder green lighten-5">
+                        <div class="card rgba-green-light text-dark">
+                            <div class="card-body">
+                                <form action="createRoom" method="post">
+                                    <p class="h4 text-center py-4">Create a New Room</p>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="roomID" required>
+                                        <label for="inputIconEx2">Create Unique Room Code</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="roomName" required>
+                                        <label for="inputIconEx2">Room Name</label>
+                                    </div>
+                                    <select class="browser-default custom-select" name="roomType" required>
+                                        <option value="" disabled selected>Choose Room Type</option>
+                                        <option value="Kitchen">Kitchen</option>
+                                        <option value="Bedroom">Bedroom</option>
+                                        <option value="Living Room">Living Room</option>
+                                        <option value="Bathroom">Bathroom</option>
+                                        <option value="Hallway">Hallway</option>
+                                        <option value="Dining Room">Dining Room</option>
+                                    </select>
+                                    <div class="text-center py-4 mt-3">
+                                        <div class="form-group">
+                                            <a href="/rooms" class="btn  green lighten-2">Back</a>
+                                            <button class="btn  green lighten-2" type="submit">Add Room</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

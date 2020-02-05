@@ -12,6 +12,7 @@ var energyDataRouter = require('./routes/energy-data');
 var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
 var addRoomRouter = require('./routes/add-room');
+var specRoomRouter = require('./routes/specific-room');
 
 
 var app = express();
@@ -47,6 +48,7 @@ app.use('/energy-data', energyDataRouter);
 app.use('/devices', devicesRouter);
 app.use('/users', usersRouter);
 app.use('/add-room', addRoomRouter);
+app.use('/specific-room', specRoomRouter);
 
 
 
@@ -100,59 +102,47 @@ app.use('/add-room', addRoomRouter);
     console.log(nickname);
     if (username && nickname && (password1 == password2)) {
 
-      var sql = "SELECT username FROM users WHERE uesrname = '" + username + "'";
-      connection.query(sql, function (err, result, fields) {
-        if (result != ""){
-          request.session.uniqueUser = false;
-        }
-      });
-
-      if (request.session.uniqueUser) {
-
         var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
         connection.query(sql, function (err, result, fields) {
-          console.log(result);
+          if (!result) {
+            response.redirect('/sign-up');
+          } else {
+            var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
+            connection.query(sql, function (err, result2, fields) {
+              console.log(result2);
+              if (result2 != "") {
+                request.session.loggedin = true;
+                request.session.nickname = result2[0].displayName;
+                request.session.user = username;
+                response.redirect('/home');
+              } else {
+                response.redirect('/sign-up');
+              }			
+              response.end();
+            });
+          }
         });
           
-        var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
-        connection.query(sql, function (err, result, fields) {
-          console.log(result);
-          if (result != "") {
-              request.session.loggedin = true;
-              request.session.nickname = result[0].displayName;
-              request.session.user = username;
-              response.redirect('/home');
-            } else {
-              response.redirect('/sign-up');
-            }			
-            response.end();
-        });
-      } else {
-        response.redirect('/sign-up');
-        response.end();
-      }
     } else {
       response.redirect('/sign-up');
       response.end();
     }
   });
 
-  app.post('/addRoom', function(request, response) {
-    var roomNameOld = request.body.roomName;
-    var roomIDOld = request.body.roomID;
-    var roomTypeOld = request.body.roomType;
-    var roomName = roomNameOld.replace(/[|&;$%@"<>()+,]/g, "");
-    var roomID = roomIDOld.replace(/[|&;$%@"<>()+,]/g, "");
-    var roomType = roomTypeOld.replace(/[|&;$%@"<>()+,]/g, "");
+  app.post('/createRoom', function(request, response) {
+    var roomName = request.body.roomName;
+    var roomID = request.body.roomID;
+    var roomType = request.body.roomType;
+    console.log(roomID);
     console.log(roomName);
     console.log(roomType);
     
     if (roomName && roomType && roomID) {
       
-          var sql = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "')";
-          connection.query(sql, function (err, result, fields) {
-            console.log(result);
-            if (!result) {
+          var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "')";
+          connection.query(sql4, function (err, result4, fields) {
+            console.log(result4);
+            if (!result4) {
               response.redirect('/add-room');
             } else {
            
@@ -171,8 +161,8 @@ app.use('/add-room', addRoomRouter);
                 }			
                 response.end();
               });
-        }
-      });
+            }
+          });
     } else {
       response.redirect('/add-room');
       response.end();

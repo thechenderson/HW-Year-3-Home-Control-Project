@@ -26,7 +26,6 @@
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user"></i> Profile </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="#">My account</a>
                         <a class="dropdown-item" href="/">Log out</a>
                     </div>
                     </li>
@@ -34,7 +33,8 @@
             </div>
         </nav>
         <br></br>
-        <br></br>
+       
+    
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <div class="shadow-none card green lighten-4">
@@ -74,11 +74,11 @@
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-users fa-stack-1x icon" style="color:white" href="/users"></a>
+                            <a class="fas fa-cogs fa-stack-1x icon" style="color:white" href="/settings"></a>
                         </span>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title text-center">Users</h4>
+                        <h4 class="card-title text-center">System Settings</h4>
                     </div>
                 </div>
             </div>
@@ -105,12 +105,18 @@
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
+                    <br></br>
+                    <div class="systemAlert">
+                        <div class="alert alert-danger" role="alert">
+                           demo - this is where alerts are displayed
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="card weather-card">
                         <div class="card-body pb-3">
                             <h4 class="card-title font-weight-bold"><%= timezone %></h4>
-                            <p class="card-text"><%= time %> , <%= summary %></p>
+                            <p class="card-text"><%= summary %></p>
                             <div class="d-flex justify-content-between">
                                 <p class="display-1 degree"><%= temperature %>°C</p>
                                 <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
@@ -119,11 +125,20 @@
                                 <p><i class="fas fa-tint fa-lg text-info pr-2"></i><%= precipProbability %> % <%= precipType %></p>
                                 <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><%= windSpeed %> mph Winds</p>
                             </div>
+                            <a class="text-muted" href="https://darksky.net/poweredby/">Powerded by Dark Sky</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br></br>
+        <br></br>
+        <footer class="page-footer font-small navbar-dark green lighten-2">
+            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">
+              <a href="https://apophis.bss.design/index.html"> Apophis.com</a>
+            </div>
+        </footer>
+        
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

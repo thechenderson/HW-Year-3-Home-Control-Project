@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
 var addRoomRouter = require('./routes/add-room');
 var specRoomRouter = require('./routes/specific-room');
+var settingsRouter = require('./routes/settings');
 
 
 var app = express();
@@ -49,6 +50,7 @@ app.use('/devices', devicesRouter);
 app.use('/users', usersRouter);
 app.use('/add-room', addRoomRouter);
 app.use('/specific-room', specRoomRouter);
+app.use('/settings', settingsRouter);
 
 
 
@@ -68,8 +70,10 @@ app.use('/specific-room', specRoomRouter);
 
 
   app.post('/validate', function(request, response) {
-    var username = request.body.username;
-    var password = request.body.password;
+    var usernameOld = request.body.username;
+    var passwordOld = request.body.password;
+    var username = usernameOld.replace(/[^a-zA-Z0-9]/g,"");
+    var password = passwordOld.replace(/[^a-zA-Z0-9]/g,"");
     console.log(username);
     console.log(password);
     if (username && password) {
@@ -94,10 +98,16 @@ app.use('/specific-room', specRoomRouter);
 
 
   app.post('/signUp', function(request, response) {
-    var username = request.body.username;
-    var password1 = request.body.password1;
-    var password2 = request.body.password2;
-    var nickname = request.body.nickname;
+    var usernameOld = request.body.username;
+    var password1Old = request.body.password1;
+    var password2Old = request.body.password2;
+    var nicknameOld = request.body.nickname;
+
+    var username = usernameOld.replace(/[^a-zA-Z0-9]/g,"");
+    var password1 = password1Old.replace(/[^a-zA-Z0-9]/g,"");
+    var nickname = nicknameOld.replace(/[^a-zA-Z0-9]/g,"");
+    var password2 = password2Old.replace(/[^a-zA-Z0-9]/g,"");
+
     console.log(username);
     console.log(nickname);
     if (username && nickname && (password1 == password2)) {
@@ -130,12 +140,13 @@ app.use('/specific-room', specRoomRouter);
   });
 
   app.post('/createRoom', function(request, response) {
-    var roomName = request.body.roomName;
-    var roomID = request.body.roomID;
-    var roomType = request.body.roomType;
-    console.log(roomID);
-    console.log(roomName);
-    console.log(roomType);
+    var roomNameOld = request.body.roomName;
+    var roomIDOld = request.body.roomID;
+    var roomTypeOld = request.body.roomType;
+
+    var roomName = roomNameOld.replace(/[^a-zA-Z0-9]/g,"");
+    var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
+    var roomType = roomTypeOld.replace(/[^a-zA-Z0-9]/g,"");
     
     if (roomName && roomType && roomID) {
       
@@ -155,6 +166,38 @@ app.use('/specific-room', specRoomRouter);
               var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
               connection.query(sql3, function (err, result3, fields) {
               if (result3 != "") {
+                  response.redirect('/rooms');
+                } else {
+                  response.redirect('/add-room');
+                }			
+                response.end();
+              });
+            }
+          });
+    } else {
+      response.redirect('/add-room');
+      response.end();
+    }
+  });
+
+
+
+
+
+  app.post('/addRoomCode', function(request, response) {
+    var roomIDOld = request.body.roomIDC;
+    var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
+    console.log(roomID);
+    if (roomID) {
+          var sql5 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
+          connection.query(sql5, function (err, result5, fields) {
+            if (!result5) {
+              console.log(result5);
+              response.redirect('/add-room');
+            } else {
+              var sql6 = "SELECT username FROM homes WHERE username = '" + request.session.user + "'";
+              connection.query(sql6, function (err, result6, fields) {
+              if (result6 != "") {
                   response.redirect('/rooms');
                 } else {
                   response.redirect('/add-room');

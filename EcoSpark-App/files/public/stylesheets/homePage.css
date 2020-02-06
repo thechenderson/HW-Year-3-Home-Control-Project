@@ -114,3 +114,9 @@ q {font-style: italic;}
 .iconLabels {
     display: block !important;
 }
+
+
+.systemAlert {
+  width: 100%;
+  margin-left: 0%;
+}

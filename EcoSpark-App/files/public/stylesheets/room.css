@@ -1,0 +1,10 @@
+body {
+    background-color: rgba(76, 175, 80, 0.3) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+  }
+
+  .sliders{
+      padding:2% !important;
+  }

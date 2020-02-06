@@ -144,7 +144,7 @@ app.use('/settings', settingsRouter);
     var roomIDOld = request.body.roomID;
     var roomTypeOld = request.body.roomType;
 
-    var roomName = roomNameOld.replace(/[^a-zA-Z0-9]/g,"");
+    var roomName = roomNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
     var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
     var roomType = roomTypeOld.replace(/[^a-zA-Z0-9]/g,"");
     

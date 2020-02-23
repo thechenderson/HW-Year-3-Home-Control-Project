@@ -55,9 +55,9 @@ app.use('/settings', settingsRouter);
 
 
   var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: "root",
-    password: "countlich1",
+    host: '192.168.1.147',
+    user: "chris",
+    password: "password",
     database: "ecoSpark",
   });
   

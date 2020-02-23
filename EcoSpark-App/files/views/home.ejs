@@ -11,9 +11,11 @@
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
 		<title> Eco Spark - Home </title>
     </head>
-	<body">
+	<body>
         <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
-            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">Eco Spark</a>
+            <img src="ecoSpark_Logo.png" alt="ecoSpark Logo" width = "5%" height="auto" >   
+
+            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">&nbspEco Spark</a>
             <span style="font-size:150%; color: white;">Welcome back, <%= user %></span>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
                 aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +33,8 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>    
+        
         <br></br>
        
     
@@ -133,17 +136,15 @@
         </div>
         <br></br>
         <br></br>
-        <footer class="page-footer font-small navbar-dark green lighten-2">
-            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">
-              <a href="https://apophis.bss.design/index.html"> Apophis.com</a>
-            </div>
-        </footer>
-        
+
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+
+
 
         <script>
             var slideIndex = 1;
@@ -173,5 +174,12 @@
               dots[slideIndex-1].className += " active";
             }
         </script>
+
+        <footer>
+            <% include partials/footer.ejs %>
+        </footer>
+
     </body>
+
+
 </html>

@@ -1,8 +1,11 @@
+require('dotenv').config()
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
@@ -21,6 +24,7 @@ var app = express();
 var mysql = require('mysql');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -53,12 +57,11 @@ app.use('/add-room', addRoomRouter);
 app.use('/settings', settingsRouter);
 
 
-
   var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: "root",
-    password: "countlich1",
-    database: "ecoSpark",
+    host: process.env.hostname,
+    user: process.env.username,
+    password: process.env.password,
+    database: process.env.database
   });
   
   

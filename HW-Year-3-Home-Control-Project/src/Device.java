@@ -1,5 +1,4 @@
 
-
 public class Device {
 	
 	//Device variables

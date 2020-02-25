@@ -12,12 +12,20 @@ var connection = mysql.createConnection({
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
 
-      var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
+      var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
       
       
         res.render('rooms', ({ title: 'Express' },{rooms: result}));
       });
+    } else {
+      res.render('index', { title: 'Express' });
+    }
+  });
+
+  router.get('/room', function(req, res, next) {
+    if (req.session.loggedin){
+      res.render('specific-room', { title: 'Express' });
     } else {
       res.render('index', { title: 'Express' });
     }

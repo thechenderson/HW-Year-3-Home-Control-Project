@@ -12,7 +12,7 @@ var energyDataRouter = require('./routes/energy-data');
 var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
 var addRoomRouter = require('./routes/add-room');
-var specRoomRouter = require('./routes/specific-room');
+
 var settingsRouter = require('./routes/settings');
 
 
@@ -49,7 +49,7 @@ app.use('/energy-data', energyDataRouter);
 app.use('/devices', devicesRouter);
 app.use('/users', usersRouter);
 app.use('/add-room', addRoomRouter);
-app.use('/specific-room', specRoomRouter);
+
 app.use('/settings', settingsRouter);
 
 
@@ -108,8 +108,7 @@ app.use('/settings', settingsRouter);
     var nickname = nicknameOld.replace(/[^a-zA-Z0-9]/g,"");
     var password2 = password2Old.replace(/[^a-zA-Z0-9]/g,"");
 
-    console.log(username);
-    console.log(nickname);
+
     if (username && nickname && (password1 == password2)) {
 
         var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";

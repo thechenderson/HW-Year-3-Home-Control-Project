@@ -11,23 +11,28 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-
       var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
-      
-      
         res.render('rooms', ({ title: 'Express' },{rooms: result}));
       });
     } else {
-      res.render('index', { title: 'Express' });
+      res.redirect('/');
+    }
+  });
+  router.get('/:roomID', function(req, res, next) {
+    if (req.session.loggedin){
+      var sql = "SELECT roomDisplayName, roomType, roomID FROM rooms WHERE roomID = '" + req.params.roomID + "'";
+      connection.query(sql, function (err, result, fields) {
+        if(result== ""){
+          res.redirect('/rooms');
+        } else {
+          res.render('specific-room', ({ title: 'Express' },{roomInfo: result}));
+        }
+      });
+    
+    } else {
+      res.redirect('/');
     }
   });
 
-  router.get('/room', function(req, res, next) {
-    if (req.session.loggedin){
-      res.render('specific-room', { title: 'Express' });
-    } else {
-      res.render('index', { title: 'Express' });
-    }
-  });
 module.exports = router;

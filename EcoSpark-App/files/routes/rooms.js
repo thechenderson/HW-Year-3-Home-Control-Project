@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   });
   router.get('/:roomID', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT roomDisplayName, roomType, roomID FROM rooms WHERE roomID = '" + req.params.roomID + "'";
+      var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "'";
       connection.query(sql, function (err, result, fields) {
         if(result== ""){
           res.redirect('/rooms');

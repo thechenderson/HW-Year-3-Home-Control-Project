@@ -120,3 +120,8 @@ q {font-style: italic;}
   width: 100%;
   margin-left: 0%;
 }
+
+.edit {
+  margin-left: 85% !important;
+
+}

@@ -9,26 +9,25 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
-		<title> Eco Spark - Room </title>
+		<title> Eco Spark - Device </title>
     </head>
 
     <body>
 
         <% include partials/header.ejs %>
-        
-        <% roomInfo.forEach(function(room) {%>
+        <% deviceInfo.forEach(function(device) {%>
             <div class="text-center h1 my-4">
-                <%=room.roomDisplayName%>
+                <%=device.deviceDisplayName%>
             </div>
-        
+        <% }) %>
         
         <div class="edit">
             <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="/rooms/<%=room.roomID%>/updateRoomName" method="post">
+                        <form action="updateDeviceName" method="post">
                             <div class="modal-header text-center">
-                                <h4 class="modal-title w-100 font-weight-bold">Edit Room</h4>
+                                <h4 class="modal-title w-100 font-weight-bold">Edit device</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -36,8 +35,8 @@
                             <div class="modal-body mx-3">
                                 <div class="md-form mb-5">
                                     <i class="fas fa-edit prefix grey-text"></i>
-                                    <input type="text" id="roomName" name="roomName" class="form-control">
-                                    <label>New Room Name</label>
+                                    <input type="text" id="deviceName" class="form-control">
+                                    <label>New Device Name</label>
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
@@ -49,7 +48,7 @@
             </div>
             <div class="text-center">
                 <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-                    <i class="fas fa-edit"></i> Edit Room</a>
+                    <i class="fas fa-edit"></i> Edit Device</a>
             </div>
         </div>
 
@@ -59,7 +58,7 @@
                 <div class="col-sm-6">
                     <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
                         <br></br>
-                        <label for="customRange1">Change Room Temperature</label>
+                        <label for="customRange1">Change Device Temperature</label>
                         <input type="range" class="custom-range" id="customRange1">
                         <br></br>
                         <div class="custom-control custom-switch">
@@ -70,12 +69,12 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <h4 class="fas fa-thermometer-half"> Current Room Temp _ °C</h4>
-                    <h4 class="fas fa-lightbulb"> Current Room Energy Usage _ KW </h4>
+                    <h4 class="fas fa-thermometer-half"> Current device Temp _ °C</h4>
+                    <h4 class="fas fa-lightbulb"> Current device Energy Usage _ KW </h4>
                 </div>
             </div>
         </div>
-        <% }) %>
+
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

@@ -7,15 +7,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 
-var indexRouter = require('./routes/index');
-var homeRouter = require('./routes/home');
-var signUpRouter = require('./routes/sign-up');
-var roomsRouter = require('./routes/rooms');
-var energyDataRouter = require('./routes/energy-data');
-var usersRouter = require('./routes/users');
-var devicesRouter = require('./routes/devices');
+var indexRouter = require('./routes/index'); //Login page
+  var signUpRouter = require('./routes/sign-up'); //Sign up page
 
-var settingsRouter = require('./routes/settings');
+
+var homeRouter = require('./routes/home'); //Dashboard
+  var roomsRouter = require('./routes/rooms'); //Rooms
+  var energyDataRouter = require('./routes/energy-data'); //Energy data
+  var devicesRouter = require('./routes/devices'); //Devices
+  var myAccountRouter = require('./routes/my-account'); //View current account details
+  var settingsRouter = require('./routes/settings'); //Settings
+    var manageUsersRouter = require('./routes/manage-users'); //Manage users
+    var manageDevicesRouter = require('./routes/manage-devices'); //Manage users
+    var manageRoomsRouter = require('./routes/manage-rooms'); //Manage users
+    var helpRouter = require('./routes/help'); //Help usng the site
 
 
 var app = express();
@@ -45,15 +50,20 @@ app.use(bodyParser.json());
 
 
 app.use('/', indexRouter);
+  app.use('/sign-up', signUpRouter);
+
+
 app.use('/home', homeRouter);
-app.use('/sign-up', signUpRouter);
-app.use('/rooms', roomsRouter);
-app.use('/energy-data', energyDataRouter);
-app.use('/devices', devicesRouter);
-app.use('/users', usersRouter);
+  app.use('/rooms', roomsRouter);
+  app.use('/energy-data', energyDataRouter);
+  app.use('/devices', devicesRouter);
+  app.use('/my-account', myAccountRouter);
+  app.use('/settings', settingsRouter);
+    app.use('/manage-users', manageUsersRouter)
+    app.use('/manage-devices', manageDevicesRouter)
+    app.use('/manage-rooms', manageRoomsRouter)
+    app.use('/help', helpRouter)
 
-
-app.use('/settings', settingsRouter);
 
 
   var connection = mysql.createConnection({

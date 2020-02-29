@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      res.render('energy-data', { title: 'Express' });
+      res.render('manage-devices', { title: 'Express' });
     } else {
       res.redirect('/');
     }

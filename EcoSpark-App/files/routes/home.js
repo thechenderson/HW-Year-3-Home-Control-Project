@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
       });
 
       } else {
-        res.render('index', { title: 'Express' });
+        res.redirect('/');
     }
 });
 module.exports = router;

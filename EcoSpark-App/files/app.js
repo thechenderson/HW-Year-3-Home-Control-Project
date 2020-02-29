@@ -1,19 +1,26 @@
+require('dotenv').config()
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var homeRouter = require('./routes/home');
-var signUpRouter = require('./routes/sign-up');
-var roomsRouter = require('./routes/rooms');
-var energyDataRouter = require('./routes/energy-data');
-var usersRouter = require('./routes/users');
-var devicesRouter = require('./routes/devices');
-var addRoomRouter = require('./routes/add-room');
-var specRoomRouter = require('./routes/specific-room');
-var settingsRouter = require('./routes/settings');
+
+var indexRouter = require('./routes/index'); //Login page
+  var signUpRouter = require('./routes/sign-up'); //Sign up page
+
+
+var homeRouter = require('./routes/home'); //Dashboard
+  var roomsRouter = require('./routes/rooms'); //Rooms
+  var energyDataRouter = require('./routes/energy-data'); //Energy data
+  var devicesRouter = require('./routes/devices'); //Devices
+  var myAccountRouter = require('./routes/my-account'); //View current account details
+  var settingsRouter = require('./routes/settings'); //Settings
+    var manageUsersRouter = require('./routes/manage-users'); //Manage users
+    var manageDevicesRouter = require('./routes/manage-devices'); //Manage users
+    var manageRoomsRouter = require('./routes/manage-rooms'); //Manage users
+    var helpRouter = require('./routes/help'); //Help usng the site
 
 
 var app = express();
@@ -21,6 +28,7 @@ var app = express();
 var mysql = require('mysql');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,23 +50,27 @@ app.use(bodyParser.json());
 
 
 app.use('/', indexRouter);
+  app.use('/sign-up', signUpRouter);
+
+
 app.use('/home', homeRouter);
-app.use('/sign-up', signUpRouter);
-app.use('/rooms', roomsRouter);
-app.use('/energy-data', energyDataRouter);
-app.use('/devices', devicesRouter);
-app.use('/users', usersRouter);
-app.use('/add-room', addRoomRouter);
-app.use('/specific-room', specRoomRouter);
-app.use('/settings', settingsRouter);
+  app.use('/rooms', roomsRouter);
+  app.use('/energy-data', energyDataRouter);
+  app.use('/devices', devicesRouter);
+  app.use('/my-account', myAccountRouter);
+  app.use('/settings', settingsRouter);
+    app.use('/manage-users', manageUsersRouter)
+    app.use('/manage-devices', manageDevicesRouter)
+    app.use('/manage-rooms', manageRoomsRouter)
+    app.use('/help', helpRouter)
 
 
 
   var connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: "root",
-    password: "countlich1",
-    database: "ecoSpark",
+    host: process.env.hostname,
+    user: process.env.username,
+    password: process.env.password,
+    database: process.env.database
   });
   
   
@@ -108,8 +120,7 @@ app.use('/settings', settingsRouter);
     var nickname = nicknameOld.replace(/[^a-zA-Z0-9]/g,"");
     var password2 = password2Old.replace(/[^a-zA-Z0-9]/g,"");
 
-    console.log(username);
-    console.log(nickname);
+
     if (username && nickname && (password1 == password2)) {
 
         var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
@@ -135,79 +146,6 @@ app.use('/settings', settingsRouter);
           
     } else {
       response.redirect('/sign-up');
-      response.end();
-    }
-  });
-
-  app.post('/createRoom', function(request, response) {
-    var roomNameOld = request.body.roomName;
-    var roomIDOld = request.body.roomID;
-    var roomTypeOld = request.body.roomType;
-
-    var roomName = roomNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
-    var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
-    var roomType = roomTypeOld.replace(/[^a-zA-Z0-9]/g,"");
-    
-    if (roomName && roomType && roomID) {
-      
-          var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "')";
-          connection.query(sql4, function (err, result4, fields) {
-            console.log(result4);
-            if (!result4) {
-              response.redirect('/add-room');
-            } else {
-           
-          
-              var sql2 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
-              connection.query(sql2, function (err, result2, fields) {
-                console.log(result2);
-              });
-      
-              var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
-              connection.query(sql3, function (err, result3, fields) {
-              if (result3 != "") {
-                  response.redirect('/rooms');
-                } else {
-                  response.redirect('/add-room');
-                }			
-                response.end();
-              });
-            }
-          });
-    } else {
-      response.redirect('/add-room');
-      response.end();
-    }
-  });
-
-
-
-
-
-  app.post('/addRoomCode', function(request, response) {
-    var roomIDOld = request.body.roomIDC;
-    var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
-    console.log(roomID);
-    if (roomID) {
-          var sql5 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
-          connection.query(sql5, function (err, result5, fields) {
-            if (!result5) {
-              console.log(result5);
-              response.redirect('/add-room');
-            } else {
-              var sql6 = "SELECT username FROM homes WHERE username = '" + request.session.user + "'";
-              connection.query(sql6, function (err, result6, fields) {
-              if (result6 != "") {
-                  response.redirect('/rooms');
-                } else {
-                  response.redirect('/add-room');
-                }			
-                response.end();
-              });
-            }
-          });
-    } else {
-      response.redirect('/add-room');
       response.end();
     }
   });

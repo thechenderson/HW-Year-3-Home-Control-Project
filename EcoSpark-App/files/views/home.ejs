@@ -11,10 +11,18 @@
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
 		<title> Eco Spark - Home </title>
     </head>
-	<body">
+	<body>
         <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
-            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">Eco Spark</a>
-            <span style="font-size:150%; color: white;">Welcome back, <%= user %></span>
+            
+            <a href="/home">
+            </a>
+
+            <a class="navbar-brand" style="font-size:210%; color: white; font-weight: bold;" href="/home">
+                <img src="ecoSpark_Logo.png" alt="ecoSpark Logo" width = "5%" height="auto" >
+                &nbspEco Spark&nbsp|  
+                <span style="font-size:70%; color: white;">Welcome back, <%= user %></span> 
+            </a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
                 aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,12 +34,14 @@
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user"></i> Profile </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="/">Log out</a>
+                        <a class="dropdown-item" href="/my-account">My Account</a>
+                        <a class="dropdown-item" href="/">Log Out</a>
                     </div>
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>    
+        
         <br></br>
        
     
@@ -133,17 +143,20 @@
         </div>
         <br></br>
         <br></br>
-        <footer class="page-footer font-small navbar-dark green lighten-2">
-            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">
-              <a href="https://apophis.bss.design/index.html"> Apophis.com</a>
-            </div>
-        </footer>
-        
+        <br></br>
+   
+
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+
+        <footer>
+            <% include partials/footer.ejs %>
+        </footer>
+
 
         <script>
             var slideIndex = 1;
@@ -173,5 +186,9 @@
               dots[slideIndex-1].className += " active";
             }
         </script>
+
+      
     </body>
+
+
 </html>

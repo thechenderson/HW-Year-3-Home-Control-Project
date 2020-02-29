@@ -41,7 +41,7 @@ router.get('/:deviceID', function(req, res, next) {
       }
     });
     
-  } else {
+ h } else {
     res.redirect('/');
   }
 });

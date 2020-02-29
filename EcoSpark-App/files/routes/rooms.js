@@ -47,10 +47,15 @@ router.get('/:roomID', function(req, res, next) {
 });
 
 
-
-router.post('/updateRoomName', function(request, response) {
-  var roomName = request.body.roomName;
-  response.redirect('/rooms');
+router.post('/:roomID/updateRoomName', function(request, response) {
+    var sql =  "UPDATE rooms SET roomDisplayName = '" + request.body.roomName + "' WHERE roomID = '" + request.params.roomID + "'";
+    connection.query(sql, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        response.redirect('/rooms/' +request.params.roomID );
+      }
+    });
 });
 
 
@@ -68,15 +73,13 @@ router.post('/createRoom', function(request, response) {
     
         var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "')";
         connection.query(sql4, function (err, result4, fields) {
-          console.log(result4);
           if (!result4) {
-            response.redirect('/add-room');
+            response.redirect('/rooms/add-room');
           } else {
          
         
             var sql2 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
             connection.query(sql2, function (err, result2, fields) {
-              console.log(result2);
             });
     
             var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
@@ -84,14 +87,14 @@ router.post('/createRoom', function(request, response) {
             if (result3 != "") {
                 response.redirect('/rooms');
               } else {
-                response.redirect('/add-room');
+                response.redirect('/rooms/add-room');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/add-room');
+    response.redirect('/rooms/add-room');
     response.end();
   }
 });
@@ -103,27 +106,25 @@ router.post('/createRoom', function(request, response) {
 router.post('/addRoomCode', function(request, response) {
   var roomIDOld = request.body.roomIDC;
   var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
-  console.log(roomID);
   if (roomID) {
         var sql5 = "INSERT INTO homes VALUES('" + request.session.user + "', '" + roomID + "')";
         connection.query(sql5, function (err, result5, fields) {
           if (!result5) {
-            console.log(result5);
-            response.redirect('/add-room');
+            response.redirect('/rooms/add-room');
           } else {
             var sql6 = "SELECT username FROM homes WHERE username = '" + request.session.user + "'";
             connection.query(sql6, function (err, result6, fields) {
             if (result6 != "") {
                 response.redirect('/rooms');
               } else {
-                response.redirect('/add-room');
+                response.redirect('/rooms/add-room');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/add-room');
+    response.redirect('/rooms/add-room');
     response.end();
   }
 });

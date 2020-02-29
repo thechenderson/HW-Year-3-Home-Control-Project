@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, devices, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
+      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM rooms, devices, homes, users WHERE users.username = homes.username AND homes.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
         res.render('devices', ({ title: 'Express' },{devices: result}));
       });

@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <% devices.forEach(function(device) {%>
-                    <% if (device.deviceType == "Kitchen") {%>
+                    <% if (device.deviceType == "Appliance") {%>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     <% } %>
-                    <% if (device.deviceType == "Beddevice") { %>
+                    <% if (device.deviceType == "Light") { %>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     <% } %>
-                    <% if (device.deviceType == "Livingdevice") { %>
+                    <% if (device.deviceType == "Heating") { %>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     <% } %>
-                    <% if (device.deviceType == "Bathdevice") { %>
+                    <% if (device.deviceType == "Socket") { %>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     <% } %>
-                    <% if (device.deviceType == "Hallway") { %>
+                    <% if (device.deviceType == "TV") { %>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     <% } %>
-                    <% if (device.deviceType == "Diningdevice") { %>
+                    <% if (device.deviceType == "Miscellaneous") { %>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">

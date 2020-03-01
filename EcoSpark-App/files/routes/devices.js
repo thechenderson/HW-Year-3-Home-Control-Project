@@ -48,6 +48,9 @@ router.get('/:deviceID', function(req, res, next) {
 
 
 
+
+
+
 router.post('/updateDeviceName', function(request, response) {
   var deviceName = request.body.deviceName;
   response.redirect('/devices');
@@ -66,7 +69,7 @@ router.post('/createDevice', function(request, response) {
   
   if (deviceName && deviceType && deviceID) {
     
-        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + deviceType + "')";
+        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + deviceType + "', '" + deviceLocation + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
           if (!result4) {

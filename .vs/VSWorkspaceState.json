@@ -1,0 +1,21 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\EcoSpark-App",
+    "\\EcoSpark-App\\files",
+    "\\EcoSpark-App\\files\\public",
+    "\\EcoSpark-App\\files\\public\\scss",
+    "\\EcoSpark-App\\files\\public\\scss\\core",
+    "\\EcoSpark-App\\files\\public\\scss\\free",
+    "\\EcoSpark-App\\files\\public\\src",
+    "\\EcoSpark-App\\files\\public\\src\\js",
+    "\\EcoSpark-App\\files\\public\\src\\js\\free",
+    "\\EcoSpark-App\\files\\public\\src\\js\\vendor",
+    "\\EcoSpark-App\\files\\public\\src\\js\\vendor\\free",
+    "\\EcoSpark-App\\files\\public\\stylesheets\\addons",
+    "\\EcoSpark-App\\files\\public\\stylesheets\\modules",
+    "\\EcoSpark-App\\files\\views"
+  ],
+  "SelectedNode": "\\EcoSpark-App\\files\\views\\specific-room.ejs",
+  "PreviewInSolutionExplorer": false
+}

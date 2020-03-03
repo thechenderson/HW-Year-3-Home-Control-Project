@@ -9,14 +9,68 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
+      <link rel="stylesheet" href="/stylesheets/style (2).css"> 
 		<title> Eco Spark - devices </title>
     </head>
 
     <body>
 
-        <% include partials/header.ejs %>
+        <%- include ('partials/header') -%>
 
-        <br></br>
+          <div style="height: 100">
+            <div class="flex-column" align="center">
+              <h2> Current Running Devices </h2>
+              </br>
+              <canvas id="myChart" style="max-width: 800px;"></canvas>
+            </div>
+          </div>
+
+          </br>
+          </br>
+
+          <div class="dark green lighten-2">
+            <h2 class="titles"> Rooms: </h2>
+
+            <div class="container" style="color:white" >
+              <!-- no of columns depends on no of rooms similar to rooms page-->
+              <div class="row">
+                <div class="col-sm" align="center">
+                  <h2>Bedroom</h2>
+                  Light: 90W </br> <!-- jqueries needed here for devices in each room-->
+                </div>
+                <div class="col-sm" align="center">
+                  <h2>Kitchen</h2>
+                  Fridge: 100W </br>
+                  Freezer: 500W </br>
+                </div>
+                <div class="col-sm" align="center">
+                  <h2>Bathroom</h2>
+                  Light: 90W </br>
+                </div>
+              </div>
+            </div>
+            </br>
+          </div>
+
+
+          </div>
+
+          </br></br></br>
+
+          <div class="container" >
+            <!-- no of columns depends on no of rooms similar to rooms page-->
+            <div class="row">
+              <div class="col-sm" align="center">
+                <h1>Faults</h1>
+                Currently no devices with faults  </br> <!-- jqueries needed here for devices in each room-->
+              </div>
+            </div>
+          </div>
+
+          <p></p>
+
+
+          <br></br>
         <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -118,5 +172,45 @@
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+
+          <!-- Your custom scripts (optional) -->
+          <script type="text/javascript">
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: ["Bathroom Light", "Fridge", "Freezer", "Kitchen Light", "Straighters", "Toaster"],
+            datasets: [{
+            label: 'Energy Usage in Watts /W',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+            yAxes: [{
+            ticks: {
+            beginAtZero: true
+            }
+            }]
+            }}});
+          </script>
     </body>
 </html>

@@ -11,15 +11,14 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.roomID AS roomID FROM rooms, devices, homes, users WHERE users.username = homes.username AND homes.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
+      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.roomID AS roomID, devices.devicePower AS devicePower FROM rooms, devices, homes, users WHERE users.username = homes.username AND homes.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
         res.render('devices', ({ title: 'Express' },{devices: result}));
       });
     } else {
       res.redirect('/');
     }
-  });
-
+});
 
 router.get('/add-device', function(req, res, next) {
   if (req.session.loggedin){
@@ -29,10 +28,9 @@ router.get('/add-device', function(req, res, next) {
   }
 });
 
-
 router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.roomID AS roomID FROM devices, devices, homes WHERE users.username = homes.username AND homes.roomID = devices.deviceID AND users.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
+    var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.roomID AS roomID, devices.devicePower AS devicePower FROM devices, devices, homes WHERE users.username = homes.username AND homes.roomID = devices.deviceID AND users.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
     connection.query(sql, function (err, result, fields) {
       if(result== ""){
         res.redirect('/devices');
@@ -46,7 +44,6 @@ router.get('/:deviceID', function(req, res, next) {
   }
 });
 
-
 router.post('/:deviceID/updateDeviceName', function(request, response) {
   var sql =  "UPDATE devices SET deviceDisplayName = '" + request.body.deviceDisplayName + "' WHERE deviceID = '" + request.params.deviceID + "'";
     connection.query(sql, function (err, result, fields) {
@@ -58,60 +55,53 @@ router.post('/:deviceID/updateDeviceName', function(request, response) {
     });
 });
 
-
-
 router.post('/createDevice', function(request, response) {
-  var deviceNameOld = request.body.deviceName;
+  var deviceDisplayNameOld = request.body.deviceName;
   var deviceIDOld = request.body.deviceID;
   var deviceTypeOld = request.body.deviceType;
   var devicePowerOld = request.body.devicePower;
-  var deviceLocationOld = request.body.roomID;
+  var roomIDOld = request.body.roomID;
 
-  var deviceName = deviceNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
+  var deviceDisplayName = deviceDisplayNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
   var deviceID = deviceIDOld.replace(/[^a-zA-Z0-9]/g,"");
   var deviceType = deviceTypeOld.replace(/[^a-zA-Z0-9]/g,"");
   var devicePower = devicePowerOld.replace(/[^a-zA-Z0-9]/g,"");
-  var deviceLocation = deviceLocationOld.replace(/[^a-zA-Z0-9]/g,"");
+  var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
   
-  if (deviceName && deviceType && deviceID) {
+  if (deviceDisplayName && deviceType && deviceID && devicePower && roomID) {
     
-        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + devicePower + "', '" + deviceType + "', '" + deviceLocation + "')";
+        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceDisplayName + "', '" + devicePower + "', '" + deviceType + "', '" + roomID + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
+          
           if (!result4) {
-            response.redirect('/devices');
+            response.redirect('/devices/add-device');
           } else {
-         
-            //var sql7 = "INSERT INTO devices VALUES('" + request.session.user + "', '" + deviceID + "')";
-            //connection.query(sql7, function (err, result2, fields) {
-             // console.log(result2);
-            //});
     
-            var sql8 = "SELECT deviceDisplayName FROM devices WHERE deviceDisplayName = '" + deviceName + "'";
+            var sql8 = "SELECT deviceDisplayName FROM devices WHERE deviceDisplayName = '" + deviceDisplayName + "'";
             connection.query(sql8, function (err, result3, fields) {
             if (result3 != "") {
                 response.redirect('/devices');
               } else {
-                response.redirect('/devices');
+                response.redirect('/devices/add-device');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/devices');
+    response.redirect('/devices/add-device');
     response.end();
   }
 });
 
 
-
-
-
 router.post('/addDeviceCode', function(request, response) {
   var deviceIDOld = request.body.deviceIDC;
   var deviceID = deviceIDOld.replace(/[^a-zA-Z0-9]/g,"");
+
   console.log(deviceID);
+  
   if (deviceID) {
         var sql10 = "INSERT INTO rooms VALUES('" + request.session.user + "', '" + deviceID + "')";
         connection.query(sql10, function (err, result5, fields) {
@@ -135,7 +125,5 @@ router.post('/addDeviceCode', function(request, response) {
     response.end();
   }
 });
-
-
 
 module.exports = router;

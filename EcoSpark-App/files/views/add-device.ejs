@@ -69,16 +69,11 @@
                                     &nbsp
                                     <select class="browser-default custom-select" name="deviceLocation" required>
                                         <option value="" disabled selected>Choose Device Location</option>
-                                        <option value=variable.saleNo)
-
-
-
-
-
-
-
-
+                                            <% rooms.forEach(function(room) {%>
+                                                <option value=""><%= room.roomDisplayName %></option>
+                                            <% }) %>
                                     </select>
+        
                                     <div class="text-center py-4 mt-3">
                                         <div class="form-group">
                                             <button class="btn  green lighten-2" type="submit">Add Device</button>

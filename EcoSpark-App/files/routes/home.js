@@ -5,6 +5,7 @@ var rooms = require('./rooms');
 var energydata = require('./energy-data');
 var devices = require('./devices');
 var settings = require('./settings');
+var myaccount = require('./my-account');
 
 
 
@@ -42,6 +43,6 @@ router.use('/rooms', rooms);
 router.use('/energy-data', energydata);
 router.use('/devices', devices);
 router.use('/settings', settings);
-
+router.use('/my-account', myaccount);
 
 module.exports = router;

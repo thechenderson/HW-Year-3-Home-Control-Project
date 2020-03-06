@@ -120,14 +120,14 @@ public class Clock {
 			setup();
 			Statement stmt = conn.createStatement();
 			String condition = "WHERE Name = '" + d.getDeviceName() + "'";
-			stmt.executeUpdate("DELETE FROM CurrentDevices " + condition);
+			stmt.executeUpdate("DELETE FROM RunningDevices " + condition);
 			previousDevice = d.getDeviceName();
 			
 		}
 
 		public void setup() throws SQLException {
 			try {
-				conn = DriverManager.getConnection("jdbc:mysql://mysql-server-1.macs.hw.ac.uk/ml85","ml85","7FgNF2Z3KJ");
+				conn = DriverManager.getConnection("jdbc:localhost","root","password");
 
 				//			Statement stmt = conn.createStatement( );
 				//			stmt.executeUpdate("INSERT INTO CurrentDevices " + "VALUES ('leo', 100, '09:00', '09:10')");		

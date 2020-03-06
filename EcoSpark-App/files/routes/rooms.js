@@ -94,7 +94,7 @@ router.post('/createRoom', function(request, response) {
           }
         });
   } else {
-    response.redirect('/rooms/add-room');
+    response.redirect('/home/rooms/add-room');
     response.end();
   }
 });

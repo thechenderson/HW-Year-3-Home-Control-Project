@@ -44,49 +44,47 @@
                 <div class="col-sm">
                     <div class="loginCardHolder white">
                         <div class="card  teal lighten-3">
-                          <div class="card-body">
-                            <form action="createDevice" method="post">
-                              <p class="h4 text-center py-4">Create a New Device</p>
-                              <div class="md-form">
-                                <i class="fas fa-pencil-alt prefix"></i>
-                                <input type="text" id="inputIconEx2" class="form-control" name="deviceID" required="">
-                                  <label for="inputIconEx2">Create Unique Device Code</label>
-                                </div>
-                              
-                              <div class="md-form">
-                                <i class="fas fa-pencil-alt prefix"></i>
-                                <input type="text" id="inputIconEx2" class="form-control" name="deviceName" required="">
-                                  <label for="inputIconEx2">Device Name</label>
-                              </div>
+                            <div class="card-body">
+                                <form action="createDevice" method="post">
+                                    <p class="h4 text-center py-4">Create a New Device</p>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="deviceID" required>
+                                        <label for="inputIconEx2">Create Unique Device Code</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="deviceName" required>
+                                        <label for="inputIconEx2">Device Name</label>
+                                    </div>
+                                    <select class="browser-default custom-select" name="deviceType" required>
+                                        <option value="" disabled selected>Choose Device Type</option>
+                                        <option value="Appliance">Appliance</option>
+                                        <option value="Light">Light</option>
+                                        <option value="Heating">Heating</option>
+                                        <option value="Socket">Socket</option>
+                                        <option value="TV">TV</option>
+                                        <option value="Miscellaneous">Miscellaneous</option>
+                                    </select>
+                                    &nbsp
+                                    <select class="browser-default custom-select" name="deviceLocation" required>
+                                        <option value="" disabled selected>Choose Device Location</option>
+                                        <option value=variable.saleNo)
 
-                              <div class="md-form">
-                                <i class="fas fa-pencil-alt prefix"></i>
-                                <input type="text" id="inputIconEx2" class="form-control" name="devicePower" required="">
-                                  <label for="inputIconEx2">Device Power</label>
-                              </div>
-                              
-                              <select class="browser-default custom-select" name="deviceType" required="">
-                                <option value="" disabled="" selected="">Choose Device Type</option>
-                                <option value="Appliance">Appliance</option>
-                                <option value="Light">Light</option>
-                                <option value="Heating">Heating</option>
-                                <option value="Socket">Socket</option>
-                                <option value="TV">TV</option>
-                                <option value="Miscellaneous">Miscellaneous</option>
-                              </select>
 
-                              <div class="md-form">
-                                <i class="fas fa-pencil-alt prefix"></i>
-                                <input type="text" id="inputIconEx2" class="form-control" name="roomID" required="">
-                                  <label for="inputIconEx2">Device Location / Room ID</label>
-                                </div> 
 
-                              <div class="text-center py-4 mt-3">
-                                <div class="form-group">
-                                  <button class="btn  green lighten-2" type="submit">Add Device</button>
-                                </div>
-                              </div>
-                            </form>
+
+
+
+
+
+                                    </select>
+                                    <div class="text-center py-4 mt-3">
+                                        <div class="form-group">
+                                            <button class="btn  green lighten-2" type="submit">Add Device</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

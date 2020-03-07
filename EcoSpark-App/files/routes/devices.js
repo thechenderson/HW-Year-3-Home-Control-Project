@@ -26,7 +26,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/add-device', function(req, res, next) {
   if (req.session.loggedin){
-    res.render('add-device', ({ title: 'Express' }));
+    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users,rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
+    connection.query(sql, function (err, result, fields) {
+      res.render('add-device', ({ title: 'Express' },{rooms: result}));
+    });
   } else {
     res.redirect('/');
   }
@@ -104,37 +107,6 @@ router.post('/createDevice', function(request, response) {
 
 
 
-
-
-router.post('/addDeviceCode', function(request, response) {
-  var deviceIDOld = request.body.deviceIDC;
-  var deviceID = deviceIDOld.replace(/[^a-zA-Z0-9]/g,"");
-  console.log(deviceID);
-  if (deviceID) {
-        var sql10 = "INSERT INTO rooms VALUES('" + request.session.user + "', '" + deviceID + "')";
-        connection.query(sql10, function (err, result5, fields) {
-          if (!result5) {
-            console.log(result5);
-            response.redirect('/add-device');
-          } else {
-            var sql11 = "SELECT username FROM homes WHERE username = '" + request.session.user + "'";
-            connection.query(sql11, function (err, result6, fields) {
-            if (result6 != "") {
-                response.redirect('/home/devices');
-              } else {
-                response.redirect('/home/devices/add-device');
-              }			
-              response.end();
-            });
-          }
-        });
-  } else {
-    response.redirect('/add-device');
-    response.end();
-  }
-});
-
-router.use('/add-device', adddevice);
 
 
 module.exports = router;

@@ -14,7 +14,7 @@
 
     <body>
 
-        <% include partials/header.ejs %>
+        <%- include ('partials/header') -%>
        
         <br></br>
 
@@ -24,7 +24,7 @@
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-users-cog fa-stack-1x icon" style="color:white" href="/manage-users"></a>
+                            <a class="fas fa-users-cog fa-stack-1x icon" style="color:white" href="/home/settings/manage-users"></a>
                         </span>
                     </div>
                     <div class="card-body">
@@ -35,7 +35,7 @@
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/manage-devices"></a>
+                            <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/settings/manage-devices"></a>
                         </span>
                     </div>
                     <div class="card-body">
@@ -46,7 +46,7 @@
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/manage-rooms"></a>
+                            <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/home/settings/manage-rooms"></a>
                         </span>
                     </div>
                     <div class="card-body">
@@ -57,7 +57,7 @@
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-question fa-stack-1x icon" style="color:white" href="/help"></a>
+                            <a class="fas fa-question fa-stack-1x icon" style="color:white" href="/home/settings/help"></a>
                         </span>
                     </div>
                     <div class="card-body">

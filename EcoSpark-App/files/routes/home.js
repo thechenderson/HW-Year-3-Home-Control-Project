@@ -1,6 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+var rooms = require('./rooms');
+var energydata = require('./energy-data');
+var devices = require('./devices');
+var settings = require('./settings');
+var myaccount = require('./my-account');
+
+
+
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
       const https = require('https');
@@ -30,4 +38,11 @@ router.get('/', function(req, res, next) {
         res.redirect('/');
     }
 });
+
+router.use('/rooms', rooms);
+router.use('/energy-data', energydata);
+router.use('/devices', devices);
+router.use('/settings', settings);
+router.use('/my-account', myaccount);
+
 module.exports = router;

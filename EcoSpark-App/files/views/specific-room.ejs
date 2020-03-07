@@ -9,20 +9,154 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
+      <link rel="stylesheet" href="/stylesheets/style (2).css">
 		<title> Eco Spark - Room </title>
     </head>
 
     <body>
 
-        <% include partials/header.ejs %>
+      <%- include ('partials/header') -%>
         
-        <% roomInfo.forEach(function(room) {%>
+        <!--<% roomInfo.forEach(function(room) {%>
             <div class="text-center h1 my-4">
                 <%=room.roomDisplayName%>
             </div>
+        -->
+        <br></br>
+
+        <div style="height: 100">
+            <div class="flex-column" align="center">
+              <h2> Overview of <%=room.roomDisplayName%>'s Energy Usage </h2>
+              </br>
+              <canvas id="lineChart" style="max-width: 800px;"></canvas>
+            </div>
+        </div>
+
+        </br>
+        </br>
+
+          <div class="container" align="center">
+            <h2 class="titles">
+              <u> List of Devices </u>
+            </h2>
+            </br>
+            <ul class="list-group">
+              <div class="row">
+                <div class="col-sm" align="center">
+                  <h2 style="font-size:20px">DEVICE NAME</h2>
+                </div>
+                <div class="col-sm" align="center">
+                  <h2 style="font-size:20px">POWER OUTAGE </h2>
+                </div>
+                <div class="col-sm" align="center">
+                  <h2 style="font-size:20px">---- </h2>
+                </div>
+                <div class="col-sm" align="center">
+                  <h2 style="font-size:20px">--- </h2>
+                </div>
+              </div>
+
+              <li class="list-group-item list-group-item-success">
+                <div class="row">
+                  <div class="col-sm" align="center">
+                    <h2>Bedroom 1:</h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item list-group-item-success">
+                <div class="row">
+                  <div class="col-sm" align="center">
+                    <h2>Kitchen:</h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                  <div class="col-sm" align="center">
+                    <h2>100 W </h2>
+                  </div>
+                </div>
+              </li>
+             <li class="list-group-item list-group-item-success">
+               <div class="row">
+                 <div class="col-sm" align="center">
+                   <h2>Living Room:</h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+               </div>
+             </li>
+
+             <li class="list-group-item list-group-item-warning">
+               <div class="row">
+                 <div class="col-sm" align="center">
+                   <h2>Bedroom 2:</h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+                 <div class="col-sm" align="center">
+                   <h2>100 W </h2>
+                 </div>
+               </div>
+             </li>
+
+           </ul>
+        </div>
+
+        <br></br>
+        <br></br>
+
+        <h2 class="titles"> Room Control: </h2>
         
+        <br></br>
+     
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
+                        <br></br>
+                        <label for="customRange1">Change Room Temperature</label>
+                        <input type="range" class="custom-range" id="customRange1">
+                        <br></br>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitches">
+                            <label class="custom-control-label" for="customSwitches">Main Lights off/on</label>
+                        </div>
+                        <br></br>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fas fa-thermometer-half"> Current Room Temp _ °C</h4>
+                    <h4 class="fas fa-lightbulb"> Current Room Energy Usage _ KW </h4>
+                </div>
+            </div>
+        </div>
         
-        <div class="edit">
+          
+             <div class="edit">
             <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -52,33 +186,40 @@
                     <i class="fas fa-edit"></i> Edit Room</a>
             </div>
         </div>
-
-        <br></br>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-                        <br></br>
-                        <label for="customRange1">Change Room Temperature</label>
-                        <input type="range" class="custom-range" id="customRange1">
-                        <br></br>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches">
-                            <label class="custom-control-label" for="customSwitches">Main Lights off/on</label>
-                        </div>
-                        <br></br>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h4 class="fas fa-thermometer-half"> Current Room Temp _ °C</h4>
-                    <h4 class="fas fa-lightbulb"> Current Room Energy Usage _ KW </h4>
-                </div>
-            </div>
-        </div>
         <% }) %>
+            
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+          <script type="text/javascript">
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
+            gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
+            gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
+            var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+            labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
+            datasets: [
+            {
+            label: "Energy Consumption from ROOM",
+            data: [0, 65, 45, 65, 35, 65, 0],
+            backgroundColor: gradientFill,
+            borderColor: [
+            '#8bc34a',
+            ],
+            borderWidth: 2,
+            pointBorderColor: "#8bc34a",
+            pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
+            }
+            ]
+            },
+            options: {
+            responsive: true
+            }
+            });
+          </script>
     </body>
 </html>

@@ -10,7 +10,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index'); //Login page
   var signUpRouter = require('./routes/sign-up'); //Sign up page
 
-
 var homeRouter = require('./routes/home'); //Dashboard
   var roomsRouter = require('./routes/rooms'); //Rooms
   var energyDataRouter = require('./routes/energy-data'); //Energy data
@@ -167,3 +166,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+

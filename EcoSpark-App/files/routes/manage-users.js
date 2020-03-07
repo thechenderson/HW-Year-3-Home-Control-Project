@@ -8,4 +8,7 @@ router.get('/', function(req, res, next) {
       res.redirect('/');
     }
   });
+
+
+
 module.exports = router;

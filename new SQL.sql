@@ -8,7 +8,7 @@ CREATE TABLE `rooms` (
 
 
 CREATE TABLE `devices` (
-  `deviceID` int(11) NOT NULL,
+  `deviceID` varchar(20) NOT NULL,
   `deviceDisplayName` varchar(20) NOT NULL DEFAULT deviceID,
   `devicePower` int(11) NOT NULL DEFAULT 0,
   `deviceType` int(11) NOT NULL DEFAULT 0,

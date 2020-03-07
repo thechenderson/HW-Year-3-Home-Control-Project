@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
+var adddevice = require('./add-device');
+
+
 var connection = mysql.createConnection({
   host: process.env.hostname,
   user: process.env.username,
@@ -48,6 +51,9 @@ router.get('/:deviceID', function(req, res, next) {
 
 
 
+
+
+
 router.post('/updateDeviceName', function(request, response) {
   var deviceName = request.body.deviceName;
   response.redirect('/devices');
@@ -66,7 +72,7 @@ router.post('/createDevice', function(request, response) {
   
   if (deviceName && deviceType && deviceID) {
     
-        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + deviceType + "')";
+        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + deviceType + "', '" + deviceLocation + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
           if (!result4) {
@@ -114,9 +120,9 @@ router.post('/addDeviceCode', function(request, response) {
             var sql11 = "SELECT username FROM homes WHERE username = '" + request.session.user + "'";
             connection.query(sql11, function (err, result6, fields) {
             if (result6 != "") {
-                response.redirect('/devices');
+                response.redirect('/home/devices');
               } else {
-                response.redirect('/add-device');
+                response.redirect('/home/devices/add-device');
               }			
               response.end();
             });
@@ -128,6 +134,7 @@ router.post('/addDeviceCode', function(request, response) {
   }
 });
 
+router.use('/add-device', adddevice);
 
 
 module.exports = router;

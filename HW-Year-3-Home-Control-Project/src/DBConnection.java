@@ -7,10 +7,11 @@ import java.sql.Statement;
 public class DBConnection{
 
 	private Connection conn;
+	private Device d1;
 	
 	public void setup() throws SQLException {
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://mysql-server-1.macs.hw.ac.uk/ml85","ml85","7FgNF2Z3KJ");
+			conn = DriverManager.getConnection("jdbc:localhost","root","password");
 
 			//			Statement stmt = conn.createStatement( );
 			//			stmt.executeUpdate("INSERT INTO CurrentDevices " + "VALUES ('leo', 100, '09:00', '09:10')");		
@@ -25,8 +26,13 @@ public class DBConnection{
 	public void sendingData(Device d, String currentTime) throws SQLException {
 		setup();
 		Statement stmt = conn.createStatement( );
-		String values = "VALUES ('" + d.getDeviceName() + "', 100, '09:00', '09:10')";
-		stmt.executeUpdate("INSERT INTO CurrentDevices " + values);
+		String values = "VALUES ('2', '" + d.getDeviceName() + "', 100)";
+		stmt.executeUpdate("INSERT INTO runningdevices " + values);
 	}
-
+	
+	public void main() throws SQLException {
+		d1 = new Device("Heating", 300,"06:30", "08:30");
+		//setup();
+		sendingData(d1, "10:00");
+	}
 }

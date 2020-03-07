@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\EcoSpark-App",
+    "\\EcoSpark-App\\files",
+    "\\EcoSpark-App\\files\\public",
+    "\\EcoSpark-App\\files\\public\\scss",
+    "\\EcoSpark-App\\files\\public\\src",
+    "\\EcoSpark-App\\files\\public\\src\\js",
+    "\\EcoSpark-App\\files\\public\\src\\js\\vendor",
+    "\\EcoSpark-App\\files\\routes",
+    "\\EcoSpark-App\\files\\views"
+  ],
+  "SelectedNode": "\\EcoSpark-App\\files\\views\\devices.ejs",
+  "PreviewInSolutionExplorer": false
+}

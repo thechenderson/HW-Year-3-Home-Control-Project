@@ -14,7 +14,7 @@
 
     <body>
 
-        <% include partials/header.ejs %>
+        <%- include ('partials/header') -%>
         <% deviceInfo.forEach(function(device) {%>
             <div class="text-center h1 my-4">
                 <%=device.deviceDisplayName%>

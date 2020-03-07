@@ -49,19 +49,19 @@ app.use(bodyParser.json());
 
 
 app.use('/', indexRouter);
-  app.use('/sign-up', signUpRouter);
+app.use('/sign-up', signUpRouter);
 
 
 app.use('/home', homeRouter);
-  app.use('/rooms', roomsRouter);
-  app.use('/energy-data', energyDataRouter);
-  app.use('/devices', devicesRouter);
-  app.use('/my-account', myAccountRouter);
-  app.use('/settings', settingsRouter);
-    app.use('/manage-users', manageUsersRouter)
-    app.use('/manage-devices', manageDevicesRouter)
-    app.use('/manage-rooms', manageRoomsRouter)
-    app.use('/help', helpRouter)
+app.use('/rooms', roomsRouter);
+app.use('/energy-data', energyDataRouter);
+app.use('/devices', devicesRouter);
+app.use('/my-account', myAccountRouter);
+app.use('/settings', settingsRouter);
+app.use('/manage-users', manageUsersRouter)
+app.use('/manage-devices', manageDevicesRouter)
+app.use('/manage-rooms', manageRoomsRouter)
+app.use('/help', helpRouter)
 
 
 

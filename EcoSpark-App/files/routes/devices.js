@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
-var adddevice = require('./add-device');
 
 
 var connection = mysql.createConnection({
@@ -14,7 +13,7 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM rooms, devices, homes, users WHERE users.username = homes.username AND homes.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
+      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
         res.render('devices', ({ title: 'Express' },{devices: result}));
       });
@@ -38,7 +37,7 @@ router.get('/add-device', function(req, res, next) {
 
 router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, devices, homes WHERE users.username = homes.username AND homes.roomID = devices.deviceID AND users.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
+    var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
     connection.query(sql, function (err, result, fields) {
       if(result== ""){
         res.redirect('/devices');
@@ -47,7 +46,7 @@ router.get('/:deviceID', function(req, res, next) {
       }
     });
     
- h } else {
+  } else {
     res.redirect('/');
   }
 });
@@ -66,41 +65,33 @@ router.post('/updateDeviceName', function(request, response) {
 
 router.post('/createDevice', function(request, response) {
   var deviceNameOld = request.body.deviceName;
-  var deviceIDOld = request.body.deviceID;
-  var deviceTypeOld = request.body.deviceType;
+  var deviceType = request.body.deviceType;
+  var deviceRoomID = request.body.deviceLocation
+  console.log(deviceRoomID);
 
   var deviceName = deviceNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
-  var deviceID = deviceIDOld.replace(/[^a-zA-Z0-9]/g,"");
-  var deviceType = deviceTypeOld.replace(/[^a-zA-Z0-9]/g,"");
   
-  if (deviceName && deviceType && deviceID) {
+  if (deviceName && deviceType && deviceRoomID) {
     
-        var sql9 = "INSERT INTO devices VALUES ('" + deviceID + "', '" + deviceName + "', '" + deviceType + "', '" + deviceLocation + "')";
+        var sql9 = "INSERT INTO devices VALUES ('0', '" + deviceName + "', '0', '" + deviceType + "', '" + deviceRoomID + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
           if (!result4) {
-            response.redirect('/add-device');
+            response.redirect('/devices/add-device');
           } else {
-         
-        
-            var sql7 = "INSERT INTO rooms VALUES('" + request.session.user + "', '" + deviceID + "')";
-            connection.query(sql7, function (err, result2, fields) {
-              console.log(result2);
-            });
-    
             var sql8 = "SELECT deviceDisplayName FROM devices WHERE deviceDisplayName = '" + deviceName + "'";
             connection.query(sql8, function (err, result3, fields) {
             if (result3 != "") {
                 response.redirect('/devices');
               } else {
-                response.redirect('/add-device');
+                response.redirect('/devices/add-device');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/add-device');
+    response.redirect('/devices/add-device');
     response.end();
   }
 });

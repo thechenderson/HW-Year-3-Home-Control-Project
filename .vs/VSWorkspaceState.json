@@ -9,8 +9,7 @@
     "\\EcoSpark-App\\files\\public\\src\\js",
     "\\EcoSpark-App\\files\\public\\src\\js\\vendor",
     "\\EcoSpark-App\\files\\routes",
-    "\\EcoSpark-App\\files\\views",
-    "\\EcoSpark-App\\files\\views\\partials"
+    "\\EcoSpark-App\\files\\views"
   ],
   "SelectedNode": "\\EcoSpark-App\\files\\views\\add-device.ejs",
   "PreviewInSolutionExplorer": false

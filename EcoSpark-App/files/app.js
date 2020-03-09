@@ -149,6 +149,25 @@ app.use('/help', helpRouter)
     }
   });
 
+//getting values for current devices
+// app.get('/devices', function(req, res) {
+//   con.connect(function (err) {
+//     if (err) throw err;
+//       console.log("Connected");
+//       var sql = "SELECT * FROM runningdevice";
+//       con.query(sql, function (err, result) {
+//       if (err) {
+//         throw err;
+//       } else {
+//         obj = {print: result};
+//         res.render('devices', {obj: obj});
+//       }
+//     });
+//   });
+// });
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -41,9 +41,12 @@
                                         <option value="Miscellaneous">Miscellaneous</option>
                                     </select>
                                     &nbsp
+                                    
                                     <select class="browser-default custom-select" name="deviceRoomID" required>
                                         <option value="" disabled selected>Choose Device Location</option>
-                                        <option value=variable.saleNo)
+                                        <% rooms.forEach(function(room) {%>
+                                        <option value="<%=room.roomID %>"><%=room.roomDisplayName %></option>
+                                        <% }) %>
                                     </select>
                                     <div class="text-center py-4 mt-3">
                                         <div class="form-group">

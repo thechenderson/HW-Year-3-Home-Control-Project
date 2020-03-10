@@ -66,14 +66,13 @@ router.post('/updateDeviceName', function(request, response) {
 router.post('/createDevice', function(request, response) {
   var deviceNameOld = request.body.deviceName;
   var deviceType = request.body.deviceType;
-  var deviceRoomLocation = request.body.deviceRoomID
+  var deviceRoomID = request.body.deviceRoomID
   console.log(deviceRoomID);
 
   var deviceName = deviceNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
   
   if (deviceName && deviceType && deviceRoomID) {
     
-        var deviceRoomID ="SELECT roomID FROM rooms WHERE roomDisplayName = '" + deviceRoomLocation + "', homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "'"; 
         var sql9 = "INSERT INTO devices VALUES ('0', '" + deviceName + "', '0', '" + deviceType + "', '" + deviceRoomID + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);

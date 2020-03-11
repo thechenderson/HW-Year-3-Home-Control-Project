@@ -21,7 +21,7 @@
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
               </br>
-              <canvas id="myChart" style="max-width: 800px;"></canvas>
+              <canvas id="barChart" style="max-width: 800px;"></canvas>
             </div>
           </div>
 
@@ -177,44 +177,33 @@
         <script type="text/javascript" src="javascripts/chart.js"></script>
         <script type="text/php" src="deviceChart.php"></script>
         
+        <script>
 
-        <script type="text/javascript">
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-            labels: ["Bathroom Light", "Fridge", "Freezer", "Kitchen Light", "Straighters", "Toaster"],
-            datasets: [{
-            label: 'Energy Usage in Watts /W',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-            }]
-            },
-            options: {
-            scales: {
-            yAxes: [{
-            ticks: {
-            beginAtZero: true
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+          
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Device Name', 'Device Power'],
+
+
+                    // <?php
+                        // if($result->num_rows > 0){
+                        //     while($row = $result->fetch_assoc()){
+                        //         echo "['".$row['deviceDisplayName']."', ".$row['currentDevicePower']."],";
+                        //     }
+                        // }
+                    // ?>
+                ]);
+                var options = {
+                    title: 'Currently Running Devices',
+                    width: 900,
+                    height: 500,
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));    
+                chart.draw(data, options);
             }
-            }]
-            }}});
-       
         </script>
     </body>
 </html>

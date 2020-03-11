@@ -11,9 +11,9 @@ var indexRouter = require('./routes/index'); //Login page
   var signUpRouter = require('./routes/sign-up'); //Sign up page
 
 var homeRouter = require('./routes/home'); //Dashboard
-  var roomsRouter = require('./routes/rooms'); //Rooms
+
   var energyDataRouter = require('./routes/energy-data'); //Energy data
-  var devicesRouter = require('./routes/devices'); //Devices
+
   var myAccountRouter = require('./routes/my-account'); //View current account details
   var settingsRouter = require('./routes/settings'); //Settings
     var manageUsersRouter = require('./routes/manage-users'); //Manage users
@@ -53,9 +53,9 @@ app.use('/sign-up', signUpRouter);
 
 
 app.use('/home', homeRouter);
-app.use('/rooms', roomsRouter);
+
 app.use('/energy-data', energyDataRouter);
-app.use('/devices', devicesRouter);
+
 app.use('/my-account', myAccountRouter);
 app.use('/settings', settingsRouter);
 app.use('/manage-users', manageUsersRouter)

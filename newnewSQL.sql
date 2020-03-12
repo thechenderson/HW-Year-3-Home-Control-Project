@@ -1,17 +1,18 @@
+CREATE TABLE `homes` (
+  `homeID` varchar(20) NOT NULL,
+  `homeName` varchar(20) NOT NULL,
+  PRIMARY KEY (homeID)
+) ENGINE=INNODB;
+
+
 CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   `displayName` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (username)
-) ENGINE=INNODB;
-
-
-CREATE TABLE `homes` (
   `homeID` varchar(20) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  PRIMARY KEY (homeID,username),
-  FOREIGN KEY (username) REFERENCES users(username)
+  PRIMARY KEY (username),
+  FOREIGN KEY (homeID) REFERENCES homes(homeID)
 ) ENGINE=INNODB;
 
 

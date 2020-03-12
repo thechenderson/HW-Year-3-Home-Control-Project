@@ -10,7 +10,7 @@ CREATE TABLE `users` (
   `password` varchar(20) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   `displayName` varchar(30) DEFAULT NULL,
-  `homeID` varchar(20) NOT NULL,
+  `homeID` varchar(20),
   PRIMARY KEY (username),
   FOREIGN KEY (homeID) REFERENCES homes(homeID)
 ) ENGINE=INNODB;

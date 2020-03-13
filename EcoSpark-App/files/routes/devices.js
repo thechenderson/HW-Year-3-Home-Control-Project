@@ -56,7 +56,7 @@ router.get('/add-device', function(req, res, next) {
       res.render('add-device', ({ title: 'Express' },{rooms: result}));
     });
   } else {
-    res.redirect('/');
+    res.redirect('/home/devices');
   }
 });
 
@@ -82,7 +82,7 @@ router.get('/:deviceID', function(req, res, next) {
 
 router.post('/updateDeviceName', function(request, response) {
   var deviceName = request.body.deviceName;
-  response.redirect('/devices');
+  response.redirect('/home/devices');
 });
 
 router.post('/createDevice', function(request, response) {
@@ -98,21 +98,21 @@ router.post('/createDevice', function(request, response) {
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
           if (!result4) {
-            response.redirect('/devices/add-device');
+            response.redirect('/home/devices/add-device');
           } else {
             var sql8 = "SELECT deviceDisplayName FROM devices WHERE deviceDisplayName = '" + deviceName + "'";
             connection.query(sql8, function (err, result3, fields) {
             if (result3 != "") {
-                response.redirect('/devices');
+                response.redirect('/home/devices');
               } else {
-                response.redirect('/devices/add-device');
+                response.redirect('/home/devices/add-device');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/devices/add-device');
+    response.redirect('/home/devices/add-device');
     response.end();
   }
 });

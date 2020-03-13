@@ -6,7 +6,14 @@ var energydata = require('./energy-data');
 var devices = require('./devices');
 var settings = require('./settings');
 var myaccount = require('./my-account');
+var mysql = require('mysql');
 
+var connection = mysql.createConnection({
+  host: process.env.hostname,
+  user: process.env.username,
+  password: process.env.password,
+  database: process.env.database
+});
 
 
 router.get('/', function(req, res, next) {
@@ -20,10 +27,16 @@ router.get('/', function(req, res, next) {
         data += chunk;
       });
   
+     // var sql2 = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo FROM faults;"
+     
+      
       resp.on('end', () => {
         console.log(JSON.parse(data).currently.windSpeed);
         console.log(JSON.parse(data).currently.precipProbability);
         console.log("YES");
+
+        
+
         res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
           JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
           precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed}));
@@ -33,6 +46,7 @@ router.get('/', function(req, res, next) {
         console.log("Error: " + err.message);
         console.log("NO");
       });
+      
 
       } else {
         res.redirect('/');

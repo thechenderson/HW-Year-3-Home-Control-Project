@@ -11,16 +11,42 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
-router.get('/', function(req, res, next) {
-    if (req.session.loggedin){
-      var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "'";
-      connection.query(sql, function (err, result, fields) {
-        res.render('devices', ({ title: 'Express' },{devices: result}));
+const queryWrapper = (statement) => {
+  return new Promise((resolve, reject) => {
+      connection.query(statement, (err, result) => {
+          if(err)
+              return reject(err);
+          resolve(result);
       });
-    } else {
-      res.redirect('/');
-    }
   });
+};
+
+router.get('/', function(req, res, next) {
+  if (req.session.loggedin){
+    var sqlR = "SELECT rooms.roomID, rooms.roomDisplayName AS roomDisplayName FROM rooms;";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, homes WHERE homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "';";
+    var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults;"
+    var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.roomID AS rRoomID FROM runningdevices;"
+   
+    Promise.all([
+      queryWrapper(sqlR),
+      queryWrapper(sqlD),
+      queryWrapper(sqlF),
+      queryWrapper(sqlC)
+    ])
+    .then(([roomInfo, deviceInfo, faultInfo, runningDeviceInfo]) => {
+        res.render('devices', {
+            title: 'Express',
+            roomInfo,
+            deviceInfo,
+            faultInfo,
+            runningDeviceInfo
+        });
+    });
+    } else {
+    res.redirect('/');
+  }
+});
 
 
 router.get('/add-device', function(req, res, next) {
@@ -34,18 +60,21 @@ router.get('/add-device', function(req, res, next) {
   }
 });
 
-
 router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
-    connection.query(sql, function (err, result, fields) {
-      if(result== ""){
-        res.redirect('/devices');
-      } else {
-        res.render('specific-device', ({ title: 'Express' },{deviceInfo: result}));
-      }
-    });
-    
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
+    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
+    Promise.all([
+      queryWrapper(sqlR),
+      queryWrapper(sqlD)
+    ])
+    .then(([roomInfo, deviceInfo]) => {
+      res.render('specific-device', {
+          title: 'Express',
+          roomInfo,
+          deviceInfo
+      });
+  });
   } else {
     res.redirect('/');
   }

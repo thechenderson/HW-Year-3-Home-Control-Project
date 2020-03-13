@@ -41,22 +41,60 @@ router.get('/add-home', function(req, res, next) {
   }
 });
 
+const queryWrapper = (statement) => {
+  return new Promise((resolve, reject) => {
+      connection.query(statement, (err, result) => {
+          if(err)
+              return reject(err);
+          resolve(result);
+      });
+  });
+};
 
 
 router.get('/:roomID', function(req, res, next) {
+
+  var connection = mysql.createConnection({
+    host: process.env.hostname,
+    user: process.env.username,
+    password: process.env.password,
+    database: process.env.database,
+    multipleStatements: true
+  });
+
   if (req.session.loggedin){
-    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "'";
-    connection.query(sql, function (err, result, fields) {
-      if(result== ""){
-        res.redirect('/rooms');
-      } else {
-        res.render('specific-room', ({ title: 'Express' },{roomInfo: result}));
-      }
+
+    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = " + req.params.roomID + ";"; 
+    // connection.query(sqlR + sqlD, function (err, results) {
+    //   if (err) throw err;
+    //   if(results== ""){
+    //     res.redirect('/rooms');
+    //   } else {
+    //     console.log("info", results[0]);
+    //     console.log("info", results[1]);
+    //     var r = results[0];
+    //     var d = results[1];
+    //     //res.render('specific-room', ({ title: 'Express' }, {roomInfo: results[0]}, {deviceInfo: results[1]}));
+    //     res.render('specific-room', ({ title: 'Express' }, {roomInfo: r}));
+    //     res.render('specific-room', ({ title: 'Express' }, {deviceInfo: d}));
+    //   }
+      
+    Promise.all([
+        queryWrapper(sqlR),
+        queryWrapper(sqlD)
+    ])
+    .then(([roomInfo, deviceInfo]) => {
+        res.render('specific-room', {
+            title: 'Express',
+            roomInfo,
+            deviceInfo
+        });
     });
-    
   } else {
     res.redirect('/');
   }
+
 });
 
 

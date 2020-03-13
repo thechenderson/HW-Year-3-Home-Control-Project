@@ -1,6 +1,7 @@
 <!DOCTYPE html >
 <html>
 	<head>
+
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -21,6 +22,105 @@
             </div>
         <% }) %>
         
+        <div class="container">
+        <ul class="list-unstyled" style="padding-left: 100;">
+            <li class="media">
+                <% deviceInfo.forEach(function(device) {%>
+                    <% if (device.deviceType == "Appliance") {%>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-utensils fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Light") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-bed fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Heating") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-couch fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Socket") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-bath fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "TV") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-door-open fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Miscellaneous") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-chair fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+              <div class="media-body">
+                <h5 class="mt-0 font-weight-bold">Device Details:</h5>
+                    <% deviceInfo.forEach(function(device) {%>
+                        <h2> Device Type: <%= device.deviceType %></h2></br>
+                    <% }) %>
+                    <% roomInfo.forEach(function(room) {%>
+                        <h2> Device Location: <%= room.roomDisplayName %></h2></br>
+                    <% }) %>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+
+        <br></br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
+                        <br></br>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitches">
+                            <label class="custom-control-label" for="customSwitches">off/on</label>
+                        </div>
+                        <br></br>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="fas fa-lightbulb"> Current device Energy Usage _ KW </h4>
+                </div>
+            </div>
+        </div>
+
         <div class="edit">
             <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -49,25 +149,6 @@
             <div class="text-center">
                 <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
                     <i class="fas fa-edit"></i> Edit Device</a>
-            </div>
-        </div>
-
-        <br></br>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-                        <br></br>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches">
-                            <label class="custom-control-label" for="customSwitches">off/on</label>
-                        </div>
-                        <br></br>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h4 class="fas fa-lightbulb"> Current device Energy Usage _ KW </h4>
-                </div>
             </div>
         </div>
 

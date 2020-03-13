@@ -17,45 +17,38 @@
 
         <%- include ('partials/header') -%>
 
-          <div style="height: 100">
+        <div style="height: 100">
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
               </br>
               <canvas id="barChart" style="max-width: 800px;"></canvas>
             </div>
-          </div>
-
-          </br>
-          </br>
-         
+        </div>
           
-          <div class="dark green lighten-2">
+        <div class="dark green lighten-2">
             <h2 class="titles"> Rooms: </h2>
-
-            <div class="container" style="color:white" >
-              <!-- no of columns depends on no of rooms similar to rooms page-->
-              <div class="row">
-                
-                <div class="col-sm" align="center">
-                  <h2>Bedroom</h2>
-                  Light: 90W </br> <!-- jqueries needed here for devices in each room-->
-                </div>
-                <div class="col-sm" align="center">
-                  <h2>Kitchen</h2>
-                  Fridge: 100W </br>
-                  Freezer: 500W </br>
-                </div>
-                <div class="col-sm" align="center">
-                  <h2>Bathroom</h2>
-                  Light: 90W </br>
-                </div>
-              </div>
-            </div>
+            <% roomInfo.forEach(function(room) { %>
+                <% if (roomInfo == "") { %>
+                    Currently no rooms in application  </br> 
+                <% } %>
+                <% runningDeviceInfo.forEach(function(device) { %>
+                    <div class="row">
+                        <div class="col-sm">
+                            <% if (room.roomID == device.rRoomID) { %>
+                                <h2 class="titles"><%=room.roomDisplayName%></h2> </br>
+                                <div class="container" style="color:white" >
+                                    <h2><%=device.rDeviceDisplayName%> : <%=device.rDevicePower%>
+                                    <button class="btn btn-default btn-rounded mb-4" type="submit">Turn Off</button>
+                                    </h2>
+                                    </br>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% }) %>
             </br>
-          </div>
-
-
-          </div>
+        </div>
 
           </br></br></br>
 
@@ -64,7 +57,15 @@
             <div class="row">
               <div class="col-sm" align="center">
                 <h1>Faults</h1>
-                Currently no devices with faults  </br> <!-- jqueries needed here for devices in each room-->
+                <% if (faultInfo == ""){ %>
+                    Currently no devices with faults  </br>
+                <% } %>
+                
+                <% faultInfo.forEach(function(fault) {%>
+                    <%= fault.fDeviceDisplayName%>  </br>
+                    <%= fault.roomDisplayName%>  </br>
+                    <%= fault.faultInfo%>  </br>
+                <% }) %>
               </div>
             </div>
           </div>
@@ -76,7 +77,7 @@
         <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <% devices.forEach(function(device) {%>
+                <% deviceInfo.forEach(function(device) {%>
                     <% if (device.deviceType == "Appliance") {%>
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">

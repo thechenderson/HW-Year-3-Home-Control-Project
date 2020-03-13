@@ -16,8 +16,8 @@
 
         <%- include ('partials/header') -%>
         <br></br>
-        <% home.forEach(function(homeInfo) {%>
-        <% if (!homeInfo.homeID) { %>
+    
+        <% if (!home) { %>
             <h4 class="card-title text-center font-weight-bold">You need to create or assign yourself to a home</h4>
             <br></br>
             <div class="shadow-none card green lighten-4">
@@ -34,8 +34,8 @@
         
         <% } %>
 
-        <% if (homeInfo.homeID) { %>
-        <h4 class="card-title text-center font-weight-bold"><%= homeInfo.homeName %></h4>
+        <% if (home) { %>
+        <h4 class="card-title text-center font-weight-bold"> <%= homeName %></h4>
         <h4 class="card-title text-center font-weight-bold">Choose a Room</h4>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -133,7 +133,7 @@
             </div>
         </div>
         <% } %>
-        <% }) %>
+      
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

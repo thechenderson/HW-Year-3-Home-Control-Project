@@ -13,13 +13,14 @@ router.get('/', function(req, res, next) {
     if (req.session.loggedin){
       var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
       connection.query(sql, function (err, result, fields) {
-        var sql3 = "SELECT homeID FROM users WHERE username = '" + req.session.user + "'";
-        connection.query(sql3, function (err, result3, fields) {
-          req.session.homeID = result3[0].homeID;
-        });
-        var sql2 = "SELECT homes.homeID, homes.homeName FROM users, homes WHERE users.homeID = homes.homeID AND users.username = '" + req.session.user + "'";
+        var sql2 = "SELECT homes.homeID, homes.homeName FROM users, homes WHERE users.username = '" + req.session.user + "' AND users.homeID = homes.homeID";
         connection.query(sql2, function (err, result2, fields) {
-        res.render('rooms', ({ title: 'Express' },{rooms: result, home: result2}));
+          if(result2!= ""){
+            req.session.homeID = result2[0].homeID;
+            var homeName = result2[0].homeName;
+            console.log(req.session.homeID);
+          }
+        res.render('rooms', ({ title: 'Express' },{rooms: result, home: req.session.homeID, homeName: homeName}));
         });
       });
     } else {

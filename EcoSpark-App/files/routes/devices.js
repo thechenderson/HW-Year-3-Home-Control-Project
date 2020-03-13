@@ -23,10 +23,10 @@ const queryWrapper = (statement) => {
 
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users,rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "';";
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "';";
-    var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults;"
-    var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.roomID AS rRoomID FROM runningdevices;"
+    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
+    var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults";
+    var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.roomID AS rRoomID FROM runningdevices";
    
     Promise.all([
       queryWrapper(sqlR),
@@ -56,7 +56,7 @@ router.get('/add-device', function(req, res, next) {
       res.render('add-device', ({ title: 'Express' },{rooms: result}));
     });
   } else {
-    res.redirect('/');
+    res.redirect('/home/devices');
   }
 });
 
@@ -82,7 +82,7 @@ router.get('/:deviceID', function(req, res, next) {
 
 router.post('/updateDeviceName', function(request, response) {
   var deviceName = request.body.deviceName;
-  response.redirect('/devices');
+  response.redirect('/home/devices');
 });
 
 router.post('/createDevice', function(request, response) {
@@ -98,21 +98,21 @@ router.post('/createDevice', function(request, response) {
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
           if (!result4) {
-            response.redirect('/devices/add-device');
+            response.redirect('/home/devices/add-device');
           } else {
             var sql8 = "SELECT deviceDisplayName FROM devices WHERE deviceDisplayName = '" + deviceName + "'";
             connection.query(sql8, function (err, result3, fields) {
             if (result3 != "") {
-                response.redirect('/devices');
+                response.redirect('/home/devices');
               } else {
-                response.redirect('/devices/add-device');
+                response.redirect('/home/devices/add-device');
               }			
               response.end();
             });
           }
         });
   } else {
-    response.redirect('/devices/add-device');
+    response.redirect('/home/devices/add-device');
     response.end();
   }
 });

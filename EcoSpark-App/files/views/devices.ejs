@@ -26,9 +26,13 @@
         </div>
           
         <div class="dark green lighten-2">
-            <h2 class="titles"> Rooms: </h2>
+            <h2 class="titles"> Rooms: 
+            <% if (runningDeviceInfo == ""){ %>
+                <div style="color:white;" >Currently no devices running</br></div>
+            <% } %>
+            </h2>
             <% roomInfo.forEach(function(room) { %>
-                <% if (roomInfo == "") { %>
+                <% if (roomInfo == ""){ %>
                     Currently no rooms in application  </br> 
                 <% } %>
                 <% runningDeviceInfo.forEach(function(device) { %>

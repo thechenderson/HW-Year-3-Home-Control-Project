@@ -23,8 +23,8 @@ const queryWrapper = (statement) => {
 
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlR = "SELECT rooms.roomID, rooms.roomDisplayName AS roomDisplayName FROM rooms;";
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, homes WHERE homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "';";
+    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users,rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "';";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "';";
     var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults;"
     var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.roomID AS rRoomID FROM runningdevices;"
    
@@ -51,7 +51,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/add-device', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users,rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "'";
+    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "';";
     connection.query(sql, function (err, result, fields) {
       res.render('add-device', ({ title: 'Express' },{rooms: result}));
     });
@@ -62,7 +62,7 @@ router.get('/add-device', function(req, res, next) {
 
 router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes WHERE  homes.roomID = devices.roomID AND homes.username = '" + req.session.user + "' AND devices.deviceID =  '" + req.params.deviceID + "'";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
     Promise.all([
       queryWrapper(sqlR),
@@ -80,17 +80,10 @@ router.get('/:deviceID', function(req, res, next) {
   }
 });
 
-
-
-
-
-
 router.post('/updateDeviceName', function(request, response) {
   var deviceName = request.body.deviceName;
   response.redirect('/devices');
 });
-
-
 
 router.post('/createDevice', function(request, response) {
   var deviceNameOld = request.body.deviceName;
@@ -100,8 +93,7 @@ router.post('/createDevice', function(request, response) {
 
   var deviceName = deviceNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
   
-  if (deviceName && deviceType && deviceRoomID) {
-    
+  if (deviceName && deviceType && deviceRoomID) { 
         var sql9 = "INSERT INTO devices VALUES ('0', '" + deviceName + "', '0', '" + deviceType + "', '" + deviceRoomID + "')";
         connection.query(sql9, function (err, result4, fields) {
           console.log(result4);
@@ -124,9 +116,5 @@ router.post('/createDevice', function(request, response) {
     response.end();
   }
 });
-
-
-
-
 
 module.exports = router;

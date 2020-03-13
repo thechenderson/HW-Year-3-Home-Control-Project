@@ -9,6 +9,7 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
+
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
       var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
@@ -18,7 +19,6 @@ router.get('/', function(req, res, next) {
           if(result2!= ""){
             req.session.homeID = result2[0].homeID;
             var homeName = result2[0].homeName;
-            console.log(req.session.homeID);
           }
         res.render('rooms', ({ title: 'Express' },{rooms: result, home: req.session.homeID, homeName: homeName}));
         });
@@ -68,8 +68,8 @@ router.get('/:roomID', function(req, res, next) {
 
   if (req.session.loggedin){
 
-    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.username = homes.username AND homes.roomID = rooms.roomID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = " + req.params.roomID + ";"; 
+    var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';"; 
     // connection.query(sqlR + sqlD, function (err, results) {
     //   if (err) throw err;
     //   if(results== ""){
@@ -108,7 +108,7 @@ router.post('/:roomID/updateRoomName', function(request, response) {
       if(result== ""){
         response.redirect('/home');
       } else {
-        response.redirect('/rooms/' +request.params.roomID );
+        response.redirect('/home/rooms/' +request.params.roomID );
       }
     });
 });
@@ -183,10 +183,5 @@ router.post('/createRoom', function(request, response) {
     response.end();
   }
 });
-
-
-
-
-
 
 module.exports = router;

@@ -122,8 +122,9 @@ app.use('/help', helpRouter)
 
     if (username && nickname && (password1 == password2)) {
 
-        var sql = "INSERT INTO users VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+        var sql = "INSERT INTO users (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
         connection.query(sql, function (err, result, fields) {
+        console.log(result);
           if (!result) {
             response.redirect('/sign-up');
           } else {

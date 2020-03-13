@@ -1,3 +1,32 @@
+
+.icon-background {
+  color: #4db6ac !important;
+  text-shadow: 0px 2px 1px grey !important;
+}
+
+.icon {
+  opacity: 1;
+  transition: 0.3s !important;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer !important;
+ 
+}
+
+.icon-background:hover {
+color: #5e9261 !important;
+text-shadow: 0px 2px 1px grey !important;
+}
+
+.icon:hover {
+  opacity: 0.3 !important;
+  text-shadow: 0px 2px 1px grey !important;
+}
+
+.iconLabels {
+  display: block !important;
+}
+
 .loginCardHolder {
     margin-top: 5%; 
     width: 100%;

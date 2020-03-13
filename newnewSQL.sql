@@ -1,6 +1,7 @@
 CREATE TABLE `homes` (
   `homeID` varchar(20) NOT NULL,
   `homeName` varchar(20) NOT NULL,
+  `homeCreator` varchar(20) NOT NUll,
   PRIMARY KEY (homeID)
 ) ENGINE=INNODB;
 

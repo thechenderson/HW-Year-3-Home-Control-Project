@@ -59,8 +59,19 @@ CREATE TABLE `faults` (
  FOREIGN KEY (deviceID) REFERENCES devices(deviceID)
 ) ENGINE=INNODB;
 
-CREATE TABLE `averages` (
+CREATE TABLE `averagesForH` (
+  `homeID` varchar(20) NOT NULL,
   `date` varchar(20) NOT NULL,
-  `averagePower` int(20) NOT NULL,
-  PRIMARY KEY (date)
+  `averOverallPower` int(20) NOT NULL,
+  PRIMARY KEY (homeID),
+  FOREIGN KEY (homeID) REFERENCES homes(homeID)
 ) ENGINE=INNODB;
+
+CREATE TABLE `averagesForR` (
+  `roomID` varchar(20) NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `averRoomPower` int(20) NOT NULL,
+  PRIMARY KEY (roomID),
+  FOREIGN KEY (roomID) REFERENCES rooms(roomID)
+) ENGINE=INNODB;
+

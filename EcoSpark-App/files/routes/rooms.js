@@ -113,6 +113,23 @@ router.post('/:roomID/updateRoomName', function(request, response) {
     });
 });
 
+router.post('/assignHome', function(request, response){
+  var homeIdOld = request.body.homeID;
+  var homeID = homeIdOld.replace(/[^a-zA-Z0-9]/g,"");
+  if (homeID) {
+    var sql = "UPDATE users SET homeID = '" + homeID + "' WHERE username = '" + request.session.user + "'";
+    connection.query(sql, function (err, result, fields) {
+    
+    if (result != "") {
+      response.redirect('/home/rooms');
+    } else {
+      response.redirect('/home/rooms/add-home');
+    }			
+    response.end();
+    });
+  }
+});
+
 router.post('/createHome', function(request, response) {
   var homeIdOld = request.body.homeID;
   var homeNameOld = request.body.homeName;

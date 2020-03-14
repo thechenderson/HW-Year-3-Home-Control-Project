@@ -80,9 +80,15 @@ router.get('/:deviceID', function(req, res, next) {
   }
 });
 
-router.post('/updateDeviceName', function(request, response) {
-  var deviceName = request.body.deviceName;
-  response.redirect('/home/devices');
+router.post('/:deviceID/updateDeviceName', function(request, response) {
+  var sql =  "UPDATE devices SET deviceDisplayName = '" + request.body.deviceName + "' WHERE deviceID = '" + request.params.deviceID + "'";
+    connection.query(sql, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        response.redirect('/home/devices/' +request.params.deviceID );
+      }
+    });
 });
 
 router.post('/createDevice', function(request, response) {

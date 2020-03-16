@@ -127,6 +127,4 @@ router.post('/createDevice', function(request, response) {
   }
 });
 
-
-
 module.exports = router;

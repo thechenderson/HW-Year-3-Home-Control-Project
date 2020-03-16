@@ -108,9 +108,20 @@
                 <div class="col-sm-6">
                     <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
                         <br></br>
+
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches">
-                            <label class="custom-control-label" for="customSwitches">off/on</label>
+                            <% var isEmpty = function(obj) {
+                                return Object.keys(obj).length === 0;
+                            }
+                            if (isEmpty(runningDeviceInfo)) { %>
+                                <!--set toggle to off-->
+                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches">
+                                <label class="custom-control-label" for="customSwitches">off/on</label>
+                            <% } else {%>
+                                <!--set toggle to on-->
+                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches" checked>
+                                <label class="custom-control-label" for="customSwitches">off/on</label>
+                            <% } %>
                         </div>
                         <br></br>
                     </div>
@@ -120,14 +131,14 @@
                     return Object.keys(obj).length === 0;
                   }
 
-                 if (isEmpty(runningDeviceInfo)) { %>
+                if (isEmpty(runningDeviceInfo)) { %>
                     <div class="col-sm-6">
                         <h4 class="fas fa-lightbulb"> Current device is off</h4>
                     </div>
                 <% } else {%>
-                    <% runningDeviceInfo.forEach (function(aver) {%>
+                    <% runningDeviceInfo.forEach (function(deviceR) {%>
                     <div class="col-sm-6">
-                        <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= aver.rDevicePower%></h4>
+                        <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= deviceR.rDevicePower%></h4>
                     </div>
                     <% }) %>
                 <% } %>
@@ -172,5 +183,8 @@
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+        <script>
+        </script>
     </body>
 </html>

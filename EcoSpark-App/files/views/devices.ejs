@@ -55,9 +55,9 @@
                     <div class="row">
                         <div class="col-sm">
                             <% if (room.roomID == device.rRoomID) { %>
-                                <h2 class="titles"><%=room.roomDisplayName%></h2> </br>
+                                <h2 class="titles"><%= room.roomDisplayName%></h2> </br>
                                 <div class="container" style="color:white" >
-                                    <h2><%=device.rDeviceDisplayName%> : <%=device.rDevicePower%>
+                                    <h2><%= device.rDeviceDisplayName%> : <%= device.rDevicePower%>
                                     <button class="btn btn-default btn-rounded mb-4" type="submit">Turn Off</button>
                                     </h2>
                                     </br>

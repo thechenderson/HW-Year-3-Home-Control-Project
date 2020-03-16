@@ -74,8 +74,10 @@ app.use('/help', helpRouter)
   
   
   connection.connect(function(err) {
-    if (err) throw err;
-    console.log("OK");
+    if (err) {
+      throw (err);
+    }
+      console.log("OK");
   });
 
 

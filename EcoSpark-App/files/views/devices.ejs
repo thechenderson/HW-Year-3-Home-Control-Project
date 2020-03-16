@@ -10,7 +10,13 @@
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
       <link rel="stylesheet" href="/stylesheets/style (2).css"> 
-		<title> Eco Spark - devices </title>
+        <title> Eco Spark - devices </title>
+        
+        <style type="text/css">
+            #chart-container {
+              width: 640px;
+              height: auto;
+            }</style>
     </head>
 
     <body>
@@ -21,7 +27,10 @@
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
               </br>
-              <canvas id="barChart" style="max-width: 800px;"></canvas>
+              <div id="chart-container">
+                <canvas id="mycanvas"></canvas>
+              </div>
+              <!-- <canvas id="barChart" style="max-width: 800px;"></canvas> -->
             </div>
         </div>
           
@@ -180,35 +189,78 @@
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
         <script type="text/javascript" src="javascripts/chart.js"></script>
-        <script type="text/php" src="deviceChart.php"></script>
+        <!-- javascript -->
+        <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+        <script type="text/javascript" src="js/Chart.min.js"></script>
+        <!-- <script type="text/javascript" src="js/device.js"></script> -->
+        <!-- <script type="text/php" src="deviceChart.php"></script> -->
         
         <script>
+            var $ = require('jQuery');
 
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+            $(document).ready(function(){
+            $.ajax({
+                url: "http://localhost/SE/Ex%205%20-%20DevicesGraph2/data.php",
+                method: "GET",
+                success: function(data) {
+                console.log(data);
+                var device = [];
+                var power = [];
+                for(var i in data) {
+                    device.push("Device " + data[i].rDeviceDisplayName);
+                    power.push(data[i].rDevicePower);
+                }
+                var chartdata = {
+                    labels: device,
+                    datasets : [
+                    {
+                        label: 'DevicePower',
+                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        borderColor: 'rgba(200, 200, 200, 0.75)',
+                        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                        hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                        data: power
+                    }
+                    ]
+                };
+                var ctx = $("#mycanvas");
+
+                var barGraph = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartdata
+                });
+                },
+                error: function(data) {
+                console.log(data);
+                }
+            });
+            });
+
+            // google.charts.load('current', {'packages':['corechart']});
+            // google.charts.setOnLoadCallback(drawChart);
           
 
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Device Name', 'Device Power'],
+            // function drawChart() {
+            //     var data = google.visualization.arrayToDataTable([
+            //         ['Device Name', 'Device Power'],
 
 
-                    // <?php
-                        // if($result->num_rows > 0){
-                        //     while($row = $result->fetch_assoc()){
-                        //         echo "['".$row['deviceDisplayName']."', ".$row['currentDevicePower']."],";
-                        //     }
-                        // }
-                    // ?>
-                ]);
-                var options = {
-                    title: 'Currently Running Devices',
-                    width: 900,
-                    height: 500,
-                };
-                var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));    
-                chart.draw(data, options);
-            }
+            //         // <?php
+            //             // if($result->num_rows > 0){
+            //             //     while($row = $result->fetch_assoc()){
+            //             //         echo "['".$row['deviceDisplayName']."', ".$row['currentDevicePower']."],";
+            //             //     }
+            //             // }
+            //         // ?>
+            //     ]);
+            //     var options = {
+            //         title: 'Currently Running Devices',
+            //         width: 900,
+            //         height: 500,
+            //     };
+            //     var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));    
+            //     chart.draw(data, options);
+            // }
         </script>
     </body>
 </html>

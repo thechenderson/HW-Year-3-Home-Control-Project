@@ -70,6 +70,7 @@ CREATE TABLE `averagesForH` (
   `homeID` varchar(20) NOT NULL,
   `date` varchar(20) NOT NULL,
   `averOverallPower` int(20) NOT NULL,
+  `powerLimit` int(20) DEFAULT 8000,
   PRIMARY KEY (homeID),
   FOREIGN KEY (homeID) REFERENCES homes(homeID)
 ) ENGINE=INNODB;

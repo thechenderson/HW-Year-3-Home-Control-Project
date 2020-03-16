@@ -63,8 +63,6 @@ app.use('/manage-devices', manageDevicesRouter)
 app.use('/manage-rooms', manageRoomsRouter)
 app.use('/help', helpRouter)
 
-
-
   var connection = mysql.createConnection({
     host: process.env.hostname,
     user: process.env.username,
@@ -72,15 +70,12 @@ app.use('/help', helpRouter)
     database: process.env.database
   });
   
-  
   connection.connect(function(err) {
     if (err) {
       throw (err);
     }
       console.log("OK");
   });
-
-
 
   app.post('/validate', function(request, response) {
     var usernameOld = request.body.username;

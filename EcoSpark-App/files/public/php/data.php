@@ -1,37 +1,31 @@
 <?php
-//setting header to json
-header('Content-Type: application/json');
+//Database Connection Details
+$host = "localhost";
+$username = "root";
+$password = "password";
+$dbName = "ecospark";
 
-//database
-define('DB_HOST', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'password');
-define('DB_NAME', 'ecospark');
+//mySQL connection
+$conn = mysqli_connect($host, $username, $password, $dbName);
 
-//get connection
-$mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    //Select query 
+	$sql = "SELECT * FROM runningdevices;";
 
-if(!$mysqli){
-  die("Connection failed: " . $mysqli->error);
-}
+    //$result = $conn->query("SELECT deviceDisplayName, currentDevicePower FROM runningdevices");
 
-//query to get data from the table
-$query = sprintf("SELECT  rDeviceDisplayName,  rDevicePower FROM runningDevices");
 
-//execute query
-$result = $mysqli->query($query);
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            echo "['".$row['deviceDisplayName']."', ".$row['currentDevicePower']."],";
+        }
+    }
+    $result = mysqli_query($conn,"SELECT rDeviceDisplayName, rDevicePower FROM runningdevices");
 
-//loop through the returned data
-$data = array();
-foreach ($result as $row) {
-  $data[] = $row;
-}
-
-//free memory associated with result
-$result->close();
-
-//close connection
-$mysqli->close();
-
-//now print the data
-print json_encode($data);
+    $data = array();
+    while ($row = mysqli_fetch_object($result))
+    {
+        array_push($data, $row);
+    }
+    echo json_encode($data);
+    exit();
+?>

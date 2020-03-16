@@ -19,12 +19,23 @@
           <img src="/scenery2.jpg" class="img-fluid" style="width: 70%; height: auto;">
           <div class="mask flex-center rgba-green-light">
             <p class="white-text">
-              <blockquote class="blockquote bq-success" style="color:white; background-color: #add2af; font-weight: bold;">
-                <h1 class="bq-title">Well Done! </h1>
-                Your energy consumption for today is below your limit! </br>
-                Average Energy Consumption: 1000W </br>
-                Energy Limit Set: 2000W
-              </blockquote>
+              <% averagesHInfo.forEach(function(aver) { %>
+                <% if ((aver.averOverallPower) <= (aver.powerLimit)) {%>
+                  <blockquote class="blockquote bq-success" style="color:white; background-color: #add2af; font-weight: bold;">
+                    <h1 class="bq-title">Well Done! </h1>
+                    Your energy consumption for today is below your limit! </br>
+                    Average Energy Consumption: <%= aver.averOverallPower%> </br>
+                    Energy Limit Set: <%= aver.powerLimit%>
+                  </blockquote>
+                <% } else { %>
+                  <blockquote class="blockquote bq-danger" style="color:white; background-color: #add2af; font-weight: bold;">
+                    <h1 class="bq-title">Oh Dear! </h1>
+                    Your energy consumption for today is above your limit! </br>
+                    Average Energy Consumption: <%= aver.averOverallPower%> </br>
+                    Energy Limit Set: <%= aver.powerLimit%>
+                  </blockquote>
+                <% } %>
+              <% }) %>
             </p>
           </div>
         </div>
@@ -69,6 +80,7 @@
       <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
       <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
       <script>
+       
         var ctxL = document.getElementById("lineChart").getContext('2d');
         var myLineChart = new Chart(ctxL, {
         type: 'line',

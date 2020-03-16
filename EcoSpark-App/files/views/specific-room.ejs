@@ -101,10 +101,12 @@
                         <br></br>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <h4 class="fas fa-thermometer-half"> Current Room Temp _ °C</h4>
-                    <h4 class="fas fa-lightbulb"> Current Room Energy Usage _ KW </h4>
-                </div>
+                <% averagesRInfo.forEach(function(aver) { %>
+                  <div class="col-sm-6">
+                      <h4 class="fas fa-thermometer-half"> Current Room Temp _°C</h4>
+                      <h4 class="fas fa-lightbulb"> Current Room Energy Usage <%= aver.averRoomPower%> KW </h4>
+                  </div>
+                <% }) %>
             </div>
         </div>
         

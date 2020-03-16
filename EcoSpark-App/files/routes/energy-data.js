@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var today = new Date();
-console.log(today);
 
 var connection = mysql.createConnection({
   host: process.env.hostname,

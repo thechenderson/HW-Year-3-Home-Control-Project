@@ -67,32 +67,22 @@ router.get('/:roomID', function(req, res, next) {
   });
 
   if (req.session.loggedin){
-
+    let currDate = new Date().toLocaleDateString('en-GB');
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';"; 
-    // connection.query(sqlR + sqlD, function (err, results) {
-    //   if (err) throw err;
-    //   if(results== ""){
-    //     res.redirect('/rooms');
-    //   } else {
-    //     console.log("info", results[0]);
-    //     console.log("info", results[1]);
-    //     var r = results[0];
-    //     var d = results[1];
-    //     //res.render('specific-room', ({ title: 'Express' }, {roomInfo: results[0]}, {deviceInfo: results[1]}));
-    //     res.render('specific-room', ({ title: 'Express' }, {roomInfo: r}));
-    //     res.render('specific-room', ({ title: 'Express' }, {deviceInfo: d}));
-    //   }
+    var sqlAR = "SELECT averagesForR.roomID AS roomID, averagesForR.date AS date, averagesForR.averRoomPower AS averRoomPower FROM averagesForR WHERE averagesForR.date = '" + currDate + "' AND averagesForR.roomID = '"+ req.params.roomID +"';";
       
     Promise.all([
         queryWrapper(sqlR),
-        queryWrapper(sqlD)
+        queryWrapper(sqlD),
+        queryWrapper(sqlAR)
     ])
-    .then(([roomInfo, deviceInfo]) => {
+    .then(([roomInfo, deviceInfo, averagesRInfo]) => {
         res.render('specific-room', {
             title: 'Express',
             roomInfo,
-            deviceInfo
+            deviceInfo,
+            averagesRInfo
         });
     });
   } else {

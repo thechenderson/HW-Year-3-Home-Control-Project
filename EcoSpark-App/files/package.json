@@ -8,6 +8,8 @@
     "serverstart": "DEBUG=express-locallibrary-tutorial:= npm run devstart"
   },
   "dependencies": {
+    "ajax": "0.0.4",
+    "ajax-request": "^1.2.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",

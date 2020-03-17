@@ -12,11 +12,14 @@
       <link rel="stylesheet" href="/stylesheets/style (2).css"> 
         <title> Eco Spark - devices </title>
         
+        <!-- Style for ajax graph-->
         <style type="text/css">
             #chart-container {
               width: 640px;
               height: auto;
-            }</style>
+        }
+        </style>
+
     </head>
 
     <body>
@@ -26,18 +29,13 @@
         <div style="height: 100">
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
-              </br>
-              <div id="chart-container">
-                <style type="text/css">
-                    #chart-container {
-                      width: 640px;
-                      height: auto;
-                    }
-                  </style>
-                
-                <canvas id="mycanvas"></canvas>
-              </div>
-              <!-- <canvas id="barChart" style="max-width: 800px;"></canvas> -->
+            </br>
+
+                <!-- This is the graph using ajax -->
+                <div id="chart-container">
+                    <canvas id="mycanvas"></canvas>
+                </div>
+              
             </div>
         </div>
           
@@ -196,17 +194,22 @@
         <script type="text/javascript" src="/files/public/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/files/public/javascripts/mdb.min.js"></script>
         <script type="text/javascript" src="/files/public/javascripts/chart.js"></script>
-        <!-- javascript -->
+        
+        <!-- javascript for ajax and graph -->
         <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
         <script type="text/javascript" src="/files/public/javascripts/chart.min.js"></script>
-        <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> -->
-        <!-- <script type="text/javascript" src="/files/public/php/data.php"></script> -->
+        <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> i put this below -->
+        <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
 
         <script type="text/javascript">
+            //CODE FOR AJAX GRAPH
+            //basicallly just used ajax to run the php, return the values and input into the graph
+        
             // var $ = require('jQuery');
             $(document).ready(function(){
             $.ajax({
-                url: "/files/public/php/data.php",
+                //might be the problem here as it linking to my other server file, the data.php file is in the php folder
+                url: "http://localhost/SE/Ex%205%20-%20DevicesGraph2/data.php",
                 method: "GET",
                 success: function(data) {
                 console.log(data);
@@ -242,31 +245,6 @@
             });
             });
 
-            // google.charts.load('current', {'packages':['corechart']});
-            // google.charts.setOnLoadCallback(drawChart);
-          
-
-            // function drawChart() {
-            //     var data = google.visualization.arrayToDataTable([
-            //         ['Device Name', 'Device Power'],
-
-
-            //         // <?php
-            //             // if($result->num_rows > 0){
-            //             //     while($row = $result->fetch_assoc()){
-            //             //         echo "['".$row['deviceDisplayName']."', ".$row['currentDevicePower']."],";
-            //             //     }
-            //             // }
-            //         // ?>
-            //     ]);
-            //     var options = {
-            //         title: 'Currently Running Devices',
-            //         width: 900,
-            //         height: 500,
-            //     };
-            //     var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));    
-            //     chart.draw(data, options);
-            // }
         </script>
     </body>
 </html>

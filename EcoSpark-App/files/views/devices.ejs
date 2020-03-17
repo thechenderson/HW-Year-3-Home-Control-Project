@@ -28,6 +28,13 @@
               <h2> Currently Running Devices </h2>
               </br>
               <div id="chart-container">
+                <style type="text/css">
+                    #chart-container {
+                      width: 640px;
+                      height: auto;
+                    }
+                  </style>
+                
                 <canvas id="mycanvas"></canvas>
               </div>
               <!-- <canvas id="barChart" style="max-width: 800px;"></canvas> -->
@@ -48,9 +55,9 @@
                     <div class="row">
                         <div class="col-sm">
                             <% if (room.roomID == device.rRoomID) { %>
-                                <h2 class="titles"><%=room.roomDisplayName%></h2> </br>
+                                <h2 class="titles"><%= room.roomDisplayName%></h2> </br>
                                 <div class="container" style="color:white" >
-                                    <h2><%=device.rDeviceDisplayName%> : <%=device.rDevicePower%>
+                                    <h2><%= device.rDeviceDisplayName%> : <%= device.rDevicePower%>
                                     <button class="btn btn-default btn-rounded mb-4" type="submit">Turn Off</button>
                                     </h2>
                                     </br>
@@ -184,23 +191,22 @@
             </div>
         </div>
         
-        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
-        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-        <script type="text/javascript" src="javascripts/chart.js"></script>
+        <script type="text/javascript" src="/files/public/javascripts/jquery.min.js"></script>
+        <script type="text/javascript" src="/files/public/javascripts/popper.min.js"></script>
+        <script type="text/javascript" src="/files/public/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/files/public/javascripts/mdb.min.js"></script>
+        <script type="text/javascript" src="/files/public/javascripts/chart.js"></script>
         <!-- javascript -->
         <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
-        <script type="text/javascript" src="js/Chart.min.js"></script>
-        <!-- <script type="text/javascript" src="js/device.js"></script> -->
-        <!-- <script type="text/php" src="deviceChart.php"></script> -->
-        
-        <script>
-            var $ = require('jQuery');
+        <script type="text/javascript" src="/files/public/javascripts/chart.min.js"></script>
+        <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> -->
+        <!-- <script type="text/javascript" src="/files/public/php/data.php"></script> -->
 
+        <script type="text/javascript">
+            // var $ = require('jQuery');
             $(document).ready(function(){
             $.ajax({
-                url: "http://localhost/SE/Ex%205%20-%20DevicesGraph2/data.php",
+                url: "/files/public/php/data.php",
                 method: "GET",
                 success: function(data) {
                 console.log(data);

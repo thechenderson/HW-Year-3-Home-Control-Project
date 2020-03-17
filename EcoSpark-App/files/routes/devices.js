@@ -23,7 +23,6 @@ const queryWrapper = (statement) => {
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     
-    
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
     var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults";
@@ -65,15 +64,19 @@ router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
+    var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rDeviceID = '" + req.params.deviceID + "';";
+   
     Promise.all([
       queryWrapper(sqlR),
-      queryWrapper(sqlD)
+      queryWrapper(sqlD),
+      queryWrapper(sqlC)
     ])
-    .then(([roomInfo, deviceInfo]) => {
+    .then(([roomInfo, deviceInfo, runningDeviceInfo]) => {
       res.render('specific-device', {
           title: 'Express',
           roomInfo,
-          deviceInfo
+          deviceInfo,
+          runningDeviceInfo
       });
   });
   } else {
@@ -123,7 +126,5 @@ router.post('/createDevice', function(request, response) {
     response.end();
   }
 });
-
-
 
 module.exports = router;

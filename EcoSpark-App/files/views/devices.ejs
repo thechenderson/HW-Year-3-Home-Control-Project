@@ -208,7 +208,7 @@
             $(document).ready(function(){
                 $.ajax({
                     //might be the problem here as it linking to my other server file, the data.php file is in the php folder
-                    url: "http://localhost/SE/Ex%205%20-%20DevicesGraph2/data.php",
+                    url: "/php/data.php",
                     method: "GET",
                     success: function(data) {
                         console.log(data);

@@ -200,18 +200,19 @@
         <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> i put this below -->
         <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
 
-        <script type="text/javascript">
+        <script>
             //CODE FOR AJAX GRAPH
             //basicallly just used ajax to run the php, return the values and input into the graph
         
             // var $ = require('jQuery');
+          
             $(document).ready(function(){
                 $.ajax({
                     //might be the problem here as it linking to my other server file, the data.php file is in the php folder
                     url: "/php/data.php",
                     method: "GET",
                     success: function(data) {
-                        console.log(data);
+                       
                         var device = [];
                         var power = [];
                         for(var i in data) {
@@ -231,6 +232,8 @@
                             }
                             ]
                         };
+                        alert(device);
+                        alert(power);
                         var ctx = $("#mycanvas");
 
                         var barGraph = new Chart(ctx, {
@@ -239,7 +242,7 @@
                         });
                     },
                     error: function(data) {
-                        console.log(data);
+                        console.log("error");
                     }
                 });
             });

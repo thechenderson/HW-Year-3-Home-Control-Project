@@ -206,15 +206,18 @@
         
             // var $ = require('jQuery');
             $(document).ready(function(){
+                
                 $.ajax({
                     //might be the problem here as it linking to my other server file, the data.php file is in the php folder
                     url: "/php/data.php",
                     method: "GET",
+                    // dataType: 'json', 
                     success: function(data) {
                         console.log(data);
                         var device = [];
                         var power = [];
                         for(var i in data) {
+                            console.log(data[i].rDeviceDisplayName);
                             device.push("Device " + data[i].rDeviceDisplayName);
                             power.push(data[i].rDevicePower);
                         }
@@ -231,6 +234,7 @@
                             }
                             ]
                         };
+                       
                         var ctx = $("#mycanvas");
 
                         var barGraph = new Chart(ctx, {

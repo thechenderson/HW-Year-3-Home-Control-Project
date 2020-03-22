@@ -12,12 +12,14 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT users.displayName AS displayName, users.username AS username FROM users, homes WHERE users.homeID = homes.homeID";
+      var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, homes WHERE users.homeID = homes.homeID";
       connection.query(sql, function(err, result, fields) {
-      res.render('manage-users', ({ title: 'Express' }, {users: result, home: req.session.homeID}));
+      res.render('manage-users', ({ title: 'Express' }, {users: result}));
       });
     } else {
       res.redirect('/');
     }
   });
+
+  
 module.exports = router;

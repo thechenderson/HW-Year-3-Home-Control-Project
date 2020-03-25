@@ -30,7 +30,6 @@
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
             </br>
-
                 <!-- This is the graph using ajax -->
                 <div id="chart-container">
                     <canvas id="mycanvas"></canvas>
@@ -45,26 +44,34 @@
                 <div style="color:white;" >Currently no devices running</br></div>
             <% } %>
             </h2>
+            
             <% roomInfo.forEach(function(room) { %>
                 <% if (roomInfo == ""){ %>
                     Currently no rooms in application  </br> 
                 <% } %>
+                
                 <% runningDeviceInfo.forEach(function(device) { %>
                     <div class="row">
                         <div class="col-sm">
                             <% if (room.roomID == device.rRoomID) { %>
                                 <h2 class="titles"><%= room.roomDisplayName%></h2> </br>
                                 <div class="container" style="color:white" >
-                                    <h2><%= device.rDeviceDisplayName%> : <%= device.rDevicePower%>
-                                    <button class="btn btn-default btn-rounded mb-4" type="submit">Turn Off</button>
+                                    <h2 id="deviceID"> <%= device.rDeviceID%> </h2>
+                                    <h2 id="deviceDisplayName"><%= device.rDeviceDisplayName%>: </h2>
+                                    <h2 id="devicePower"><%= device.rDevicePower%> </h2>
+                                    <button class="btn btn-default btn-rounded mb-4" type="submit" onclick="changes()">Turn Off</button>
                                     </h2>
+                               
                                     </br>
                                 </div>
                             <% } %>
                         </div>
                     </div>
+
                 <% }) %>
+                
             <% }) %>
+            
             </br>
         </div>
 
@@ -201,51 +208,70 @@
         <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
 
         <script>
-            //CODE FOR AJAX GRAPH
-            //basicallly just used ajax to run the php, return the values and input into the graph
-        
-            // var $ = require('jQuery');
-          
-            $(document).ready(function(){
+            //
+            function changes(){
+            // POST /api/users gets JSON bodies --> Note how we use a jsonParser in our app.post call
+            alert("hello");  
                 $.ajax({
-                    //might be the problem here as it linking to my other server file, the data.php file is in the php folder
-                    url: "/php/data.php",
-                    method: "GET",
-                    success: function(data) {
-                       
-                        var device = [];
-                        var power = [];
-                        for(var i in data) {
-                            device.push("Device " + data[i].rDeviceDisplayName);
-                            power.push(data[i].rDevicePower);
-                        }
-                        var chartdata = {
-                            labels: device,
-                            datasets : [
-                            {
-                                label: 'DevicePower',
-                                backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                                borderColor: 'rgba(200, 200, 200, 0.75)',
-                                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                data: power
-                            }
-                            ]
-                        };
-                        alert(device);
-                        alert(power);
-                        var ctx = $("#mycanvas");
-
-                        var barGraph = new Chart(ctx, {
-                            type: 'bar',
-                            data: chartdata
-                        });
-                    },
-                    error: function(data) {
-                        console.log("error");
+                    url: '/php/changes.php', //This is the current doc
+                    type: "POST",
+                    dataType:'json', // add json datatype to get json
+                    data: ({deviceID: 145}),
+                    success: function(data){
+                        console.log(data);
+                        alert(data);
                     }
-                });
-            });
+                });  
+
+            
+            }
+
+            // $(document).ready(function(){
+            //     $.ajax({
+            //         //might be the problem here as it linking to my other server file, the data.php file is in the php folder
+            //         url: "/php/data.php",
+            //         method: "GET",
+            //         datatype: "json",
+            //         success: function(data) {
+            //             var list = JSON.parse(data);
+            //             var tr = "";
+            //             var device = [];
+            //             var power = [];
+            //             $.each(list, function(i, v) {
+            //             // for(var i in data) {
+            //                 device.push("Device " + v[rDeviceDisplayName]);
+            //                 power.push(v[rDevicePower]);
+            //             });
+
+            //             var chartdata = {
+            //                 labels: device,
+            //                 datasets : [
+            //                 {
+            //                     label: 'DevicePower',
+            //                     backgroundColor: 'rgba(200, 200, 200, 0.75)',
+            //                     borderColor: 'rgba(200, 200, 200, 0.75)',
+            //                     hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+            //                     hoverBorderColor: 'rgba(200, 200, 200, 1)',
+            //                     data: power
+            //                 }
+            //                 ]
+            //             };
+                        
+            //             alert(device);
+            //             alert(power);
+                        
+            //             var ctx = $("#mycanvas");
+
+            //             var barGraph = new Chart(ctx, {
+            //                 type: 'bar',
+            //                 data: chartdata
+            //             });
+            //         },
+            //         error: function(data) {
+            //             console.log("error");
+            //         }
+            //     });
+            // });
         </script>
     </body>
 </html>

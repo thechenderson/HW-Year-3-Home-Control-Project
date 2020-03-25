@@ -44,6 +44,7 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
@@ -58,10 +59,10 @@ app.use('/energy-data', energyDataRouter);
 
 app.use('/my-account', myAccountRouter);
 app.use('/settings', settingsRouter);
-app.use('/manage-users', manageUsersRouter)
-app.use('/manage-devices', manageDevicesRouter)
-app.use('/manage-rooms', manageRoomsRouter)
-app.use('/help', helpRouter)
+app.use('/manage-users', manageUsersRouter);
+app.use('/manage-devices', manageDevicesRouter);
+app.use('/manage-rooms', manageRoomsRouter);
+app.use('/help', helpRouter);
 
   var connection = mysql.createConnection({
     host: process.env.hostname,
@@ -146,25 +147,6 @@ app.use('/help', helpRouter)
       response.end();
     }
   });
-
-//getting values for current devices
-// app.get('/devices', function(req, res) {
-//   con.connect(function (err) {
-//     if (err) throw err;
-//       console.log("Connected");
-//       var sql = "SELECT * FROM runningdevice";
-//       con.query(sql, function (err, result) {
-//       if (err) {
-//         throw err;
-//       } else {
-//         obj = {print: result};
-//         res.render('devices', {obj: obj});
-//       }
-//     });
-//   });
-// });
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

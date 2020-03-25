@@ -1,6 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var bodyParser = require('body-parser')
+
+var app = express();
+var jsonParser = bodyParser.json();
+
+
+function changes(){
+  // POST /api/users gets JSON bodies --> Note how we use a jsonParser in our app.post call
+  app.post('/send', jsonParser, function (req, res) {
+  console.log(req.body);
+  console.log('Send button clicked');
+})
+}
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -49,7 +62,6 @@ router.get('/', function(req, res, next) {
     res.redirect('/');
   }
 });
-
 
 router.get('/add-device', function(req, res, next) {
   if (req.session.loggedin){

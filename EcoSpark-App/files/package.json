@@ -10,6 +10,7 @@
   "dependencies": {
     "ajax": "0.0.4",
     "ajax-request": "^1.2.3",
+    "body-parser": "^1.19.0",
     "chart.js": "^2.9.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

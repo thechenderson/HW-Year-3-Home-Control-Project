@@ -55,7 +55,8 @@ const queryWrapper = (statement) => {
   });
 };
 
-
+// after clicking on a room button, it redirects to here by the path /home/rooms/roomID
+// remember on the rooms.js page, '/' is the same as /rooms/
 router.get('/:roomID', function(req, res, next) {
 
   var connection = mysql.createConnection({

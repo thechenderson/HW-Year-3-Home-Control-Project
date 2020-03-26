@@ -40,11 +40,18 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <% rooms.forEach(function(room) {%>
+                    <!-- creates a circle button for kitchen -->
+                    <!-- checks room type -->
                     <% if (room.roomType == "Kitchen") { %>
+                        <!-- create card and set background to the same colour as the page -->
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
+                                <!-- size of the circle -->
                                 <span class="fa-stack fa-6x ">
+                                    <!-- create blue circle -->
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <!-- creates the image for the circle -->
+                                    <!-- also sets the LINK of the button (where the button redirects to) -->
                                     <a class="fas fa-utensils fa-stack-1x icon" style="color:white" href="/home/rooms/<%=room.roomID %>"></a>
                                 </span>
                             </div>

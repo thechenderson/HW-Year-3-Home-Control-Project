@@ -92,4 +92,12 @@ router.get('/manage-home', function(req, res, next) {
   }
 });
 
+router.get('/help', function(req, res, next) {
+  if (req.session.loggedin){
+      res.render('help', ({ title: 'Express' }));
+  } else {
+    res.redirect('/');
+  }
+});
+
 module.exports = router;

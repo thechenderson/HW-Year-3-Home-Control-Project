@@ -13,12 +13,10 @@
     </head>
 
     <body>
-        <%- include ('partials/header') -%>
+      <%- include ('partials/header') -%>
 
 
-
-        <h4 class="card-title text-center font-weight-bold">Choose a User</h4>
-        <div class="container">
+      <h4 class="card-title text-center font-weight-bold">Choose a User</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <% users.forEach(function(user) {%>
               <div class="shadow-none card green lighten-4">
@@ -29,42 +27,12 @@
                   </span>
                 </div>
                 <div class="card-body">
-                  <h4 class="card-title text-center"><% user.displayName %></h4>
+                  <h4 class="card-title text-center"><%= user.displayName %></h4>
                 </div>
               </div>
-             <% } %>
+             <% }) %>
           </div>
-        </div>
 
-
-        <div class="container align-self-center mr-1">
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="card p-4 rounded">
-                <h5>USERNAME HERE</h5>
-              </div>
-            </div>
-          </div>
-        </br>
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="card p-4 rounded">
-                <form>
-                  <div class="form-group">
-                    <h5>Display Name:</h5>
-                    <input class="form-control disabled rounded">
-                    <small class="form-text text-muted">Name displayed throughout the application.</small>
-                      </br>
-                      <h5>Username:</h5>
-                      <input class="form-control disabled rounded">
-                          <small class="form-text text-muted">Unique username chosen to be used when logging in.</small>
-                    </input>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
         
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

@@ -16,6 +16,12 @@
         
         <%- include ('partials/header') -%>
 
+        <% rooms.forEach(function(room) {%>
+            <%= room.roomID %>
+            <%= room.roomDisplayName %>
+        <% }) %>
+
+
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

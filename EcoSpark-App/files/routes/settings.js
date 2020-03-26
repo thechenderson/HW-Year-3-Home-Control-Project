@@ -28,13 +28,20 @@ router.get('/', function(req, res, next) {
   }
 });
 
+
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
-    res.render('manage-users', { title: 'Express' });
+    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, rooms, homes WHERE users.username = '" + req.session.user +"' AND users.homeID = homes.homeID AND rooms.homeID = homes.homeID";
+    connection.query(sql, function(err, result, fields) {
+      res.render('manage-users', ({ title: 'Express' },{users: result}));
+    });
   } else {
     res.redirect('/');
   }
 });
+
+
+
 
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){

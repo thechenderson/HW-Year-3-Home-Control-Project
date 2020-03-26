@@ -31,7 +31,7 @@ router.get('/:username', function(req, res, next) {
         queryWrapper(sqlD),
     ])
     .then(([userInfo]) => {
-        res.render('specific-room', {
+        res.render('specific-users', {
             title: 'Express',
             userInfo
         });

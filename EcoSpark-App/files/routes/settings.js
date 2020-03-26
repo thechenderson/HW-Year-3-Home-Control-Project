@@ -2,10 +2,18 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
 
-var app = express();
-var jsonParser = bodyParser.json();
+
+const queryWrapper = (statement) => {
+  return new Promise((resolve, reject) => {
+      connection.query(statement, (err, result) => {
+          if(err)
+              return reject(err);
+          resolve(result);
+      });
+  });
+};
+
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -31,34 +39,32 @@ router.get('/', function(req, res, next) {
 
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, homes WHERE users.username = '" + req.session.user +"'";
+    // sql to get the users homeID
+    var sql = "SELECT homeID FROM users WHERE users.username = '" + req.session.user +"'";
     connection.query(sql, function(err, result, fields) {
-      res.render('manage-users', ({ title: 'Express' },{users: result}));
+      // index result to get the homeID without sql jargon
+      var homeID = result[0].homeID;
+      // query using homeID
+      var sql2 = "SELECT username, displayName FROM users WHERE homeID = '" + homeID + "'";
+      connection.query(sql2, function(err, result2, fields) {
+        // render page 
+        res.render('manage-users', ({ title: 'Express' },{users: result2}));
+      });
     });
   } else {
     res.redirect('/');
   }
 });
 
-
-router.get('/:username', function(req, res, next) {
-
-  var connection = mysql.createConnection({
-    host: process.env.hostname,
-    user: process.env.username,
-    password: process.env.password,
-    database: process.env.database,
-  });
-
+// when clicking on a user
+router.get('/manage-users/:username', function(req, res, next) {
   if (req.session.loggedin){
-    let currDate = new Date().toLocaleDateString('en-GB');
-    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
-
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes, rooms WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
     Promise.all([
         queryWrapper(sqlD),
     ])
     .then(([userInfo]) => {
-        res.render('specific-room', {
+        res.render('specific-user', {
             title: 'Express',
             userInfo
         });
@@ -66,7 +72,6 @@ router.get('/:username', function(req, res, next) {
   } else {
     res.redirect('/');
   }
-
 });
 
 

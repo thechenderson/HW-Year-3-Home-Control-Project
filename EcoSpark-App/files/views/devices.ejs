@@ -213,43 +213,6 @@
             // POST /api/users gets JSON bodies --> Note how we use a jsonParser in our app.post call
             alert("hello");  
                 $.ajax({
-<<<<<<< HEAD
-                    //might be the problem here as it linking to my other server file, the data.php file is in the php folder
-                    url: "/php/data.php",
-                    method: "GET",
-                    success: function(data) {
-                        alert(data);
-                       
-                        var device = [];
-                        var power = [];
-                        for(var i in data) {
-                            device.push("Device " + data[i].rDeviceDisplayName);
-                            power.push(data[i].rDevicePower);
-                        }
-                        var chartdata = {
-                            labels: device,
-                            datasets : [
-                            {
-                                label: 'DevicePower',
-                                backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                                borderColor: 'rgba(200, 200, 200, 0.75)',
-                                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                data: power
-                            }
-                            ]
-                        };
-                
-                        var ctx = $("#mycanvas");
-
-                        var barGraph = new Chart(ctx, {
-                            type: 'bar',
-                            data: chartdata
-                        });
-                    },
-                    error: function(data) {
-                        console.log("error");
-=======
                     url: '/php/changes.php', //This is the current doc
                     type: "POST",
                     dataType:'json', // add json datatype to get json
@@ -257,7 +220,6 @@
                     success: function(data){
                         console.log(data);
                         alert(data);
->>>>>>> d535db281c7bae9f6ca8ff7cd9829e6d9429a771
                     }
                 });  
 

@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
 
-var app = express();
-var jsonParser = bodyParser.json();
+
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -16,7 +14,8 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName FROM devices, users, rooms, homes WHERE users.username ='" + req.session.user +"' AND users.homeID = homes.homeID AND rooms.homeID = homes.homeID AND devices.roomID = rooms.roomID;"
+      console.log(req.session.user + "abcdefg");
+      var sql = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName FROM devices, users, rooms, homes WHERE users.username ='" + req.session.user +"' AND users.homeID = homes.homeID AND rooms.homeID = homes.homeID AND devices.roomID = rooms.roomID";
       connection.query(sql, function(err, result, fields) {
         res.render('manage-devices', ({ title: 'Express' }, {devices: result}));
       });

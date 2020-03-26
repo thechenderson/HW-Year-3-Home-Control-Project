@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, rooms, homes WHERE users.username = '" + req.session.user +"' AND users.homeID = homes.homeID";
+    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, homes WHERE users.username = '" + req.session.user +"'";
     connection.query(sql, function(err, result, fields) {
       res.render('manage-users', ({ title: 'Express' },{users: result}));
     });
@@ -39,6 +39,36 @@ router.get('/manage-users', function(req, res, next) {
     res.redirect('/');
   }
 });
+
+
+router.get('/:username', function(req, res, next) {
+
+  var connection = mysql.createConnection({
+    host: process.env.hostname,
+    user: process.env.username,
+    password: process.env.password,
+    database: process.env.database,
+  });
+
+  if (req.session.loggedin){
+    let currDate = new Date().toLocaleDateString('en-GB');
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+
+    Promise.all([
+        queryWrapper(sqlD),
+    ])
+    .then(([userInfo]) => {
+        res.render('specific-room', {
+            title: 'Express',
+            userInfo
+        });
+    });
+  } else {
+    res.redirect('/');
+  }
+
+});
+
 
 
 

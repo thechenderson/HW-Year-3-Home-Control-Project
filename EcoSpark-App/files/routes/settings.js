@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, rooms, homes WHERE users.username = '" + req.session.user +"' AND users.homeID = homes.homeID AND rooms.homeID = homes.homeID";
+    var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users, rooms, homes WHERE users.username = '" + req.session.user +"' AND users.homeID = homes.homeID";
     connection.query(sql, function(err, result, fields) {
       res.render('manage-users', ({ title: 'Express' },{users: result}));
     });

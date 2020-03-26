@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
@@ -14,18 +13,12 @@ const queryWrapper = (statement) => {
   });
 };
 
-
 var connection = mysql.createConnection({
   host: process.env.hostname,
   user: process.env.username,
   password: process.env.password,
   database: process.env.database
 });
-
-// var manageusers = require('./manage-users');
-// var managedevices = require('./manage-devices');
-// var managerooms = require('./manage-rooms');
-// var help = require('./help');
 
 
 router.get('/', function(req, res, next) {
@@ -74,10 +67,6 @@ router.get('/manage-users/:username', function(req, res, next) {
   }
 });
 
-
-
-
-
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){
     console.log(req.session.user + "abcdefg");
@@ -89,10 +78,5 @@ router.get('/manage-devices', function(req, res, next) {
     res.redirect('/');
   }
 });
-
-// router.use('/manage-users', manageusers);
-// router.use('/manage-devices', managedevices);
-// router.use('/manage-rooms', managerooms);
-// router.use('/help', help);
 
 module.exports = router;

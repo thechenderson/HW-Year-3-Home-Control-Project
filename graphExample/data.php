@@ -34,4 +34,4 @@ $result->close();
 $mysqli->close();
 
 //now print the data
-echo json_encode($data);
+print ("test");

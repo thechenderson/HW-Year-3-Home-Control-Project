@@ -16,6 +16,11 @@
         
         <%- include ('partials/header') -%>
 
+        <% users.forEach(function(user) {%>
+            <%= user.deviceID %>
+            <%= user.deviceDisplayName %>
+        
+        <% }) %>
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

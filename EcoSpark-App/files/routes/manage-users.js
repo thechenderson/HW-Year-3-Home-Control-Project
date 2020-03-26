@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
-      var sql = "SELECT users.username AS username, users.displayName AS displayName FROM users WHERE users.username =" + req.session.user + ";";
+      var sql = "SELECT users.username AS username, users.isAdmin AS isAdmin, users.displayName AS displayName FROM users WHERE users.username =" + req.session.user + ";";
       connection.query(sql, function(err, result, fields) {
         res.render('manage-users', ({ title: 'Express' }, {users: result}));
       });

@@ -183,9 +183,11 @@
         });
 
         function dayAverage() {
+          
           var x = document.getElementById("graphDayContainer");
           if (x.style.display === "none") {
             x.style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
           } else {
             x.style.display = "none";
           }
@@ -195,6 +197,7 @@
           var x = document.getElementById("graphWeekContainer");
           if (x.style.display === "none") {
             x.style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
           } else {
             x.style.display = "none";
           }
@@ -204,6 +207,7 @@
           var x = document.getElementById("graphMonthContainer");
           if (x.style.display === "none") {
             x.style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
           } else {
             x.style.display = "none";
           }
@@ -213,6 +217,7 @@
           var x = document.getElementById("graphYearContainer");
           if (x.style.display === "none") {
             x.style.display = "block";
+            window.scrollTo(0,document.body.scrollHeight);
           } else {
             x.style.display = "none";
           }

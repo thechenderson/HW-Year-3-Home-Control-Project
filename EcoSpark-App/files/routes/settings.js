@@ -52,7 +52,7 @@ router.get('/manage-users', function(req, res, next) {
 // when clicking on a user
 router.get('/manage-users/:username', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes WHERE users.homeID = homes.homeID AND users.username ='" + req.params.username + "'";
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin, users.password AS password, users.homeID AS homeID FROM users, homes WHERE users.homeID = homes.homeID AND users.username ='" + req.params.username + "'";
     Promise.all([
         queryWrapper(sqlD),
     ])

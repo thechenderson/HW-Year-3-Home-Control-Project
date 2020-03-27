@@ -17,7 +17,7 @@
         <%- include ('partials/header') -%>
 
 
-        <div class="container align-self-center mr-1">
+        <div class="container"> 
             <div class="row">
               <div class="col-sm-8">
                 <div class="card p-4 rounded" style="text-align: center;">
@@ -28,21 +28,32 @@
               </div>
             </div>
           </br>
+
           <% userInfo.forEach(function(user) {%>
-            
             <div class="row">
               <div class="col-sm-8">
+                <div class="card p-4 rounded">
                   <form>
                     <div class="form-group">
                       <h5>Display Name:</h5>
-
-                      <input class="form-control disabled rounded" placeholder="">
+                      <input class="form-control disabled rounded" placeholder="<%= user.displayName%>">
                       <small class="form-text text-muted">Name displayed throughout the application.</small>
-                        </br>
-                        <h5>Username:</h5>
-                        <input class="form-control disabled rounded">
-                            <small class="form-text text-muted">Unique username chosen to be used when logging in.</small>
-                      </input>
+                      </br>
+                      
+                      <h5>Password:</h5>
+                      <input class="form-control disabled rounded" placeholder="<%= user.password %>">
+                      <small class="form-text text-muted">Unique password chosen to be used when logging in.</small>
+                      </br>
+                      
+                      <h5>Admin:</h5>
+                      <input class="form-control disabled rounded" placeholder="<%= user.isAdmin %>">
+                      <small class="form-text text-muted">Is this user an admin for their home.</small>
+                      </br>
+
+                      <h5>Home ID:</h5>
+                      <input class="form-control disabled rounded" placeholder="<%= user.homeID %>">
+                      <small class="form-text text-muted"> Home Id for user's home.</small>
+                      </br>
                     </div>
                      
                   <button type="submit" class="btn btn-primary btn-md">Update User Information</button>

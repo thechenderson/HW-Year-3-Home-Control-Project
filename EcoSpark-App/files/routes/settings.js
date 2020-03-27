@@ -1,11 +1,17 @@
-
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
 
-var app = express();
-var jsonParser = bodyParser.json();
+
+const queryWrapper = (statement) => {
+  return new Promise((resolve, reject) => {
+      connection.query(statement, (err, result) => {
+          if(err)
+              return reject(err);
+          resolve(result);
+      });
+  });
+};
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -13,11 +19,6 @@ var connection = mysql.createConnection({
   password: process.env.password,
   database: process.env.database
 });
-
-// var manageusers = require('./manage-users');
-// var managedevices = require('./manage-devices');
-// var managerooms = require('./manage-rooms');
-// var help = require('./help');
 
 
 router.get('/', function(req, res, next) {
@@ -28,14 +29,45 @@ router.get('/', function(req, res, next) {
   }
 });
 
+
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
-    res.render('manage-users', { title: 'Express' });
+    // sql to get the users homeID
+    var sql = "SELECT homeID FROM users WHERE users.username = '" + req.session.user +"'";
+    connection.query(sql, function(err, result, fields) {
+      // index result to get the homeID without sql jargon
+      var homeID = result[0].homeID;
+      // query using homeID
+      var sql2 = "SELECT username, displayName FROM users WHERE homeID = '" + homeID + "'";
+      connection.query(sql2, function(err, result2, fields) {
+        // render page 
+        res.render('manage-users', ({ title: 'Express' },{users: result2}));
+      });
+    });
   } else {
     res.redirect('/');
   }
 });
 
+// when clicking on a user
+router.get('/manage-users/:username', function(req, res, next) {
+  if (req.session.loggedin){
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes, rooms WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    Promise.all([
+        queryWrapper(sqlD),
+    ])
+    .then(([userInfo]) => {
+        res.render('specific-user', {
+            title: 'Express',
+            userInfo
+        });
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+// delete devices?
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){
     console.log(req.session.user + "abcdefg");
@@ -48,9 +80,24 @@ router.get('/manage-devices', function(req, res, next) {
   }
 });
 
-// router.use('/manage-users', manageusers);
-// router.use('/manage-devices', managedevices);
-// router.use('/manage-rooms', managerooms);
-// router.use('/help', help);
+// delete rooms and re-assign home?
+router.get('/manage-home', function(req, res, next) {
+  if (req.session.loggedin){
+    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    connection.query(sql, function(err, result, fields) {
+      res.render('manage-home', ({ title: 'Express' }, {rooms: result}));
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+router.get('/help', function(req, res, next) {
+  if (req.session.loggedin){
+      res.render('help', ({ title: 'Express' }));
+  } else {
+    res.redirect('/');
+  }
+});
 
 module.exports = router;

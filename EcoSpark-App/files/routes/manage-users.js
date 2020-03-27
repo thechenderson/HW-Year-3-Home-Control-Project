@@ -13,16 +13,5 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
-router.get('/', function(req, res, next) {
-    if (req.session.loggedin){
-      var sql = "SELECT users.username AS username, users.isAdmin AS isAdmin, users.displayName AS displayName FROM users WHERE users.username =" + req.session.user + ";";
-      connection.query(sql, function(err, result, fields) {
-        res.render('manage-users', ({ title: 'Express' }, {users: result}));
-      });
-    } else {
-      res.redirect('/');
-    }
-  });
-
   
 module.exports = router;

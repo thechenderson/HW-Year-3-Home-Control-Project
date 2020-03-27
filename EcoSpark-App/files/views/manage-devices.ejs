@@ -15,11 +15,91 @@
     <body>
         <%- include ('partials/header') -%>
 
-        <% devices.forEach(function(device) {%>
-            <%= device.deviceID %>
-            <%= device.deviceDisplayName %>
-        
-        <% }) %>
+        <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <% devices.forEach(function(device) {%>
+                    <% if (device.deviceType == "Appliance") {%>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-sitemap fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Light") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-lightbulb fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Heating") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Socket") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-plug fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "TV") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-tv fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (device.deviceType == "Miscellaneous") { %>
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+
+
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

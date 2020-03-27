@@ -67,18 +67,28 @@ router.get('/manage-users/:username', function(req, res, next) {
   }
 });
 
-// delete devices?
+
+
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){
-    console.log(req.session.user + "abcdefg");
-    var sql = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName FROM devices, users, rooms, homes WHERE users.username ='" + req.session.user +"' AND users.homeID = homes.homeID AND rooms.homeID = homes.homeID AND devices.roomID = rooms.roomID";
+    // sql to get the users homeID
+    var sql = "SELECT homeID FROM users WHERE users.username = '" + req.session.user +"'";
     connection.query(sql, function(err, result, fields) {
-      res.render('manage-devices', ({ title: 'Express' }, {devices: result}));
+      // index result to get the homeID without sql jargon
+      var homeID = result[0].homeID;
+      // query using homeID
+      var sql2 = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, homes WHERE homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND homes.homeID = '"+homeID+"'";
+      connection.query(sql2, function(err, result2, fields) {
+        // render page 
+        res.render('manage-devices', ({ title: 'Express' },{devices: result2}));
+      });
     });
   } else {
     res.redirect('/');
   }
 });
+
+
 
 // delete rooms and re-assign home?
 router.get('/manage-home', function(req, res, next) {

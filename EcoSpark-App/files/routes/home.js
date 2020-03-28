@@ -26,21 +26,19 @@ router.get('/', function(req, res, next) {
       resp.on('data', (chunk) => {
         data += chunk;
       });
-  
-     // var sql2 = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo FROM faults;"
-     
       
       resp.on('end', () => {
         console.log(JSON.parse(data).currently.windSpeed);
         console.log(JSON.parse(data).currently.precipProbability);
         console.log("YES");
-
-        
-
-        res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
-          JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
-          precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed}));
-      });
+        console.log(req.session.log);
+        var sql = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo, devices.deviceDisplayName AS deviceDisplayName FROM faults, devices, rooms, users, homes WHERE faults.deviceID = devices.deviceID AND users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '"+ req.session.user + "';";
+        connection.query(sql, function(err, result, fields) {
+          res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
+            JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
+            precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed, faultInfo: result}));
+        });
+    });
   
       }).on("error", (err) => {
         console.log("Error: " + err.message);
@@ -57,6 +55,18 @@ router.use('/rooms', rooms);
 router.use('/energy-data', energydata);
 router.use('/devices', devices);
 router.use('/settings', settings);
-router.use('/my-account', myaccount);
+
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log(req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID FROM users WHERE users.username =" + req.session.user + ";";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+// router.use('/my-account', myaccount);
 
 module.exports = router;

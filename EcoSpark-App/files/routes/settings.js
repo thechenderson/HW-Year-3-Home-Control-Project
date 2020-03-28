@@ -20,7 +20,6 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
-
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     res.render('settings', { title: 'Express' });
@@ -28,7 +27,6 @@ router.get('/', function(req, res, next) {
     res.redirect('/');
   }
 });
-
 
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
@@ -57,17 +55,27 @@ router.get('/manage-users/:username', function(req, res, next) {
         queryWrapper(sqlD),
     ])
     .then(([userInfo]) => {
-        res.render('specific-user', {
-            title: 'Express',
-            userInfo
-        });
+      res.render('specific-user', {
+        title: 'Express',
+        userInfo
+      });
     });
   } else {
     res.redirect('/');
   }
 });
 
-
+router.post('/manage-users/:username/updateUser', function(req, response) {
+  console.log(req.session.user);
+  var sql =  "UPDATE users SET displayName = '" + req.body.displayName + "' WHERE username = '" + req.session.user + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/manage-users');
+    } else {
+      response.redirect('/manage-users/' +req.session.user );
+    }
+  });
+});
 
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){
@@ -88,14 +96,12 @@ router.get('/manage-devices', function(req, res, next) {
   }
 });
 
-
-
 // delete rooms and re-assign home?
 router.get('/manage-home', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    var sql = "SELECT homes.homeID AS homeID, homes.homeName AS homeName, homes.homeCreator AS homeCreator FROM users, homes WHERE users.homeID = homes.homeID AND users.username = '" + req.session.user + "'";
     connection.query(sql, function(err, result, fields) {
-      res.render('manage-home', ({ title: 'Express' }, {rooms: result}));
+      res.render('manage-home', ({ title: 'Express' }, {homes: result}));
     });
   } else {
     res.redirect('/');

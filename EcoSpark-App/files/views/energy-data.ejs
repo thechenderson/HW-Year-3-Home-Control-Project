@@ -58,6 +58,10 @@
           <img src="/scenery2.jpg" class="img-fluid" style="width: 70%; height: auto;">
           <div class="mask flex-center rgba-green-light">
             <p class="white-text">
+              <% if (averagesHInfo == "") { %>
+                <blockquote class="blockquote" style="color:white; background-color: #add2af; font-weight: bold;">
+                  <h1 class="bq-title">No current average details! </h1>
+              <% } %>
               <% averagesHInfo.forEach(function(aver) { %>
                 <% if ((aver.averOverallPower) <= (aver.powerLimit)) {%>
                   <blockquote class="blockquote bq-success" style="color:white; background-color: #add2af; font-weight: bold;">

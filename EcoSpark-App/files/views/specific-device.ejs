@@ -178,6 +178,19 @@
                     <i class="fas fa-edit"></i> Edit Device</a>
             </div>
         </div>
+        <%userInfo.forEach(function(user) {%>
+            <%if (user.isAdmin == 1) {%>
+                <div class="text-center" style="display:block">
+                    <a href="" class="btn btn-default btn-rounded mb-4" onclick="deleteDevice()">
+                        <i class="fas fa-edit"></i> Delete Device</a>
+                </div>
+            <% } else { %>
+                <div class="text-center" style="display:none">
+                    <a href="" class="btn btn-default btn-rounded mb-4">
+                        <i class="fas fa-edit"></i> Delete Device</a>
+                </div>
+            <% } %>
+        <% }) %>
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

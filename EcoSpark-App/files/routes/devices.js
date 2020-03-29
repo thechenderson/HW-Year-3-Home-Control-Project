@@ -69,18 +69,20 @@ router.get('/:deviceID', function(req, res, next) {
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
     var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rDeviceID = '" + req.params.deviceID + "';";
-   
+    var sqlU = "SELECT users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "'"; 
     Promise.all([
       queryWrapper(sqlR),
       queryWrapper(sqlD),
-      queryWrapper(sqlC)
+      queryWrapper(sqlC),
+      queryWrapper(sqlU)
     ])
-    .then(([roomInfo, deviceInfo, runningDeviceInfo]) => {
+    .then(([roomInfo, deviceInfo, runningDeviceInfo, userInfo]) => {
       res.render('specific-device', {
           title: 'Express',
           roomInfo,
           deviceInfo,
-          runningDeviceInfo
+          runningDeviceInfo,
+          userInfo
       });
   });
   } else {

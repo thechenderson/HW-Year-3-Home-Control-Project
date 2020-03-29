@@ -32,11 +32,15 @@ router.get('/', function(req, res, next) {
         console.log(JSON.parse(data).currently.precipProbability);
         console.log("YES");
         console.log(req.session.log);
-        var sql = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo, devices.deviceDisplayName AS deviceDisplayName FROM faults, devices, rooms, users, homes WHERE faults.deviceID = devices.deviceID AND users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '"+ req.session.user + "';";
-        connection.query(sql, function(err, result, fields) {
-          res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
-            JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
-            precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed, faultInfo: result}));
+        var sqlF = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo, devices.deviceDisplayName AS deviceDisplayName FROM faults, devices, rooms, users, homes WHERE faults.deviceID = devices.deviceID AND users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '"+ req.session.user + "';";
+        var sqlU = "SELECT users.username AS username, users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "';";
+        
+        connection.query(sqlF, function(err, resultF, fields) {
+          connection.query(sqlU, function(err, resultU, fields) {
+            res.render('home', ({ title: 'Express' },{user:req.session.nickname , timezone: JSON.parse(data).timezone, time: 
+              JSON.parse(data).currently.time, summary: JSON.parse(data).currently.summary, precipProbability: JSON.parse(data).currently.precipProbability,
+              precipType: JSON.parse(data).currently.precipType, temperature: JSON.parse(data).currently.temperature, windSpeed: JSON.parse(data).currently.windSpeed, faultInfo: resultF, userInfo: resultU}));
+          });
         });
     });
   

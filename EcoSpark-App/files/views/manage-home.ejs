@@ -15,16 +15,6 @@
     <body>
         
         <%- include ('partials/header') -%>
-        
-
-        <% homes.forEach(function(home) {%>
-            <h5
-            <%= home.homeID %>
-            <%= home.homeName %>
-            <%= home.homeCreator %>
-        <% }) %>
-
-
 
         <div class="container"> 
             <div class="row">
@@ -38,7 +28,7 @@
             </div>
           </br>
 
-          <% homes.forEach(function(home) {%>
+          <% homes.forEach(function(home) { %>
             <div class="row">
               <div class="col-sm-8">
                 <div class="card p-4 rounded">

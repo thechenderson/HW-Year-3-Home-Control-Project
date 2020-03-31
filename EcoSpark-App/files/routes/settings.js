@@ -66,8 +66,9 @@ router.get('/manage-users/:username', function(req, res, next) {
 });
 
 router.post('/manage-users/:username/updateUser', function(req, response) {
-  console.log(req.session.user);
-  var sql =  "UPDATE users SET displayName = '" + req.body.displayName + "' WHERE username = '" + req.session.user + "'";
+  // console.log(req.session.user);
+  console.log("hello");
+  var sql =  "UPDATE users SET users.displayName = '" + req.params.displayName + "' WHERE users.username = '" + req.session.user + "'";
   connection.query(sql, function (err, result, fields) {
     if(result== ""){
       response.redirect('/manage-users');
@@ -108,9 +109,34 @@ router.get('/manage-home', function(req, res, next) {
   }
 });
 
+// when updating a home
+router.get('/manage-home/:homeID/homeUpdate', function(req, res, next) {
+  var sql =  "UPDATE homes SET homeName = '" + request.params.homeName + "' WHERE homeID = '" + request.params.homeID + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home');
+    } else {
+      response.redirect('/home/manage-home/' );
+    }
+  });
+});
+
 router.get('/help', function(req, res, next) {
   if (req.session.loggedin){
       res.render('help', ({ title: 'Express' }));
+  } else {
+    res.redirect('/');
+  }
+});
+
+//account page
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log(req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
   } else {
     res.redirect('/');
   }

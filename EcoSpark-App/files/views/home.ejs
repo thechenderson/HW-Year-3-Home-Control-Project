@@ -90,7 +90,7 @@
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                        <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/settings"></a>
+                                        <a class="fas fa-cog fa-stack-1x icon" style="color:white" href="/home/settings"></a>
                                     </span>
                                 </div>
                                 <div class="card-body">
@@ -103,7 +103,7 @@
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                        <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/settings/help"></a>
+                                        <a class="fas fa-question fa-stack-1x icon" style="color:white" href="/home/settings/help"></a>
                                     </span>
                                 </div>
                                 <div class="card-body">
@@ -140,7 +140,6 @@
                     </div>
                     <br></br>
 
-                    
                     <h5> Fault List</h5>
                     
                     <% if (faultInfo == ""){ %>
@@ -152,7 +151,8 @@
                         <div class="alert alert-warning" role="alert">
                             <h5>Fault ID: <%= fault.faultID%></h5>
                             <h5>Device: <%= fault.deviceDisplayName%></h5>
-                            <h5>Room: <%= fault.roomDisplayName%></h5>    
+                            <h5>Room: <%= fault.roomDisplayName%></h5>
+                            <h5>Fault Info: <%= fault.faultInfo%></h5>    
                         </div>
                     </div>
                     <% }) %>

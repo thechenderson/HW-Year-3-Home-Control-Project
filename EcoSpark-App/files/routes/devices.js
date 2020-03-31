@@ -101,6 +101,56 @@ router.post('/:deviceID/updateDeviceName', function(request, response) {
     });
 });
 
+router.post('/:deviceID/deleteDevice', function(request, response) {
+  var sqlF = "DELETE FROM faults WHERE deviceID = '"+ request.params.deviceID + "';";  
+   connection.query(sqlF, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        if (result.affectRows == 0) {
+          console.log("No deviceID in faults");
+        }
+        var sqlC = "DELETE FROM changes WHERE deviceID = '" + request.params.deviceID + "';";
+        connection.query(sqlC, function (err, result, fields) {
+          if(result== ""){
+            response.redirect('/home');
+          } else {
+            if (result.affectRows == 0) {
+              console.log("No deviceID in changes");
+            }
+
+            var sqlR = "DELETE FROM runningdevices WHERE rDeviceID = '" + request.params.deviceID + "';";
+            connection.query(sqlR, function (err, result, fields) {
+              if(result== ""){
+                response.redirect('/home');
+              } else {
+                if (result.affectRows == 0) {
+                  console.log("No deviceID in runningdevices");
+                }
+                
+                var sqlD = "DELETE FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+                connection.query(sqlD, function (err, result, fields) {
+                  if(result== ""){
+                    response.redirect('/home');
+                  } else {
+                    if (result.affectRows == 0) {
+                      console.log("No deviceID in devices");
+                    }
+                    console.log("Record deleted");
+                    response.redirect('/home/devices/');
+        
+                  }
+                });
+                
+              }
+            });
+            
+          }
+        });
+      }
+    });
+});
+
 router.post('/createDevice', function(request, response) {
   var deviceNameOld = request.body.deviceName;
   var deviceType = request.body.deviceType;
@@ -130,6 +180,18 @@ router.post('/createDevice', function(request, response) {
   } else {
     response.redirect('/home/devices/add-device');
     response.end();
+  }
+});
+
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log(req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
+  } else {
+    res.redirect('/');
   }
 });
 

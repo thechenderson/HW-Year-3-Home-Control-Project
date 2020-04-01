@@ -192,4 +192,17 @@ router.post('/createRoom', function(request, response) {
   }
 });
 
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log("hello" + req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {}));
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+
 module.exports = router;

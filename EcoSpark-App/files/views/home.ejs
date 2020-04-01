@@ -82,16 +82,37 @@
                         <h4 class="card-title text-center">Devices</h4>
                     </div>
                 </div>
-                <div class="shadow-none card green lighten-4">
-                    <div class="view overlay text-center">
-                        <span class="fa-stack fa-6x ">
-                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-cogs fa-stack-1x icon" style="color:white" href="/home/settings"></a>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title text-center">System Settings</h4>
-                    </div>
+                
+                    <% userInfo.forEach(function(user) {%>
+                    
+                        <% if (user.isAdmin == 1) {%>
+                            <div class="shadow-none card green lighten-4">
+                                <div class="view overlay text-center">
+                                    <span class="fa-stack fa-6x ">
+                                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                        <a class="fas fa-cog fa-stack-1x icon" style="color:white" href="/home/settings"></a>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title text-center">System Settings</h4>
+                                </div>
+                            </div>
+                           
+                        <% } else {%>
+                            <div class="shadow-none card green lighten-4">
+                                <div class="view overlay text-center">
+                                    <span class="fa-stack fa-6x ">
+                                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                        <a class="fas fa-question fa-stack-1x icon" style="color:white" href="/home/settings/help"></a>
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title text-center">Help</h4>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                    
                 </div>
             </div>
         </div>
@@ -118,11 +139,23 @@
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
                     <br></br>
+
+                    <h5> Fault List</h5>
+                    
+                    <% if (faultInfo == ""){ %>
+                        Currently no devices with faults  </br>
+                    <% } %>
+
+                    <%faultInfo.forEach(function(fault) {%>
                     <div class="systemAlert">
                         <div class="alert alert-warning" role="alert">
-                            
+                            <h5>Fault ID: <%= fault.faultID%></h5>
+                            <h5>Device: <%= fault.deviceDisplayName%></h5>
+                            <h5>Room: <%= fault.roomDisplayName%></h5>
+                            <h5>Fault Info: <%= fault.faultInfo%></h5>    
                         </div>
                     </div>
+                    <% }) %>
                 </div>
                 <div class="col-sm-6">
                     <div class="card weather-card">

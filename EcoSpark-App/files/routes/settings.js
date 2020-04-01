@@ -20,7 +20,6 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
-
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     res.render('settings', { title: 'Express' });
@@ -28,7 +27,6 @@ router.get('/', function(req, res, next) {
     res.redirect('/');
   }
 });
-
 
 router.get('/manage-users', function(req, res, next) {
   if (req.session.loggedin){
@@ -52,22 +50,33 @@ router.get('/manage-users', function(req, res, next) {
 // when clicking on a user
 router.get('/manage-users/:username', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin FROM users, homes, rooms WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin, users.password AS password, users.homeID AS homeID FROM users, homes WHERE users.homeID = homes.homeID AND users.username ='" + req.params.username + "'";
     Promise.all([
         queryWrapper(sqlD),
     ])
     .then(([userInfo]) => {
-        res.render('specific-user', {
-            title: 'Express',
-            userInfo
-        });
+      res.render('specific-user', {
+        title: 'Express',
+        userInfo
+      });
     });
   } else {
     res.redirect('/');
   }
 });
 
-
+router.post('/manage-users/:username/updateUser', function(req, response) {
+  // console.log(req.session.user);
+  console.log("hello");
+  var sql =  "UPDATE users SET users.displayName = '" + req.params.displayName + "' WHERE users.username = '" + req.session.user + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/manage-users');
+    } else {
+      response.redirect('/manage-users/' +req.session.user );
+    }
+  });
+});
 
 router.get('/manage-devices', function(req, res, next) {
   if (req.session.loggedin){
@@ -88,23 +97,46 @@ router.get('/manage-devices', function(req, res, next) {
   }
 });
 
-
-
 // delete rooms and re-assign home?
 router.get('/manage-home', function(req, res, next) {
   if (req.session.loggedin){
-    var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
+    var sql = "SELECT homes.homeID AS homeID, homes.homeName AS homeName, homes.homeCreator AS homeCreator FROM users, homes WHERE users.homeID = homes.homeID AND users.username = '" + req.session.user + "'";
     connection.query(sql, function(err, result, fields) {
-      res.render('manage-home', ({ title: 'Express' }, {rooms: result}));
+      res.render('manage-home', ({ title: 'Express' }, {homes: result}));
     });
   } else {
     res.redirect('/');
   }
 });
 
+// when updating a home
+router.get('/manage-home/:homeID/homeUpdate', function(req, res, next) {
+  var sql =  "UPDATE homes SET homeName = '" + request.params.homeName + "' WHERE homeID = '" + request.params.homeID + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home');
+    } else {
+      response.redirect('/home/manage-home/' );
+    }
+  });
+});
+
 router.get('/help', function(req, res, next) {
   if (req.session.loggedin){
       res.render('help', ({ title: 'Express' }));
+  } else {
+    res.redirect('/');
+  }
+});
+
+//account page
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log(req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
   } else {
     res.redirect('/');
   }

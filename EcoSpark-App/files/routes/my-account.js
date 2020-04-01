@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
 var app = express();
 var jsonParser = bodyParser.json();
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
     if (req.session.loggedin){
       var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID FROM users WHERE users.username =" + req.session.user + ";";
       connection.query(sql, function(err, result, fields) {
-        res.render('manage-users', ({ title: 'Express' }, {users: result}));
+        res.render('my-account', ({ title: 'Express' }, {users: result}));
       });
     } else {
       res.redirect('/');

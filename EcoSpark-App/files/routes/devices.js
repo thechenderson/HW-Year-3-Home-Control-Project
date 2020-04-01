@@ -6,15 +6,6 @@ var bodyParser = require('body-parser')
 var app = express();
 var jsonParser = bodyParser.json();
 
-
-function changes(){
-  // POST /api/users gets JSON bodies --> Note how we use a jsonParser in our app.post call
-  app.post('/send', jsonParser, function (req, res) {
-  console.log(req.body);
-  console.log('Send button clicked');
-})
-}
-
 var connection = mysql.createConnection({
   host: process.env.hostname,
   user: process.env.username,
@@ -37,7 +28,6 @@ router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     // var $ = require('jQuery');
   
-
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
     var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults";
@@ -79,18 +69,20 @@ router.get('/:deviceID', function(req, res, next) {
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
     var sqlC = "SELECT runningdevices.rDeviceID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rDeviceID = '" + req.params.deviceID + "';";
-   
+    var sqlU = "SELECT users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "'"; 
     Promise.all([
       queryWrapper(sqlR),
       queryWrapper(sqlD),
-      queryWrapper(sqlC)
+      queryWrapper(sqlC),
+      queryWrapper(sqlU)
     ])
-    .then(([roomInfo, deviceInfo, runningDeviceInfo]) => {
+    .then(([roomInfo, deviceInfo, runningDeviceInfo, userInfo]) => {
       res.render('specific-device', {
           title: 'Express',
           roomInfo,
           deviceInfo,
-          runningDeviceInfo
+          runningDeviceInfo,
+          userInfo
       });
   });
   } else {
@@ -105,6 +97,56 @@ router.post('/:deviceID/updateDeviceName', function(request, response) {
         response.redirect('/home');
       } else {
         response.redirect('/home/devices/' +request.params.deviceID );
+      }
+    });
+});
+
+router.post('/:deviceID/deleteDevice', function(request, response) {
+  var sqlF = "DELETE FROM faults WHERE deviceID = '"+ request.params.deviceID + "';";  
+   connection.query(sqlF, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        if (result.affectRows == 0) {
+          console.log("No deviceID in faults");
+        }
+        var sqlC = "DELETE FROM changes WHERE deviceID = '" + request.params.deviceID + "';";
+        connection.query(sqlC, function (err, result, fields) {
+          if(result== ""){
+            response.redirect('/home');
+          } else {
+            if (result.affectRows == 0) {
+              console.log("No deviceID in changes");
+            }
+
+            var sqlR = "DELETE FROM runningdevices WHERE rDeviceID = '" + request.params.deviceID + "';";
+            connection.query(sqlR, function (err, result, fields) {
+              if(result== ""){
+                response.redirect('/home');
+              } else {
+                if (result.affectRows == 0) {
+                  console.log("No deviceID in runningdevices");
+                }
+                
+                var sqlD = "DELETE FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+                connection.query(sqlD, function (err, result, fields) {
+                  if(result== ""){
+                    response.redirect('/home');
+                  } else {
+                    if (result.affectRows == 0) {
+                      console.log("No deviceID in devices");
+                    }
+                    console.log("Record deleted");
+                    response.redirect('/home/devices/');
+        
+                  }
+                });
+                
+              }
+            });
+            
+          }
+        });
       }
     });
 });
@@ -138,6 +180,18 @@ router.post('/createDevice', function(request, response) {
   } else {
     response.redirect('/home/devices/add-device');
     response.end();
+  }
+});
+
+router.get('/my-account', function(req, res, next) {
+  if (req.session.loggedin){
+    console.log(req.session.user);
+    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
+  } else {
+    res.redirect('/');
   }
 });
 

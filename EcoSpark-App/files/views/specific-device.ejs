@@ -31,7 +31,7 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-utensils fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                    <a class="fas fa-sitemap fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
                                 </span>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-bed fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
+                                    <a class="as fa-lightbulb fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
                                 </span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-couch fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                    <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
                                 </span>
                             </div>>
                         </div>
@@ -61,7 +61,7 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-bath fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                    <a class="fas fa-plug fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
                                 </span>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-door-open fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                    <a class="fas fa-tv fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
                                 </span>
                             </div>
                         </div>
@@ -81,22 +81,43 @@
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-chair fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                    <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
                                 </span>
                             </div>
                         </div>
                     <% } %>
                 <% }) %>
               <div class="media-body">
+                <div class="modal fade" id="deleteDevice"></div> 
                 <h5 class="mt-0 font-weight-bold">Device Details:</h5>
-                    <% deviceInfo.forEach(function(device) {%>
-                        <h2> Device Type: <%= device.deviceType %></h2></br>
+                
+                    
+                    <% deviceInfo.forEach(function(device) { %>
+                        <form action="<%=device.deviceID%>/deleteDevice" method="post">
+                            <h2 id="deviceID"> <%= device.deviceID %> </h2>
+                            <h2> Device Type: <%= device.deviceType %></h2></br>
+                            
+                            <% roomInfo.forEach(function(room) {%>
+                                <h2> Device Location: <%= room.roomDisplayName %></h2></br>
+                            <% }) %>
+                            
+                            <%userInfo.forEach(function(user) {%>
+                                <%if (user.isAdmin == 1) {%>
+                                    <div class="modal-footer d-flex justify-content-center" style="display:block">
+                                        <button class="btn btn-default" type="submit">Delete Device</button>
+                                    </div>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+
+                        </form>
                     <% }) %>
-                    <% roomInfo.forEach(function(room) {%>
-                        <h2> Device Location: <%= room.roomDisplayName %></h2></br>
-                    <% }) %>
+                        
+                    
+                </div>
                 </div>
               </div>
+           
             </li>
           </ul>
         </div>
@@ -178,13 +199,24 @@
                     <i class="fas fa-edit"></i> Edit Device</a>
             </div>
         </div>
-
+        
+        <!-- <%userInfo.forEach(function(user) {%>
+            <%if (user.isAdmin == 1) {%>
+                <div class="text-center" style="display:block">
+                    <a href="" class="btn btn-default btn-rounded mb-4" data-target="#deleteDevice">
+                        <i class="fas fa-edit"></i> Delete Device</a>
+                </div>
+            <% } else { %>
+                <div class="text-center" style="display:none">
+                    <a href="" class="btn btn-default btn-rounded mb-4">
+                        <i class="fas fa-edit"></i> Delete Device</a>
+                </div>
+            <% } %>
+        <% }) %> -->
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
 
-        <script>
-        </script>
     </body>
 </html>

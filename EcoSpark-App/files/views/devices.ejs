@@ -53,18 +53,19 @@
                 <% runningDeviceInfo.forEach(function(device) { %>
                     <div class="row">
                         <div class="col-sm">
+                            <form action="/turnOffDevice" method="post">
                             <% if (room.roomID == device.rRoomID) { %>
                                 <h2 class="titles"><%= room.roomDisplayName%></h2> </br>
                                 <div class="container" style="color:white" >
-                                    <h2 id="deviceID"> <%= device.rDeviceID%> </h2>
-                                    <h2 id="deviceDisplayName"><%= device.rDeviceDisplayName%>: </h2>
-                                    <h2 id="devicePower"><%= device.rDevicePower%> </h2>
-                                    <button class="btn btn-default btn-rounded mb-4" type="submit" onclick="changes()">Turn Off</button>
-                                    </h2>
-                               
-                                    </br>
+                                    <h2 id="deviceID" id="deviceID"> <%= device.rDeviceID%> </h2>
+                                    <h2 id="deviceDisplayName" id="deviceName"><%= device.rDeviceDisplayName%>: </h2>
+                                    <h2 id="devicePower" id="devicePower"><%= device.rDevicePower%> </h2>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button class="btn btn-default" type="submit">Turn Off Device</button>
+                                    </div>
                                 </div>
                             <% } %>
+                            </form>
                         </div>
                     </div>
                 <% }) %>

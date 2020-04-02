@@ -22,7 +22,6 @@ var mysql = require('mysql');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

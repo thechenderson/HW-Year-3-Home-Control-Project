@@ -138,15 +138,23 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
                     }
                     console.log("Record deleted");
                     response.redirect('/home/devices/');
-        
                   }
-                });
-                
+                }); 
               }
             });
-            
           }
         });
+      }
+    });
+});
+
+router.post('/turnOffDevice', function(request, response) {
+  var sql =  "INSERT INTO changes VALUES ('" + request.params.deviceID + "','" + request.params.deviceName + "', 'Off');";
+    connection.query(sql, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        response.redirect('/home/devices/');
       }
     });
 });
@@ -155,7 +163,6 @@ router.post('/createDevice', function(request, response) {
   var deviceNameOld = request.body.deviceName;
   var deviceType = request.body.deviceType;
   var deviceRoomID = request.body.deviceRoomID
-  console.log(deviceRoomID);
 
   var deviceName = deviceNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
   

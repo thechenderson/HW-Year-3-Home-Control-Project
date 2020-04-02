@@ -50,9 +50,9 @@ router.get('/manage-users', function(req, res, next) {
 // when clicking on a user
 router.get('/manage-users/:username', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin, users.password AS password, users.homeID AS homeID FROM users, homes WHERE users.homeID = homes.homeID AND users.username ='" + req.params.username + "'";
+    var sqlD = "SELECT users.username AS username, users.displayName AS displayName, users.isAdmin AS isAdmin, users.password AS password, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.homeID = homes.homeID AND users.username ='" + req.params.username + "'";
     Promise.all([
-        queryWrapper(sqlD),
+        queryWrapper(sqlD)
     ])
     .then(([userInfo]) => {
       res.render('specific-user', {
@@ -65,15 +65,55 @@ router.get('/manage-users/:username', function(req, res, next) {
   }
 });
 
+//Button for updating user details
 router.post('/manage-users/:username/updateUser', function(req, response) {
-  // console.log(req.session.user);
-  console.log("hello");
-  var sql =  "UPDATE users SET users.displayName = '" + req.params.displayName + "' WHERE users.username = '" + req.session.user + "'";
+  var username = req.params.username;
+  var displayNameOld = req.body.displayName;
+  var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g,"");
+  var passwordOld = req.body.password;
+  var password = passwordOld.replace(/[^a-zA-Z0-9]/g,"");
+  var isAdminOld = req.body.isAdmin;
+  var isAdmin = isAdminOld.replace(/[^a-zA-Z0-9]/g,"");
+
+  var sql = "UPDATE users SET users.displayName = '" + displayName + "', users.password = '"+ password +"', users.isAdmin = '"+ isAdmin +"' WHERE users.username = '" + username + "'";
   connection.query(sql, function (err, result, fields) {
     if(result== ""){
-      response.redirect('/manage-users');
+      response.redirect('/home/settings/manage-users');
     } else {
-      response.redirect('/manage-users/' +req.session.user );
+      console.log(result);
+      response.redirect('/home/settings/manage-users/' + req.params.username );
+    }
+  });
+});
+
+//Button to delete a user
+router.post('/manage-users/:username/deleteUser', function(req, response) {
+  var username = req.params.username;
+  var sql = "DELETE FROM users WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home/settings/manage-users');
+    } else {
+      console.log(result);
+      response.redirect('/home/settings/manage-users/');
+    }
+  });
+});
+
+router.post('/manage-home/updateHome', function(req, response) {
+  var homeID = req.params.homeID;
+  var homeNameOld = req.body.homeName;
+  var homeName = homeNameOld.replace(/[^a-zA-Z0-9]/g,"");
+  var homeCreatorOld = req.body.homeCreator;
+  var homeCreator = homeCreatorOld.replace(/[^a-zA-Z0-9]/g,"");
+
+
+  var sql = "UPDATE homes SET homes.homeName = '" + homeName + "', homes.homeCreator = '"+ homeCreator +"' WHERE homes.homeID = '" + homeID + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home/settings/manage-home');
+    } else {
+      response.redirect('/home/settings/manage-home/');
     }
   });
 });

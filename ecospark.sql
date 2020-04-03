@@ -21,7 +21,7 @@ CREATE TABLE `rooms` (
   `roomID` varchar(20) NOT NULL,
   `roomDisplayName` varchar(20) NOT NULL,
   `roomType` varchar(20) NOT NULL DEFAULT 0,
-  `temperature` int(2) NOT NULL,
+  `temperature` int(2),
   `homeID` varchar(20) NOT NULL,
   PRIMARY KEY (roomID),
   FOREIGN KEY (homeID) REFERENCES homes(homeID)

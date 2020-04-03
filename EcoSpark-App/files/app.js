@@ -15,7 +15,6 @@ var myAccountRouter = require('./routes/my-account'); //View current account det
 var settingsRouter = require('./routes/settings'); //Settings
 var helpRouter = require('./routes/help'); //Help usng the site
 
-
 var app = express();
 
 var mysql = require('mysql');

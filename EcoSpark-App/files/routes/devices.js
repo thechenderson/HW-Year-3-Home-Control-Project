@@ -148,10 +148,13 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
     });
 });
 
-router.post('/turnOffDevice', function(request, response) {
-  console.log("hello");
-  var sql =  "INSERT INTO changes VALUES ('" + request.params.deviceID + "','" + request.params.deviceName + "', 'Off');";
-    connection.query(sql, function (err, result, fields) {
+router.post('/:rDeviceID/turnOffDevice', function(request, response) {
+  var deviceID = request.params.rDeviceID;
+  var deviceName = request.body.deviceName;
+
+  // var sql =  "INSERT INTO changes VALUES ('" + deviceID + "','" + request.params.deviceName + "', 'Off');";
+  var sqlC = "DELETE FROM runningDevices WHERE runningDevices.rDeviceID='" + deviceID  + "';"
+    connection.query(sqlC, function (err, result, fields) {
       if(result== ""){
         response.redirect('/home');
       } else {

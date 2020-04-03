@@ -34,7 +34,6 @@
                 <div id="chart-container">
                     <canvas id="lineChart"></canvas>
                 </div>
-              
             </div>
         </div>
         </br>
@@ -53,26 +52,26 @@
                 
                 <% runningDeviceInfo.forEach(function(device) { %>
                     <% if (room.roomID == device.rRoomID) { %>
-                        <form action="/home/devices/turnOffDevice" method="post">
-                            <div class="container">
-                                <div class="row">
-                                    <h2 class="titles"><%= room.roomDisplayName%></h2> 
-                                    </br>
-                                </div>
+                        <div class="container">
+                            <div class="row">
+                                <h2 class="titles"><%= room.roomDisplayName%></h2> 
+                                </br>
+                            </div>
+                            <form action="/home/devices/<%=device.rDeviceID%>/turnOffDevice" method="post">
                                 <div class="row">
                                     <div class="col-sm" style="color:white">
-                                        <h2 id="deviceID" id="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
-                                        <h2 id="deviceDisplayName" id="deviceName" style="text-align:center"><%= device.rDeviceDisplayName%> : </h2>
+                                        <h2 id="deviceID" id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
+                                        <h2 id="deviceDisplayName" id="deviceName" name="deviceName" style="text-align:center"><%= device.rDeviceDisplayName%> : </h2>
                                     </div>
                                     <div class="col-sm" style="color:white">
-                                        <h2 id="devicePower" id="devicePower" style="text-align:center"><%= device.rDevicePower%> </h2>
-                                    </div> 
+                                        <h2 id="devicePower" id="devicePower" name="devicePower" style="text-align:center"><%= device.rDevicePower%> </h2>
+                                    </div>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button class="btn btn-default" type="submit">Turn Off Device</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     <% } %> 
                 <% }) %>
             <% }) %>
@@ -288,6 +287,8 @@
             responsive: true
             }
             });
+
+          
 
         </script>
     </body>

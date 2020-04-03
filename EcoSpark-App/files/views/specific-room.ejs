@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/homePage.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/addRoom.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
@@ -18,26 +18,35 @@
 
   <%- include ('partials/header') -%>
 
-  <br></br>
+
 
   <div style="height: 100">
     <div class="flex-column" align="center">
-      <h2> Overview of
-        <%roomInfo.forEach(function(room) {%>
-        <%=room.roomDisplayName%>'s Energy Usage
-        <% }) %>
+      <h2>
+        <u> Overview of
+          <%roomInfo.forEach(function(room) {%>
+          <%=room.roomDisplayName%>'s Energy Usage
+          <% }) %>
+        </u>
       </h2>
-      </br>
+      <div>
+        <p class="fas fa-thermometer-half"> Current Room Temp _°C</p>
+        <br>
+        <p class="fas fa-lightbulb"> Current Room Energy Usage _ KW </p>
+      </div>
+      <br></br>
       <canvas id="lineChart" style="max-width: 800px;"></canvas>
     </div>
   </div>
+
+
 
   </br>
   </br>
 
   <div class="container" align="center">
     <h2 class="titles">
-      <u> List of Devices </u>
+      <u> Devices in Room </u>
     </h2>
     </br>
     <ul class="list-group">
@@ -81,61 +90,73 @@
   </div>
 
   <br></br>
-  <br></br>
 
-  <h2 class="titles"> Room Control: </h2>
-
-  <br></br>
-
-  <div class="loginCardHolder white">
-    <div class="card  teal lighten-3">
-      <div class="card-body">
-        <form action="createRoom" method="post">
-          <p class="h4 text-center py-4">Create a New Room</p>
-          <div class="md-form">
-            <i class="fas fa-pencil-alt prefix"></i>
-            <input type="text" id="inputIconEx2" class="form-control" name="roomID" required>
-            <label for="inputIconEx2">Create Unique Room Code</label>
-          </div>
-          <div class="md-form">
-            <i class="fas fa-pencil-alt prefix"></i>
-            <input type="text" id="inputIconEx2" class="form-control" name="roomName" required>
-            <label for="inputIconEx2">Room Name</label>
-          </div>
-          <div class="text-center py-4 mt-3">
-            <div class="form-group">
-              <button class="btn  green lighten-2" type="submit">Add Room</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+  <div class="flex-column" align="center">
+    <h2 class="titles ">
+      <u> Room Control </u>
+    </h2>
   </div>
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-6">
-        <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-          <br></br>
-          <label for="customRange1">Change Room Temperature</label>
-          <input type="range" class="custom-range" id="customRange1">
-          <br></br>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitches">
-            <label class="custom-control-label" for="customSwitches">Main Lights off/on</label>
+      <div class="col-sm">
+        <div class="loginCardHolder white">
+          <div class="card  teal lighten-3">
+            <div class="card-body">
+              <%roomInfo.forEach(function(room) {%>
+              <form action="<%=room.roomID%>/updateHeating" method="post">
+                <p class="h4 text-center py-4">Heating</p>
+                <div class="md-form">
+                  <i class="fas fa-fire-alt prefix"></i>
+                  <label> Select Room Temperature</label>
+                  <input type="range" class="custom-range mt-5 ml-3" id="customRange1">
+                </div>
+                <div class="text-center">
+                  <div class="form-group">
+                    <button class="btn  green lighten-2" type="submit">Update Heating</button>
+                  </div>
+                </div>
+              </form>
+              <% }) %>
+            </div>
           </div>
-          <br></br>
         </div>
       </div>
-      <% averagesRInfo.forEach(function(aver) { %>
-      <div class="col-sm-6">
-        <h4 class="fas fa-thermometer-half"> Current Room Temp _°C</h4>
-        <h4 class="fas fa-lightbulb"> Current Room Energy Usage <%= aver.averRoomPower%> KW </h4>
+
+      <div class="col-sm">
+        <div class="loginCardHolder white">
+          <div class="card  teal lighten-3">
+            <div class="card-body">
+              <%roomInfo.forEach(function(room) {%>
+              <%deviceInfo.forEach(function(device) {%>
+              <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
+                <p class="h4 text-center py-4">Devices</p>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" value="on" onChange="this.form.submit()"
+                    <% runningDevices.forEach(function(runningD) {%>
+                      <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
+                        <%= 'checked' %>
+                        <% } %>
+                    <% }) %>
+                    >
+                    <label class="custom-control-label" for="customSwitch1"> <%= device.deviceDisplayName %> <% runningDevices.forEach(function(runningD) {%>
+                      <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
+                        <%= 'ON' %>
+                      <% } else {%>
+                        <%= 'OFF' %>
+                      <% } %>
+                      <% }) %>
+                    </label>
+                  </div>
+                </form>
+              <% }) %>
+              <% }) %>
+            </div>
+          </div>
+        </div>
       </div>
-      <% }) %>
     </div>
   </div>
-
 
   <div class="edit">
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -188,7 +209,7 @@
         labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
         datasets: [
           {
-            label: "Energy Consumption from ROOM",
+            label: "Energy Consumption",
             data: [0, 65, 45, 65, 35, 65, 0],
             backgroundColor: gradientFill,
             borderColor: [

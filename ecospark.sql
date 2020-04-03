@@ -21,6 +21,7 @@ CREATE TABLE `rooms` (
   `roomID` varchar(20) NOT NULL,
   `roomDisplayName` varchar(20) NOT NULL,
   `roomType` varchar(20) NOT NULL DEFAULT 0,
+  `temperature` int(2) NOT NULL,
   `homeID` varchar(20) NOT NULL,
   PRIMARY KEY (roomID),
   FOREIGN KEY (homeID) REFERENCES homes(homeID)
@@ -45,15 +46,16 @@ CREATE TABLE `changes` (
   FOREIGN KEY (deviceID) REFERENCES devices(deviceID)
 ) ENGINE=INNODB;
 
-CREATE TABLE runningDevices(
-  `rDeviceID` int(11) NOT NULL,
+CREATE TABLE `runningDevices`(
+  `rID` int(11)  NOT NULL AUTO_INCREMENT,
   `rDeviceDisplayName` varchar(20) NOT NULL,
   `rDevicePower` int(11) NOT NULL DEFAULT 0,
   `rDeviceType` int(11) NOT NULL DEFAULT 0,
+  `deviceID` int(11) NOT NULL, 
   `roomID`varchar(20) NOT NULL,
-  PRIMARY KEY (rDeviceID),
+  PRIMARY KEY (rID),
   FOREIGN KEY (roomID) REFERENCES rooms(roomID),
-  FOREIGN KEY (rDeviceID) REFERENCES devices(deviceID)
+  FOREIGN KEY (deviceID) REFERENCES devices(deviceID)
 ) ENGINE=INNODB;
 
 CREATE TABLE `faults` (

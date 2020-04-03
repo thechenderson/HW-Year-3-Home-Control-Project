@@ -97,7 +97,9 @@ router.get('/:roomID', function(req, res, next) {
 
 
 router.post('/:roomID/update:deviceID', function(request, response) {
-  var sql = "INSERT INTO runningDevices (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+
+  if(request.body.switch == 'on') {
+    var sql = "INSERT INTO runningDevices (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
     connection.query(sql, function (err, result, fields) {
       if(result== ""){
         response.redirect('/home');
@@ -105,6 +107,16 @@ router.post('/:roomID/update:deviceID', function(request, response) {
         response.redirect('/home/rooms/' +request.params.roomID );
       }
     });
+  }  else {
+    var sql = "INSERT INTO runningDevices (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+    connection.query(sql, function (err, result, fields) {
+      if(result== ""){
+        response.redirect('/home');
+      } else {
+        response.redirect('/home/rooms/' +request.params.roomID );
+      }
+    });
+  }
 });
 
 router.post('/assignHome', function(request, response){

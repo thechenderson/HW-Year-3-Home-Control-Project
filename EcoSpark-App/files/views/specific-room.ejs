@@ -132,7 +132,7 @@
               <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
                 <p class="h4 text-center py-4">Devices</p>
                   <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1" value="on" onChange="this.form.submit()"
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="switch" value="on" onChange="this.form.submit()"
                     <% runningDevices.forEach(function(runningD) {%>
                       <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
                         <%= 'checked' %>

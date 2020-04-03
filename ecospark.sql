@@ -50,7 +50,7 @@ CREATE TABLE `runningDevices`(
   `rID` int(11)  NOT NULL AUTO_INCREMENT,
   `rDeviceDisplayName` varchar(20) NOT NULL,
   `rDevicePower` int(11) NOT NULL DEFAULT 0,
-  `rDeviceType` int(11) NOT NULL DEFAULT 0,
+  `rDeviceType` varchar(11) NOT NULL,
   `deviceID` int(11) NOT NULL, 
   `roomID`varchar(20) NOT NULL,
   PRIMARY KEY (rID),

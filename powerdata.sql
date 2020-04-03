@@ -29,7 +29,7 @@ CREATE TABLE `faults` (
  `deviceID` int(11) NOT NULL,
  `deviceDisplayName` varchar(20) NOT NULL,
  `roomDisplayName` varchar(20) NOT NULL,
- `faultInfo` varchar(40),
+ `faultInfo` varchar(2000),
  PRIMARY KEY (faultID),
  FOREIGN KEY (deviceID) REFERENCES devices(deviceID)
 ) ENGINE=INNODB;

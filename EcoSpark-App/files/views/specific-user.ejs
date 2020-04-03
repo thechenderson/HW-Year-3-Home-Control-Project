@@ -18,41 +18,70 @@
 
         <div class="container"> 
             <div class="row">
-              <div class="col-sm-8">
-
+              <div class="col-sm">
                 <div class="card p-4 rounded" style="text-align: center;">
                   <% userInfo.forEach(function(user) { %>
-                    <h5> Account Details for <%= user.username %></h5>
+                    <h3>Account Details for <%= user.username %></h3>
+                    
                     <% }) %>
-                  </div>
+                </div>
               </div>
             </div>
           </br>
 
           <% userInfo.forEach(function(user) {%>
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm">
                 <div class="card p-4 rounded">
-                  <h5>Account Properties:</h5>
-                  <h3>Username:  <%=user.username%></h3>
-                  <small class="form-text text-muted">Name displayed throughout the application.</small>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-sm">
+                      <h4>Username:</h4>
+                      <small class="form-text text-muted">Name displayed throughout the application.</small>
+                    </div>
+                    <div class="col-sm">
+                      <h4><%=user.username%></h4>
+                    </div>
+                  </div>
                   </br>
 
-                  <h3>Home Name: <%= user.homeName %> </h3>
-                  <small class="form-text text-muted"> Home name of the user.</small> 
+                  <div class="row" style="text-align: center;">
+                    <div class="col-sm">
+                      <h4>Home Name:</h4>
+                      <small class="form-text text-muted">Home name of the user.</small>
+                    </div>
+                    <div class="col-sm">
+                      <h4><%=user.homeName%></h4>
+                    </div>
+                  </div>
                   </br>
 
-                  <h3>Admin: <%= user.isAdmin %> </h3>
-                  <small class="form-text text-muted">User access for their home.</small>
-                  </br>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-sm">
+                      <h4>Admin:</h4>
+                      <small class="form-text text-muted">User access for their home.</small>
+                    </div>
+                    <div class="col-sm">
+                      <% if (user.isAdmin == 0) {%>
+                        <h4> No </h4>
+                      <% } else { %>
+                        <h4> Yes </h4>
+                      <% } %>
+                    </div>
+                  </div>
                </div>
               </div>
+              
             </div>
           </br>
 
-            <div class="row">
-              <div class="col-sm-8">
+            <!-- <div class="row"> -->
+              <div class="col-sm">
                 <div class="card p-4 rounded">
+                  <div class="container" style="text-align: center;">
+                    <h3>Extra Account Details</h3>
+                    <small class="form-text text-muted">These details can be changed to suit the user.</small>
+                  </div>
+                </br>
                   <form action="<%=user.username%>/updateUser" method="post"></form>
                     <h5>Display Name:</h5>
                     <input class="form-control disabled rounded" placeholder="<%= user.displayName%>" id="displayName" name="displayName">
@@ -86,7 +115,7 @@
                 </div>
               </div>
           </div>
-        </div>
+        <!-- </div> -->
         
         <% }) %>
 

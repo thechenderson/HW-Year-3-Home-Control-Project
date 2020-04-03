@@ -119,29 +119,29 @@
 
       <div id="graphDayContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Days Energy Consumption </h1>
-          <canvas id="lineChart"></canvas>
+          <h1> Graph for Days Energy Consumption </h1></br>
+          <canvas id="lineChartA"></canvas>
         </div>
       </div>
 
       <div id="graphWeekContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Weeks Energy Consumption </h1>
-          <canvas id="lineChart"></canvas>
+          <h1> Graph for Weeks Energy Consumption </h1></br>
+          <canvas id="lineChartB"></canvas>
         </div>
       </div>
       
       <div id="graphMonthContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Month Energy Consumption </h1>
-          <canvas id="lineChart"></canvas>
+          <h1> Graph for Month Energy Consumption </h1></br>
+          <canvas id="lineChartC"></canvas>
         </div>
       </div>
 
       <div id="graphYearContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Year Energy Consumption </h1>
-          <canvas id="lineChart"></canvas>
+          <h1> Graph for Year Energy Consumption </h1></br>
+          <canvas id="lineChartD"></canvas>
         </div>
       </div>
 
@@ -152,6 +152,146 @@
       <script>
       
         var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+        "November", "December"],
+        datasets: [{
+        label: "My First dataset",
+        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+        'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+        },
+        {
+        label: "My Second dataset",
+        data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
+        backgroundColor: [
+        'rgba(0, 137, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(0, 10, 130, .7)',
+        ],
+        borderWidth: 2
+        }
+        ]
+        },
+        options: {
+        responsive: true
+        }
+        });
+
+        var ctxL = document.getElementById("lineChartA").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+        "November", "December"],
+        datasets: [{
+        label: "My First dataset",
+        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+        'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+        },
+        {
+        label: "My Second dataset",
+        data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
+        backgroundColor: [
+        'rgba(0, 137, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(0, 10, 130, .7)',
+        ],
+        borderWidth: 2
+        }
+        ]
+        },
+        options: {
+        responsive: true
+        }
+        });
+
+        var ctxL = document.getElementById("lineChartB").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+        "November", "December"],
+        datasets: [{
+        label: "My First dataset",
+        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+        'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+        },
+        {
+        label: "My Second dataset",
+        data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
+        backgroundColor: [
+        'rgba(0, 137, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(0, 10, 130, .7)',
+        ],
+        borderWidth: 2
+        }
+        ]
+        },
+        options: {
+        responsive: true
+        }
+        });
+
+        var ctxL = document.getElementById("lineChartC").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+        "November", "December"],
+        datasets: [{
+        label: "My First dataset",
+        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+        'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+        },
+        {
+        label: "My Second dataset",
+        data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
+        backgroundColor: [
+        'rgba(0, 137, 132, .2)',
+        ],
+        borderColor: [
+        'rgba(0, 10, 130, .7)',
+        ],
+        borderWidth: 2
+        }
+        ]
+        },
+        options: {
+        responsive: true
+        }
+        });
+
+        var ctxL = document.getElementById("lineChartD").getContext('2d');
         var myLineChart = new Chart(ctxL, {
         type: 'line',
         data: {

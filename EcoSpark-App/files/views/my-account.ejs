@@ -48,7 +48,11 @@
                                 <p><h3>Is the user an Admin?</h3></p>
                             </div>
                             <div class="col-sm">
-                                <p><h3><%=user.isAdmin%></h3></p>
+                                <% if (user.isAdmin == 0) {%>
+                                    <p><h3> No </h3></p>
+                                  <% } else { %>
+                                    <p><h3> Yes </h3></p>
+                                <% } %>
                             </div>
                           </div>
             

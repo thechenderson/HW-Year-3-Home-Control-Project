@@ -149,6 +149,7 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
 });
 
 router.post('/turnOffDevice', function(request, response) {
+  console.log("hello");
   var sql =  "INSERT INTO changes VALUES ('" + request.params.deviceID + "','" + request.params.deviceName + "', 'Off');";
     connection.query(sql, function (err, result, fields) {
       if(result== ""){

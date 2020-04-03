@@ -138,24 +138,28 @@
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
-                    <br></br>
+                    <br>
 
-                    <h5> Fault List</h5>
-                    
-                    <% if (faultInfo == ""){ %>
-                        Currently no devices with faults  </br>
-                    <% } %>
+                    <!-- <div class="col-sm"> -->
+                        <div class="card p-4 rounded">
+                            <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
+                            
+                            <% if (faultInfo == ""){ %>
+                                Currently no devices with faults  </br>
+                            <% } %>
 
-                    <%faultInfo.forEach(function(fault) {%>
-                    <div class="systemAlert">
-                        <div class="alert alert-warning" role="alert">
-                            <h5>Fault ID: <%= fault.faultID%></h5>
-                            <h5>Device: <%= fault.deviceDisplayName%></h5>
-                            <h5>Room: <%= fault.roomDisplayName%></h5>
-                            <h5>Fault Info: <%= fault.faultInfo%></h5>    
+                            <%faultInfo.forEach(function(fault) {%>
+                            <div class="systemAlert">
+                                <div class="alert alert-warning" role="alert">
+                                    <h5>Fault ID: <%= fault.faultID%></h5>
+                                    <h5>Device: <%= fault.deviceDisplayName%></h5>
+                                    <h5>Room: <%= fault.roomDisplayName%></h5>
+                                    <h5>Fault Info: <%= fault.faultInfo%></h5>    
+                                </div>
+                            </div>
+                            <% }) %>
                         </div>
-                    </div>
-                    <% }) %>
+                    <!-- </div> -->
                 </div>
                 <div class="col-sm-6">
                     <div class="card weather-card">

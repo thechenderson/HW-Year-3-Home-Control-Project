@@ -100,13 +100,14 @@ router.post('/manage-users/:username/deleteUser', function(req, response) {
   });
 });
 
-router.post('/manage-home/updateHome', function(req, response) {
+router.post('/manage-home/:homeID/updateHome', function(req, response) {
   var homeID = req.params.homeID;
-  var homeNameOld = req.body.homeName;
-  var homeName = homeNameOld.replace(/[^a-zA-Z0-9]/g,"");
-  var homeCreatorOld = req.body.homeCreator;
-  var homeCreator = homeCreatorOld.replace(/[^a-zA-Z0-9]/g,"");
-
+  console.log(homeID);
+  var homeName = req.body.homeName;
+  console.log(homeName);
+  var homeCreator = req.body.homeCreator;
+  // console.log(homeName);
+  console.log(homeCreator);
 
   var sql = "UPDATE homes SET homes.homeName = '" + homeName + "', homes.homeCreator = '"+ homeCreator +"' WHERE homes.homeID = '" + homeID + "'";
   connection.query(sql, function (err, result, fields) {

@@ -32,12 +32,13 @@
             </br>
                 <!-- This is the graph using ajax -->
                 <div id="chart-container">
-                    <canvas id="mycanvas"></canvas>
+                    <canvas id="lineChart"></canvas>
                 </div>
               
             </div>
         </div>
-          
+        </br>
+
         <div class="dark green lighten-2">
             <h2 class="titles"> Rooms: 
             <% if (runningDeviceInfo == ""){ %>
@@ -51,23 +52,28 @@
                 <% } %>
                 
                 <% runningDeviceInfo.forEach(function(device) { %>
-                    <div class="row">
-                        <div class="col-sm">
-                            <form action="/turnOffDevice" method="post">
-                            <% if (room.roomID == device.rRoomID) { %>
-                                <h2 class="titles"><%= room.roomDisplayName%></h2> </br>
-                                <div class="container" style="color:white" >
-                                    <h2 id="deviceID" id="deviceID"> <%= device.rDeviceID%> </h2>
-                                    <h2 id="deviceDisplayName" id="deviceName"><%= device.rDeviceDisplayName%>: </h2>
-                                    <h2 id="devicePower" id="devicePower"><%= device.rDevicePower%> </h2>
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-default" type="submit">Turn Off Device</button>
-                                    </div>
+                    <% if (room.roomID == device.rRoomID) { %>
+                        <form action="/home/devices/turnOffDevice" method="post">
+                            <div class="container">
+                                <div class="row">
+                                    <h2 class="titles"><%= room.roomDisplayName%></h2> 
+                                    </br>
                                 </div>
-                            <% } %>
-                            </form>
-                        </div>
-                    </div>
+                                <div class="row">
+                                    <div class="col-sm" style="color:white">
+                                        <h2 id="deviceID" id="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
+                                        <h2 id="deviceDisplayName" id="deviceName" style="text-align:center"><%= device.rDeviceDisplayName%> : </h2>
+                                    </div>
+                                    <div class="col-sm" style="color:white">
+                                        <h2 id="devicePower" id="devicePower" style="text-align:center"><%= device.rDevicePower%> </h2>
+                                    </div> 
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button class="btn btn-default" type="submit">Turn Off Device</button>
+                                </div>
+                            </div>
+                        </form>
+                    <% } %> 
                 <% }) %>
             <% }) %>
             
@@ -86,9 +92,9 @@
                 <% } %>
                 
                 <% faultInfo.forEach(function(fault) {%>
-                    <%= fault.fDeviceDisplayName%>  </br>
-                    <%= fault.roomDisplayName%>  </br>
-                    <%= fault.faultInfo%>  </br>
+                    Device Name: <%= fault.fDeviceDisplayName%>  </br>
+                    Device Location: <%= fault.fRoomDisplayName%>  </br>
+                    Fault Info: <%= fault.faultInfo%>  </br>
                 <% }) %>
               </div>
             </div>
@@ -207,24 +213,6 @@
         <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
 
         <script>
-            //
-            function changes(){
-            // POST /api/users gets JSON bodies --> Note how we use a jsonParser in our app.post call
-            alert("hello");  
-                $.ajax({
-                    url: '/php/changes.php', //This is the current doc
-                    type: "POST",
-                    dataType:'json', // add json datatype to get json
-                    data: ({deviceID: 145}),
-                    success: function(data){
-                        console.log(data);
-                        alert(data);
-                    }
-                });  
-
-            
-            }
-
             // $(document).ready(function(){
             //     $.ajax({
             //         //might be the problem here as it linking to my other server file, the data.php file is in the php folder
@@ -271,6 +259,36 @@
             //         }
             //     });
             // });
+
+
+            //temporary graph
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
+            gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
+            gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
+            var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+            labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
+            datasets: [
+            {
+            label: "Energy Consumption from ROOM",
+            data: [0, 65, 45, 65, 35, 65, 0],
+            backgroundColor: gradientFill,
+            borderColor: [
+            '#8bc34a',
+            ],
+            borderWidth: 2,
+            pointBorderColor: "#8bc34a",
+            pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
+            }
+            ]
+            },
+            options: {
+            responsive: true
+            }
+            });
+
         </script>
     </body>
 </html>

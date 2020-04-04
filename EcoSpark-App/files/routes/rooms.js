@@ -91,32 +91,34 @@ router.get('/:roomID', function(req, res, next) {
 
 
 router.post('/:roomID/update:deviceID', function(request, response) {
-  
-  if(request.body.switch == 'on') {
-    var sql1 = "SELECT devicePower, deviceType, deviceDisplayName FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
-    connection.query(sql1, function (err, result1, fields) {
-      var power = result1[0].devicePower;
-      var type = result1[0].deviceType;
-      var deviceDisplayName = result1[0].deviceDisplayName;
-      var sql2 = "INSERT INTO runningDevices VALUES ('0', '" + deviceDisplayName + "', '" + power + "', '" + type + "', '" +  request.params.deviceID + "', '" + request.params.roomID + "')";
-      connection.query(sql2, function (err, result2, fields) {
-        if(result2== ""){
+  var sqlCheck = "SELECT deviceID FROM runningDevices WHERE deviceID = '" + request.params.deviceID + "'";
+  connection.query(sqlCheck, function (err, result, fields) {
+    if(result== ""){
+      var sql1 = "SELECT devicePower, deviceType, deviceDisplayName FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+      connection.query(sql1, function (err, result2, fields) {
+        var power = result2[0].devicePower;
+        var type = result2[0].deviceType;
+        var deviceDisplayName = result2[0].deviceDisplayName;
+        var sql2 = "INSERT INTO runningDevices VALUES ('0', '" + deviceDisplayName + "', '" + power + "', '" + type + "', '" +  request.params.deviceID + "', '" + request.params.roomID + "')";
+        connection.query(sql2, function (err, result2, fields) {
+          if(result2== ""){
+            response.redirect('/home');
+          } else {
+            response.redirect('/home/rooms/' +request.params.roomID );
+          }
+        });
+      });
+    } else {
+      var sql3 = "DELETE FROM runningDevices WHERE runningDevices.deviceID='" + request.params.deviceID  + "';"
+      connection.query(sql3, function (err, result3, fields) {
+        if(result3== ""){
           response.redirect('/home');
         } else {
           response.redirect('/home/rooms/' +request.params.roomID );
         }
       });
-    });
-  }  else if(request.body.switch != 'on') {
-    var sql = "DELETE FROM runningDevices WHERE runningDevices.DeviceID='" + request.params.deviceID  + "';"
-    connection.query(sql, function (err, result, fields) {
-      if(result== ""){
-        response.redirect('/home');
-      } else {
-        response.redirect('/home/rooms/' +request.params.roomID );
-      }
-    });
-  }
+    }
+  });
 });
 
 

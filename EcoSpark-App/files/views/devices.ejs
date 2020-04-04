@@ -39,7 +39,7 @@
         </br>
 
         <div class="dark green lighten-2">
-            <h2 class="titles"> Rooms: 
+            <h2 class="titles"> Running devices across rooms: 
             <% if (runningDeviceInfo == ""){ %>
                 <div style="color:white;" >Currently no devices running</br></div>
             <% } %>
@@ -57,7 +57,7 @@
                                 <h2 class="titles"><%= room.roomDisplayName%></h2> 
                                 </br>
                             </div>
-                            <form action="/home/devices/<%=device.rDeviceID%>/turnOffDevice" method="post">
+                            <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
                                 <div class="row">
                                     <div class="col-sm" style="color:white">
                                         <h2 id="deviceID" id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%> </h2>

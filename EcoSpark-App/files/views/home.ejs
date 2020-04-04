@@ -16,10 +16,10 @@
         <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
 
             <a class="navbar-brand" href="/home" style="font-size: 210%; font-weight: bold;">
-                <img src="/ecoSpark_Logo.png" alt="ecoSpark Logo" width="70" height="auto" class="d-inline-block align-middle"> EcoSpark
+                <img src="/ecoSpark_Logo.png" alt="ecoSpark Logo" width="70" height="auto" class="d-inline-block align-center"> EcoSpark
             </a>
             
-            <a style="font-size: 150%; color: white; font-weight: bold;">
+            <a class="d-none d-sm-block" style="font-size: 150%; color: white; font-weight: bold;">
             Welcome back, <%= user %>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
@@ -137,8 +137,9 @@
                     </div>
                     </br>
 
-                    <div class="card p-4 rounded">
-                        <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
+                    <!-- <div class="col-sm"> -->
+                        <div class="card p-4 rounded">
+                            <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
                             
                         <% if (faultInfo == ""){ %>
                             Currently no devices with faults  </br>
@@ -153,10 +154,11 @@
                                     Fault Info: <%= fault.faultInfo%></br>
                                 </div>
                             </div>
-                        <% }) %>
-                    </div>
-
+                            <% }) %>
+                        </div>
+                    <!-- </div> -->
                 </div>
+
                 <div class="col-sm-6">
                     <div class="card weather-card">
                         <div class="card-body pb-3">

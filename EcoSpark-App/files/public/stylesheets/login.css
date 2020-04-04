@@ -10,9 +10,10 @@
 }
 
 .loginCardHolder {
-  margin-top: 5%;
-  margin-left: 30%; 
-  width: 40%;
+  align-items: center;
+  margin-top: 2%;
+  margin-left: 15%;
+  width: 70%;
   padding: 1%;
   border-radius: 8px;
 }
@@ -28,7 +29,7 @@
 
 
 body {
-  background-image: url('loginBack.jpg');
+  background-image: url('loginBackBlurred.jpg');
   background-color: #add2af;
   background-repeat: no-repeat;
   background-attachment: fixed;  

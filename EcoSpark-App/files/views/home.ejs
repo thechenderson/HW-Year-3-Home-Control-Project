@@ -21,7 +21,7 @@
                 <img src="/ecoSpark_Logo.png" alt="ecoSpark Logo" width="70" height="auto" class="d-inline-block align-middle"> EcoSpark
             </a>
             
-            <a style="font-size: 150%; color: white; font-weight: bold;">
+            <a class="d-none d-sm-block" style="font-size: 150%; color: white; font-weight: bold;">
             Welcome back, <%= user %>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
@@ -138,9 +138,10 @@
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
+                    
                     <br>
 
-                    <!-- <div class="col-sm"> -->
+                    <div class="col-sm-20">
                         <div class="card p-4 rounded">
                             <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
                             
@@ -159,7 +160,7 @@
                             </div>
                             <% }) %>
                         </div>
-                    <!-- </div> -->
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="card weather-card">

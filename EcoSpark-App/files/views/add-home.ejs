@@ -15,7 +15,6 @@
     <body>
 
         <%- include ('partials/header') -%>
-
         <br></br>
         <h4 class="card-title text-center font-weight-bold">You are not yet assigned to a home - 
             create a home, or join an existing home via code</h4>
@@ -28,9 +27,9 @@
                                 <form action="assignHome" method="post">
                                     <p class="h4 text-center py-4">Join Home by Code</p>
                                     <div class="md-form">
-                                                <i class="fas fa-pencil-alt prefix"></i>
-                                                <input type="text" id="inputIconEx2" class="form-control" name="homeID" required>
-                                                <label for="inputIconEx2">Home Code</label>
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx1" class="form-control" name="homeID" required>
+                                        <label for="inputIconEx1">Home Code</label>
                                     </div>
                                     <div class="text-center py-4 mt-3">
                                             <button class="btn  green lighten-2" type="submit">Assign Home</button>
@@ -46,10 +45,19 @@
                             <div class="card-body">
                                 <form action="createHome" method="post">
                                     <p class="h4 text-center py-4">Create a new home</p>
-                                        <div class="md-form">
-                                            <i class="fas fa-pencil-alt prefix"></i>
-                                            <input type="text" id="inputIconEx2" class="form-control" name="homeID" required>
-                                            <label for="inputIconEx2">Create Unique Home Code</label>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx2" class="form-control" name="homeID" required>
+                                        <label for="inputIconEx2">Create Unique Home Code</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-pencil-alt prefix"></i>
+                                        <input type="text" id="inputIconEx3" class="form-control" name="homeName" required>
+                                        <label for="inputIconEx3">Create Home Nickname</label>
+                                    </div>
+                                    <div class="text-center py-4 mt-3">
+                                        <div class="form-group">
+                                            <button class="btn  green lighten-2" type="submit">Create Home</button>
                                         </div>
                                     
                                         <div class="md-form">

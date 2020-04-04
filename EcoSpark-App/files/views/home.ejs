@@ -8,13 +8,11 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
-		<title> Eco Spark - Home </title>
+        <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+        <link rel="stylesheet" href="/stylesheets/font.css">
+        <title> Eco Spark - Home </title>
     </head>
 	<body>
-           
-
-
         <nav class="mb-1 navbar navbar-expand-lg navbar-dark green lighten-2">
 
             <a class="navbar-brand" href="/home" style="font-size: 210%; font-weight: bold;">
@@ -44,12 +42,11 @@
             </div>
         </nav>
         
-        <br></br>
-       
+    </br>
     
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <div class="shadow-none card green lighten-4">
+                <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -60,7 +57,7 @@
                         <h4 class="card-title text-center">Your Home</h4>
                     </div>
                 </div>
-                <div class="shadow-none card green lighten-4">
+                <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -71,7 +68,7 @@
                         <h4 class="card-title text-center">Energy Data</h4>
                     </div>
                 </div>
-                <div class="shadow-none card green lighten-4">
+                <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -86,7 +83,7 @@
                     <% userInfo.forEach(function(user) {%>
                     
                         <% if (user.isAdmin == 1) {%>
-                            <div class="shadow-none card green lighten-4">
+                            <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -99,7 +96,7 @@
                             </div>
                            
                         <% } else {%>
-                            <div class="shadow-none card green lighten-4">
+                            <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -138,33 +135,32 @@
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
-                    <br>
+                    </br>
 
-                    <!-- <div class="col-sm"> -->
-                        <div class="card p-4 rounded">
-                            <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
+                    <div class="card p-4 rounded">
+                        <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
                             
-                            <% if (faultInfo == ""){ %>
-                                Currently no devices with faults  </br>
-                            <% } %>
+                        <% if (faultInfo == ""){ %>
+                            Currently no devices with faults  </br>
+                        <% } %>
 
-                            <%faultInfo.forEach(function(fault) {%>
+                        <%faultInfo.forEach(function(fault) {%>
                             <div class="systemAlert">
                                 <div class="alert alert-warning" role="alert">
-                                    <h5>Fault ID: <%= fault.faultID%></h5>
-                                    <h5>Device: <%= fault.deviceDisplayName%></h5>
-                                    <h5>Room: <%= fault.roomDisplayName%></h5>
-                                    <h5>Fault Info: <%= fault.faultInfo%></h5>    
+                                    Fault ID: <%= fault.faultID%></br>
+                                    Device: <%= fault.deviceDisplayName%></br>
+                                    Room: <%= fault.roomDisplayName%></br>
+                                    Fault Info: <%= fault.faultInfo%></br>
                                 </div>
                             </div>
-                            <% }) %>
-                        </div>
-                    <!-- </div> -->
+                        <% }) %>
+                    </div>
+
                 </div>
                 <div class="col-sm-6">
                     <div class="card weather-card">
                         <div class="card-body pb-3">
-                            <h4 class="card-title font-weight-bold"><%= timezone %></h4>
+                            <h3 class="card-title font-weight-bold"><%= timezone %> </h3>
                             <p class="card-text"><%= summary %></p>
                             <div class="d-flex justify-content-between">
                                 <p class="display-1 degree"><%= temperature %>°C</p>
@@ -182,19 +178,63 @@
         </div>
         <br></br>
         <br></br>
-        <br></br>
-   
 
+        <footer class="page-footer font-small navbar-dark green lighten-2">
+            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">    
+                <div class="col-md-12" style="color:white">
+                    <h3>Site Settings:</h3>
+                </div>
+                </br>
+                <main>
+                    <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3>Choose Text Size: 
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3><u>Small</u></h3>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h2><u>Medium</u></h2>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h1><u>Large</u></h1>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </br>
+                   <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <button class="btn btn-default" type="button">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </main>
+            </div>
+        </footer>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+       
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-
-
-        <footer>
-          <%- include ('partials/footer'); -%>
-        </footer>
+        <script type="text/javascript" src="/javascripts/font.js"></script>
 
 
         <script>

@@ -9,7 +9,8 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
-      <link rel="stylesheet" href="/stylesheets/style (2).css"> 
+      <link rel="stylesheet" href="/stylesheets/style (2).css">
+      <link rel="stylesheet" href="/stylesheets/font.css"> 
         <title> Eco Spark - devices </title>
         
         <!-- Style for ajax graph-->
@@ -85,7 +86,7 @@
             <!-- no of columns depends on no of rooms similar to rooms page-->
             <div class="row">
               <div class="col-sm" align="center">
-                <h1>Faults</h1>
+                <h1><u>Faults</u></h1></br>
                 <% if (faultInfo == ""){ %>
                     Currently no devices with faults  </br>
                 <% } %>
@@ -108,7 +109,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <% deviceInfo.forEach(function(device) {%>
                     <% if (device.deviceType == "Appliance") {%>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4"  style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -121,7 +122,7 @@
                         </div>
                     <% } %>
                     <% if (device.deviceType == "Light") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -134,7 +135,7 @@
                         </div>
                     <% } %>
                     <% if (device.deviceType == "Heating") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -147,7 +148,7 @@
                         </div>
                     <% } %>
                     <% if (device.deviceType == "Socket") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -160,7 +161,7 @@
                         </div>
                     <% } %>
                     <% if (device.deviceType == "TV") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -173,7 +174,7 @@
                         </div>
                     <% } %>
                     <% if (device.deviceType == "Miscellaneous") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -186,7 +187,7 @@
                         </div>
                     <% } %>
                 <% }) %>
-                <div class="shadow-none card green lighten-4">
+                <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -200,11 +201,62 @@
             </div>
         </div>
         
+        </br>
+
+        <footer class="page-footer font-small navbar-dark green lighten-2">
+            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">    
+                <div class="col-md-12" style="color:white">
+                    <h3>Site Settings:</h3>
+                </div>
+                </br>
+                <main>
+                    <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3>Choose Text Size: 
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3><u>Small</u></h3>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h2><u>Medium</u></h2>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h1><u>Large</u></h1>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </br>
+                   <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <button class="btn btn-default" type="button">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </footer>
+
+
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-        
+        <script type="text/javascript" src="/javascripts/font.js"></script>
+
         <!-- javascript for ajax and graph -->
         <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
         <script type="text/javascript" src="/javascripts/chart.min.js"></script>

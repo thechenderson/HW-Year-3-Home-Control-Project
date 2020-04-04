@@ -8,7 +8,8 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
+        <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+        <link rel="stylesheet" href="/stylesheets/font.css">
 		<title> Eco Spark - Rooms </title>
     </head>
 
@@ -18,9 +19,9 @@
         </br>
     
         <% if (!home) { %>
-            <h4 class="card-title text-center font-weight-bold">You need to create or assign yourself to a home</h4>
-            <br></br>
-            <div class="shadow-none card green lighten-4">
+            <p><h4 class="card-title text-center font-weight-bold">You need to create or assign yourself to a home</h4></p>
+            </br>
+            <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                 <div class="view overlay text-center">
                     <span class="fa-stack fa-6x ">
                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -28,7 +29,7 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title text-center">Set up your home</h4>
+                    <h3 class="card-title text-center">Set up your home</h3>
                 </div>
             </div>
         
@@ -44,7 +45,7 @@
                     <!-- checks room type -->
                     <% if (room.roomType == "Kitchen") { %>
                         <!-- create card and set background to the same colour as the page -->
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <!-- size of the circle -->
                                 <span class="fa-stack fa-6x ">
@@ -61,7 +62,7 @@
                         </div>
                     <% } %>
                     <% if (room.roomType == "Bedroom") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -74,7 +75,7 @@
                         </div>
                     <% } %>
                     <% if (room.roomType == "LivingRoom") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -87,7 +88,7 @@
                         </div>
                     <% } %>
                     <% if (room.roomType == "Bathroom") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -100,7 +101,7 @@
                         </div>
                     <% } %>
                     <% if (room.roomType == "Hallway") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -113,7 +114,7 @@
                         </div>
                     <% } %>
                     <% if (room.roomType == "DiningRoom") { %>
-                        <div class="shadow-none card green lighten-4">
+                        <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
                                     <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -126,7 +127,7 @@
                         </div>
                     <% } %>
                 <% }) %>
-                <div class="shadow-none card green lighten-4">
+                <div class="shadow-none card green lighten-4" style="font-size: 20px;">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -140,10 +141,61 @@
             </div>
         </div>
         <% } %>
+
+        </br>
+        </br>
+        
+        <footer class="page-footer font-small navbar-dark green lighten-2">
+            <div class="footer-copyright text-center py-3 navbar-dark green lighten-2">    
+                <div class="col-md-12" style="color:white">
+                    <h3>Site Settings:</h3>
+                </div>
+                </br>
+                <main>
+                    <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3>Choose Text Size: 
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h3><u>Small</u></h3>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h2><u>Medium</u></h2>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <h1><u>Large</u></h1>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </br>
+                   <div class="row">
+                        <div class="container d-md-flex align-items-center">
+                            <div class="col-sm">
+                                <div class="change-font" style="color:white">
+                                    <button class="btn btn-default" type="button">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </footer>
       
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+        <script type="text/javascript" src="/javascripts/font.js"></script>
     </body>
 </html>

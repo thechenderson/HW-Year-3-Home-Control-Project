@@ -59,13 +59,7 @@ const queryWrapper = (statement) => {
 // remember on the rooms.js page, '/' is the same as /rooms/
 router.get('/:roomID', function(req, res, next) {
 
-  var connection = mysql.createConnection({
-    host: process.env.hostname,
-    user: process.env.username,
-    password: process.env.password,
-    database: process.env.database,
-    multipleStatements: true
-  });
+
 
   if (req.session.loggedin){
     let currDate = new Date().toLocaleDateString('en-GB');
@@ -97,18 +91,24 @@ router.get('/:roomID', function(req, res, next) {
 
 
 router.post('/:roomID/update:deviceID', function(request, response) {
-
+  
   if(request.body.switch == 'on') {
-    var sql = "INSERT INTO runningDevices (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
-    connection.query(sql, function (err, result, fields) {
-      if(result== ""){
-        response.redirect('/home');
-      } else {
-        response.redirect('/home/rooms/' +request.params.roomID );
-      }
+    var sql1 = "SELECT devicePower, deviceType, deviceDisplayName FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+    connection.query(sql1, function (err, result1, fields) {
+      var power = result1[0].devicePower;
+      var type = result1[0].deviceType;
+      var deviceDisplayName = result1[0].deviceDisplayName;
+      var sql2 = "INSERT INTO runningDevices VALUES ('0', '" + deviceDisplayName + "', '" + power + "', '" + type + "', '" +  request.params.deviceID + "', '" + request.params.roomID + "')";
+      connection.query(sql2, function (err, result2, fields) {
+        if(result2== ""){
+          response.redirect('/home');
+        } else {
+          response.redirect('/home/rooms/' +request.params.roomID );
+        }
+      });
     });
-  }  else {
-    var sql = "INSERT INTO runningDevices (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','1', '" + nickname + "')";
+  }  else if(request.body.switch != 'on') {
+    var sql = "DELETE FROM runningDevices WHERE runningDevices.DeviceID='" + request.params.deviceID  + "';"
     connection.query(sql, function (err, result, fields) {
       if(result== ""){
         response.redirect('/home');
@@ -118,6 +118,7 @@ router.post('/:roomID/update:deviceID', function(request, response) {
     });
   }
 });
+
 
 router.post('/assignHome', function(request, response){
   var homeIdOld = request.body.homeID;
@@ -185,7 +186,7 @@ router.post('/createRoom', function(request, response) {
   
   if (roomName && roomType && roomID) {
     
-        var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "', '" + request.session.homeID + "')";
+        var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "', NULL, '" + request.session.homeID + "')";
         connection.query(sql4, function (err, result4, fields) {
           if (!result4) {
             response.redirect('/home/rooms/add-room');

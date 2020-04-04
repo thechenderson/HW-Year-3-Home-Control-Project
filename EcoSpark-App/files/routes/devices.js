@@ -64,7 +64,7 @@ router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
-    var sqlC = "SELECT runningdevices.rID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rDeviceID = '" + req.params.deviceID + "';";
+    var sqlC = "SELECT runningdevices.rID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rID = '" + req.params.deviceID + "';";
     var sqlU = "SELECT users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "'"; 
     Promise.all([
       queryWrapper(sqlR),
@@ -115,7 +115,7 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
               console.log("No deviceID in changes");
             }
 
-            var sqlR = "DELETE FROM runningdevices WHERE rDeviceID = '" + request.params.deviceID + "';";
+            var sqlR = "DELETE FROM runningdevices WHERE rID = '" + request.params.deviceID + "';";
             connection.query(sqlR, function (err, result, fields) {
               if(result== ""){
                 response.redirect('/home');

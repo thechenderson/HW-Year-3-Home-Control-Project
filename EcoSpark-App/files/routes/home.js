@@ -31,7 +31,6 @@ router.get('/', function(req, res, next) {
         console.log(JSON.parse(data).currently.windSpeed);
         console.log(JSON.parse(data).currently.precipProbability);
         console.log("YES");
-        console.log(req.session.log);
         var sqlF = "SELECT faults.faultID AS faultID, faults.deviceID AS deviceID, faults.deviceDisplayName AS deviceDisplayName, faults.roomDisplayName AS roomDisplayName, faults.faultInfo AS faultInfo, devices.deviceDisplayName AS deviceDisplayName FROM faults, devices, rooms, users, homes WHERE faults.deviceID = devices.deviceID AND users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '"+ req.session.user + "';";
         var sqlU = "SELECT users.username AS username, users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "';";
         

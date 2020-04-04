@@ -59,31 +59,28 @@ const queryWrapper = (statement) => {
 // remember on the rooms.js page, '/' is the same as /rooms/
 router.get('/:roomID', function(req, res, next) {
 
-  var connection = mysql.createConnection({
-    host: process.env.hostname,
-    user: process.env.username,
-    password: process.env.password,
-    database: process.env.database,
-    multipleStatements: true
-  });
+
 
   if (req.session.loggedin){
     let currDate = new Date().toLocaleDateString('en-GB');
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';"; 
+    var sqlD = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';"; 
     var sqlAR = "SELECT averagesForR.roomID AS roomID, averagesForR.date AS date, averagesForR.averRoomPower AS averRoomPower FROM averagesForR WHERE averagesForR.date = '" + currDate + "' AND averagesForR.roomID = '"+ req.params.roomID +"';";
-      
+    var sqlRD = "SELECT rDeviceDisplayName FROM runningdevices WHERE roomID = '" + req.params.roomID + "';"; 
     Promise.all([
         queryWrapper(sqlR),
         queryWrapper(sqlD),
-        queryWrapper(sqlAR)
+        queryWrapper(sqlAR),
+        queryWrapper(sqlRD)
     ])
-    .then(([roomInfo, deviceInfo, averagesRInfo]) => {
+    .then(([roomInfo, deviceInfo, averagesRInfo, runningDevices]) => {
         res.render('specific-room', {
             title: 'Express',
             roomInfo,
             deviceInfo,
-            averagesRInfo
+            averagesRInfo,
+            runningDevices
+
         });
     });
   } else {
@@ -93,16 +90,37 @@ router.get('/:roomID', function(req, res, next) {
 });
 
 
-router.post('/:roomID/updateRoomName', function(request, response) {
-    var sql =  "UPDATE rooms SET roomDisplayName = '" + request.body.roomName + "' WHERE roomID = '" + request.params.roomID + "'";
-    connection.query(sql, function (err, result, fields) {
-      if(result== ""){
-        response.redirect('/home');
-      } else {
-        response.redirect('/home/rooms/' +request.params.roomID );
-      }
-    });
+router.post('/:roomID/update:deviceID', function(request, response) {
+  var sqlCheck = "SELECT deviceID FROM runningDevices WHERE deviceID = '" + request.params.deviceID + "'";
+  connection.query(sqlCheck, function (err, result, fields) {
+    if(result== ""){
+      var sql1 = "SELECT devicePower, deviceType, deviceDisplayName FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+      connection.query(sql1, function (err, result2, fields) {
+        var power = result2[0].devicePower;
+        var type = result2[0].deviceType;
+        var deviceDisplayName = result2[0].deviceDisplayName;
+        var sql2 = "INSERT INTO runningDevices VALUES ('0', '" + deviceDisplayName + "', '" + power + "', '" + type + "', '" +  request.params.deviceID + "', '" + request.params.roomID + "')";
+        connection.query(sql2, function (err, result2, fields) {
+          if(result2== ""){
+            response.redirect('/home');
+          } else {
+            response.redirect('/home/rooms/' +request.params.roomID );
+          }
+        });
+      });
+    } else {
+      var sql3 = "DELETE FROM runningDevices WHERE runningDevices.deviceID='" + request.params.deviceID  + "';"
+      connection.query(sql3, function (err, result3, fields) {
+        if(result3== ""){
+          response.redirect('/home');
+        } else {
+          response.redirect('/home/rooms/' +request.params.roomID );
+        }
+      });
+    }
+  });
 });
+
 
 router.post('/assignHome', function(request, response){
   var homeIdOld = request.body.homeID;
@@ -170,7 +188,7 @@ router.post('/createRoom', function(request, response) {
   
   if (roomName && roomType && roomID) {
     
-        var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "', '" + request.session.homeID + "')";
+        var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "', NULL, '" + request.session.homeID + "')";
         connection.query(sql4, function (err, result4, fields) {
           if (!result4) {
             response.redirect('/home/rooms/add-room');

@@ -15,27 +15,24 @@
     <body>
 
         <%- include ('partials/header') -%>
-
         <br></br>
         <h4 class="card-title text-center font-weight-bold">You are not yet assigned to a home - 
-            create a home, or assign to an existing home via code</h4>
+            create a home, or join an existing home via code</h4>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <div class="loginCardHolder white">
-                        <div class="card" style="background: #4db6ac !important;">
+                        <div class="card teal lighten-3">
                             <div class="card-body">
                                 <form action="assignHome" method="post">
-                                    <p class="h4 text-center py-4">Assign to Home by Code</p>
+                                    <p class="h4 text-center py-4">Join Home by Code</p>
                                     <div class="md-form">
                                         <i class="fas fa-pencil-alt prefix"></i>
-                                        <input type="text" id="inputIconEx2" class="form-control" name="homeID" required>
-                                        <label for="inputIconEx2">Home Code</label>
+                                        <input type="text" id="inputIconEx1" class="form-control" name="homeID" required>
+                                        <label for="inputIconEx1">Home Code</label>
                                     </div>
                                     <div class="text-center py-4 mt-3">
-                                        <div class="form-group">
                                             <button class="btn  green lighten-2" type="submit">Assign Home</button>
-                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -44,7 +41,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="loginCardHolder white">
-                        <div class="card" style="background: #4db6ac !important;">
+                        <div class="card teal lighten-3">
                             <div class="card-body">
                                 <form action="createHome" method="post">
                                     <p class="h4 text-center py-4">Create a new home</p>
@@ -55,14 +52,13 @@
                                     </div>
                                     <div class="md-form">
                                         <i class="fas fa-pencil-alt prefix"></i>
-                                        <input type="text" id="inputIconEx2" class="form-control" name="homeName" required>
-                                        <label for="inputIconEx2">Create Home Nickname</label>
+                                        <input type="text" id="inputIconEx3" class="form-control" name="homeName" required>
+                                        <label for="inputIconEx3">Create Home Nickname</label>
                                     </div>
                                     <div class="text-center py-4 mt-3">
                                         <div class="form-group">
                                             <button class="btn  green lighten-2" type="submit">Create Home</button>
-                                        </div>
-                                    </div>
+                                        </div>    
                                 </form>
                             </div>
                         </div>
@@ -70,6 +66,7 @@
                 </div>
             </div>
         </div>
+        
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

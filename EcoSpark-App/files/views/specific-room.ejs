@@ -130,16 +130,17 @@
               <p class="h4 text-center py-4">Devices</p>
               <%roomInfo.forEach(function(room) {%>
               <%deviceInfo.forEach(function(device) {%>
+              <br></br>
               <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
                   <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="switch" value="on" onChange="this.form.submit()"
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1<%=device.deviceID%>" onChange="this.form.submit()"
                     <% runningDevices.forEach(function(runningD) {%>
                       <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
                         <%= 'checked' %>
                         <% } %>
                     <% }) %>
                     >
-                    <label class="custom-control-label" for="customSwitch1"> <%= device.deviceDisplayName %>   ON / OFF
+                    <label class="custom-control-label" for="customSwitch1<%=device.deviceID%>"> <%= device.deviceDisplayName %>   ON / OFF
                     </label>
                   </div>
                 </form>

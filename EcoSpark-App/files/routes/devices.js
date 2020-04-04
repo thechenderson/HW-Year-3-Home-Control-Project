@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser')
-
-var app = express();
-var jsonParser = bodyParser.json();
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -148,19 +144,16 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
     });
 });
 
-router.post('/:rDeviceID/turnOffDevice', function(request, response) {
-  var deviceID = request.params.rDeviceID;
-  var deviceName = request.body.deviceName;
-
-  // var sql =  "INSERT INTO changes VALUES ('" + deviceID + "','" + request.params.deviceName + "', 'Off');";
-  var sqlC = "DELETE FROM runningDevices WHERE runningDevices.rDeviceID='" + deviceID  + "';"
-    connection.query(sqlC, function (err, result, fields) {
-      if(result== ""){
-        response.redirect('/home');
-      } else {
-        response.redirect('/home/devices/');
-      }
-    });
+router.post('/turnOffDevice:rdeviceID', function(request, response) {
+  console.log(request.params.deviceID);
+  var sql = "DELETE FROM runningDevices WHERE runningDevices.rID='" + request.params.rdeviceID  + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home');
+    } else {
+      response.redirect('/home/devices/');
+    }
+  });
 });
 
 router.post('/createDevice', function(request, response) {

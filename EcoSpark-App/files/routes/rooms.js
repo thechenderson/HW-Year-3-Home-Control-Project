@@ -109,7 +109,7 @@ router.post('/:roomID/update:deviceID', function(request, response) {
         });
       });
     } else {
-      var sql3 = "DELETE FROM runningDevices WHERE runningDevices.DeviceID='" + request.params.deviceID  + "';"
+      var sql3 = "DELETE FROM runningDevices WHERE runningDevices.deviceID='" + request.params.deviceID  + "';"
       connection.query(sql3, function (err, result3, fields) {
         if(result3== ""){
           response.redirect('/home');

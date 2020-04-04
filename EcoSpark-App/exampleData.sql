@@ -1,26 +1,25 @@
-//EXAMPLE DATA:
-//homes
+
 insert into homes values(1, 'RebeccaHome', 'Rebecca');
 
-//users
+
 insert into users values ('Rebecca', 'password', 1, 'Becca', 1);
 insert into users values ('John', 'Jpass', 1, 'John', 1);
 insert into users values ('Jessica', 'jenspass', 0, 'Jess', 1);
 insert into users values ('Ben', 'benspass', 0, 'Benny', 1);
 
-//rooms
-insert into rooms values (1, "Kitchen", "Kitchen", 1);
-insert into rooms values (2, "Parent's Bedroom", "Bedroom", 1);
-insert into rooms values (3, "Ben's Bedroom", "Bedroom", 1);
-insert into rooms values (4, "Jess's Bedroom", "Bedroom", 1);
-insert into rooms values (5, "Living Room", "Living Room", 1); 
-insert into rooms values (6, "Downstairs Bathroom", "Bathroom", 1);
-insert into rooms values (7, "Upstairs Bathroom", "Bathroom", 1);
-insert into rooms values (8, "Downstairs Hallway", "Hallway", 1);
-insert into rooms values (9, 'Dining Room', "Dining Room", 1);
-insert into rooms values (10, 'Upstairs Hallway', "Hallway", 1);
 
-//devices
+insert into rooms values (1, "Kitchen", "Kitchen", NULL ,1);
+insert into rooms values (2, "Parent's Bedroom", "Bedroom", NULL , 1);
+insert into rooms values (3, "Ben's Bedroom", "Bedroom", NULL ,1);
+insert into rooms values (4, "Jess's Bedroom", "Bedroom", NULL ,1);
+insert into rooms values (5, "Living Room", "Living Room", NULL ,1); 
+insert into rooms values (6, "Downstairs Bathroom", "Bathroom",NULL , 1);
+insert into rooms values (7, "Upstairs Bathroom", "Bathroom", NULL ,1);
+insert into rooms values (8, "Downstairs Hallway", "Hallway",NULL , 1);
+insert into rooms values (9, 'Dining Room', "Dining Room",NULL , 1);
+insert into rooms values (10, 'Upstairs Hallway', "Hallway",NULL , 1);
+
+
 insert into devices values (1, 'Fridge', 150, 'Appliance', 1);
 insert into devices values (2, 'Freezer', 60, 'Appliance', 1);
 insert into devices values (3, 'Light', 50, 'Appliance', 1);
@@ -41,6 +40,5 @@ insert into devices values (17, 'Electric Razer', 20, 'Socket', 7);
 insert into devices values (18, 'Light', 80, 'Light', 8);
 insert into devices values (19, 'Wifi Box', 20, 'Socket', 8);
 insert into devices values (20, 'Light', 90, 'Light', 10);
-
 
 

@@ -66,15 +66,19 @@
                 <% if ((aver.averOverallPower) <= (aver.powerLimit)) {%>
                   <blockquote class="blockquote bq-success" style="color:white; background-color: #add2af; font-weight: bold;">
                     <h1 class="bq-title">Well Done! </h1>
-                    Your energy consumption for today is below your limit! </br>
-                    Average Energy Consumption: <%= aver.averOverallPower%> </br>
+                    Your energy consumption for today is below your limit! 
+                    <br>
+                    Average Energy Consumption: <%= aver.averOverallPower%> 
+                    <br>
                     Energy Limit Set: <%= aver.powerLimit%>
                   </blockquote>
                 <% } else { %>
                   <blockquote class="blockquote bq-danger" style="color:white; background-color: #add2af; font-weight: bold;">
                     <h1 class="bq-title">Oh Dear! </h1>
-                    Your energy consumption for today is above your limit! </br>
-                    Average Energy Consumption: <%= aver.averOverallPower%> </br>
+                    Your energy consumption for today is above your limit! 
+                    <br>
+                    Average Energy Consumption: <%= aver.averOverallPower%> 
+                    <br>
                     Energy Limit Set: <%= aver.powerLimit%>
                   </blockquote>
                 <% } %>
@@ -83,7 +87,7 @@
           </div>
         </div>
 
-      </br>
+        <br>
 
       <p>
         <h2 class="titles"> Overview: </h2>
@@ -93,12 +97,12 @@
         <canvas id="lineChart"></canvas>
       </div>
 
-      </br>
-      </br>
+      <br>
+      <br>
 
       <div class="container" align="center">
         <h2 class="titles"> What type of reports would you like to see? </h2>
-        </br>
+        <br>
         <div class="col-md-12 mb-4">
           <div class="row">
             <div class="col-sm">
@@ -119,28 +123,32 @@
 
       <div id="graphDayContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Days Energy Consumption </h1></br>
+          <h1> Graph for Days Energy Consumption </h1>
+          <br>
           <canvas id="lineChartA"></canvas>
         </div>
       </div>
 
       <div id="graphWeekContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Weeks Energy Consumption </h1></br>
+          <h1> Graph for Weeks Energy Consumption </h1>
+          <br>
           <canvas id="lineChartB"></canvas>
         </div>
       </div>
       
       <div id="graphMonthContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Month Energy Consumption </h1></br>
+          <h1> Graph for Month Energy Consumption </h1>
+          <br>
           <canvas id="lineChartC"></canvas>
         </div>
       </div>
 
       <div id="graphYearContainer" style="display: none;">
         <div class="container" align=center">
-          <h1> Graph for Year Energy Consumption </h1></br>
+          <h1> Graph for Year Energy Consumption </h1>
+          <br>
           <canvas id="lineChartD"></canvas>
         </div>
       </div>

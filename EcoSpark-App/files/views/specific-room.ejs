@@ -17,7 +17,7 @@
 
       <%- include ('partials/header') -%>
         
-        <br></br>
+        <br>
 
         <div style="height: 100">
             <div class="flex-column" align="center">
@@ -26,19 +26,23 @@
                   <%=room.roomDisplayName%>'s Energy Usage
                 <% }) %>
               </h2>
-              </br>
+              
+              <br>
+
               <canvas id="lineChart" style="max-width: 800px;"></canvas>
             </div>
         </div>
 
-        </br>
-        </br>
+        <br>
+        <br>
 
           <div class="container" align="center">
             <h2 class="titles">
               <u> List of Devices </u>
             </h2>
-            </br>
+            
+            <br>
+           
             <ul class="list-group">
               <div class="row">
                 <div class="col-sm" align="center">
@@ -79,26 +83,26 @@
            </ul>
         </div>
 
-        <br></br>
-        <br></br>
+        <br>
+        <br>
 
         <h2 class="titles"> Room Control: </h2>
         
-        <br></br>
+        <br>
         
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-                        <br></br>
+                        <br>
                         <label for="customRange1">Change Room Temperature</label>
                         <input type="range" class="custom-range" id="customRange1">
-                        <br></br>
+                        <br>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="customSwitches">
                             <label class="custom-control-label" for="customSwitches">Main Lights off/on</label>
                         </div>
-                        <br></br>
+                        <br>
                     </div>
                 </div>
                 <% averagesRInfo.forEach(function(aver) { %>

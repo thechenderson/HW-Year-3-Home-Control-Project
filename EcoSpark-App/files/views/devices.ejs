@@ -29,14 +29,14 @@
         <div style="height: 100">
             <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
-            </br>
+            <br>
                 <!-- This is the graph using ajax -->
                 <div id="chart-container">
                     <canvas id="lineChart"></canvas>
                 </div>
             </div>
         </div>
-        </br>
+        <br>
 
         <div class="dark green lighten-2">
             <h2 class="titles"> Running devices across rooms: 
@@ -79,7 +79,9 @@
             </br>
         </div>
 
-          </br></br></br>
+          <br>
+          <br>
+          <br>
 
           <div class="container" >
             <!-- no of columns depends on no of rooms similar to rooms page-->
@@ -87,22 +89,25 @@
               <div class="col-sm" align="center">
                 <h1>Faults</h1>
                 <% if (faultInfo == ""){ %>
-                    Currently no devices with faults  </br>
+                    Currently no devices with faults  
+                    <br>
                 <% } %>
                 
                 <% faultInfo.forEach(function(fault) {%>
-                    Device Name: <%= fault.fDeviceDisplayName%>  </br>
-                    Device Location: <%= fault.fRoomDisplayName%>  </br>
-                    Fault Info: <%= fault.faultInfo%>  </br>
+                    Device Name: <%= fault.fDeviceDisplayName%>  
+                    <br>
+                    Device Location: <%= fault.fRoomDisplayName%>  
+                    <br>
+                    Fault Info: <%= fault.faultInfo%>  
+                    <br>
                 <% }) %>
               </div>
             </div>
           </div>
 
-          <p></p>
 
 
-          <br></br>
+          <br>
         <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">

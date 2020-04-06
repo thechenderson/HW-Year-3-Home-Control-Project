@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
 		<title> Eco Spark - Home </title>
     </head>
-	<body>
+    
+    <body>
            
 
 
@@ -45,45 +46,51 @@
         <br>
 
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <div class="shadow-none card green lighten-4">
-                    <div class="view overlay text-center">
-                        <span class="fa-stack fa-6x ">
-                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/home/rooms"></a>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Your Home</h4>
-                    </div>
-                </div>
-                <div class="shadow-none card green lighten-4">
-                    <div class="view overlay text-center">
-                        <span class="fa-stack fa-6x ">
-                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-chart-area fa-stack-1x icon" style="color:white" href="/home/energy-data"></a>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Energy Data</h4>
+            <div class="row">
+                    <div class="col">
+                        <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/home/rooms"></a>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Your Home</h4>
+                        </div>
                     </div>
                 </div>
-                <div class="shadow-none card green lighten-4">
-                    <div class="view overlay text-center">
-                        <span class="fa-stack fa-6x ">
-                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/devices"></a>
-                        </span>
+                <div class="col">
+                        <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-chart-area fa-stack-1x icon" style="color:white" href="/home/energy-data"></a>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Energy Data</h4>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Devices</h4>
+                </div>
+                <div class="col">
+                        <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/devices"></a>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Devices</h4>
+                        </div>
                     </div>
                 </div>
                 
-                    <% userInfo.forEach(function(user) {%>
-                    
-                        <% if (user.isAdmin == 1) {%>
-                            <div class="shadow-none card green lighten-4">
+                <% userInfo.forEach(function(user) {%>  
+                    <% if (user.isAdmin == 1) {%>
+                            <div class="col">
+                        <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -94,9 +101,10 @@
                                     <h4 class="card-title text-center">System Settings</h4>
                                 </div>
                             </div>
-                           
-                        <% } else {%>
-                            <div class="shadow-none card green lighten-4">
+                        </div>
+                    <% } else {%>
+                            <div class="col">
+                        <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
                                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -107,12 +115,12 @@
                                     <h4 class="card-title text-center">Help</h4>
                                 </div>
                             </div>
-                        <% } %>
-                    <% }) %>
-                    
-                </div>
+                        </div>
+                    <% } %>
+                <% }) %>  
             </div>
         </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-sm">

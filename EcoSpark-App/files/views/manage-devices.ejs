@@ -17,9 +17,10 @@
 
         <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+            <div class="row">
                 <% devices.forEach(function(device) {%>
                     <% if (device.deviceType == "Appliance") {%>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -31,8 +32,11 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (device.deviceType == "Light") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -44,8 +48,11 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (device.deviceType == "Heating") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -57,8 +64,11 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (device.deviceType == "Socket") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -70,8 +80,11 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (device.deviceType == "TV") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -83,8 +96,11 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (device.deviceType == "Miscellaneous") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -96,6 +112,8 @@
                                 <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                 <% }) %>
 

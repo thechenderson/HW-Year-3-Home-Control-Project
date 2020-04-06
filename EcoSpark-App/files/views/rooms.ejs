@@ -18,8 +18,9 @@
     
         <% if (!home) { %>
             <h4 class="card-title text-center font-weight-bold">You need to create or assign yourself to a home</h4>
-            <br>
-            <div class="shadow-none card green lighten-4">
+            <br></br>
+            <div class="col">
+                        <div class="shadow-none card green lighten-4">
                 <div class="view overlay text-center">
                     <span class="fa-stack fa-6x ">
                         <i class="fa fa-circle fa-stack-2x icon-background"></i>
@@ -37,12 +38,13 @@
         <h4 class="card-title text-center font-weight-bold"> <%= homeName %></h4>
         <h4 class="card-title text-center font-weight-bold">Choose a Room</h4>
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+            <div class="row">
                 <% rooms.forEach(function(room) {%>
                     <!-- creates a circle button for kitchen -->
                     <!-- checks room type -->
                     <% if (room.roomType == "Kitchen") { %>
                         <!-- create card and set background to the same colour as the page -->
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <!-- size of the circle -->
@@ -58,8 +60,10 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                        </div>
                     <% } %>
                     <% if (room.roomType == "Bedroom") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -71,8 +75,11 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (room.roomType == "LivingRoom") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -84,8 +91,11 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                                                </div>
+
                     <% } %>
                     <% if (room.roomType == "Bathroom") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -97,8 +107,11 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (room.roomType == "Hallway") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -110,8 +123,11 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                     <% if (room.roomType == "DiningRoom") { %>
+                        <div class="col">
                         <div class="shadow-none card green lighten-4">
                             <div class="view overlay text-center">
                                 <span class="fa-stack fa-6x ">
@@ -123,9 +139,12 @@
                                 <h4 class="card-title text-center"><%= room.roomDisplayName %></h4>
                             </div>
                         </div>
+                    </div>
+
                     <% } %>
                 <% }) %>
-                <div class="shadow-none card green lighten-4">
+                <div class="col">
+                        <div class="shadow-none card green lighten-4">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>

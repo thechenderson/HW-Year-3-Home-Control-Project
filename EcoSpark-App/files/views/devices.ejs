@@ -41,13 +41,13 @@
         <div class="dark green lighten-2">
             <h2 class="titles"> Running devices across rooms: 
             <% if (runningDeviceInfo == ""){ %>
-                <div style="color:white;" >Currently no devices running</br></div>
+                <div style="color:white;" >Currently no devices running<br></div>
             <% } %>
             </h2>
             
             <% roomInfo.forEach(function(room) { %>
                 <% if (roomInfo == ""){ %>
-                    Currently no rooms in application  </br> 
+                    Currently no rooms in application  <br> 
                 <% } %>
                 
                 <% runningDeviceInfo.forEach(function(device) { %>
@@ -55,7 +55,7 @@
                         <div class="container">
                             <div class="row">
                                 <h2 class="titles"><%= room.roomDisplayName%></h2> 
-                                </br>
+                                <br>
                             </div>
                             <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
                                 <div class="row">
@@ -76,7 +76,7 @@
                 <% }) %>
             <% }) %>
             
-            </br>
+            <br>
         </div>
 
           <br>

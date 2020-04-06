@@ -95,10 +95,10 @@
                     <% deviceInfo.forEach(function(device) { %>
                         <form action="<%=device.deviceID%>/deleteDevice" method="post">
                             <h2 id="deviceID" style="display:none"> <%= device.deviceID %> </h2>
-                            <h2> Device Type: <%= device.deviceType %></h2></br>
+                            <h2> Device Type: <%= device.deviceType %></h2><br>
                             
                             <% roomInfo.forEach(function(room) {%>
-                                <h2> Device Location: <%= room.roomDisplayName %></h2></br>
+                                <h2> Device Location: <%= room.roomDisplayName %></h2><br>
                             <% }) %>
                             
                             <%userInfo.forEach(function(user) {%>

@@ -47,7 +47,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-3">
+                    <div class="col">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -89,7 +89,7 @@
                 
                 <% userInfo.forEach(function(user) {%>  
                     <% if (user.isAdmin == 1) {%>
-                            <div class="col-3">
+                            <div class="col">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     <% } else {%>
-                            <div class="col-3">
+                            <div class="col">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -123,7 +123,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="slideshow-container">
                         <div class="mySlides">
                             <p class="tip"> Tip!</p>
@@ -165,7 +165,7 @@
                         <% }) %>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm-6">
                     <div class="card weather-card p-2">
                         <div class="card-body">
                             <h4 class="card-title font-weight-bold"><%= timezone %></h4>

@@ -23,7 +23,7 @@
             <a class="navbar-brand pl-2" href="/home" style="font-size: 210%; font-weight: bold;">
                 EcoSpark
             </a>
-            <a class="navbar-brand d-none d-sm-block pl-2" href="/home" style="font-size: 210%; font-weight: bold;">
+            <a class="navbar-brand d-none d-sm-block align-left" href="/home" style="font-size: 210%; font-weight: bold;">
                 |
             </a>
             <a class="d-none d-sm-block" style="font-size: 150%; color: white; font-weight: bold;">
@@ -47,7 +47,7 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col">
+                    <div class="col-3">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-3">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-3">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -89,7 +89,7 @@
                 
                 <% userInfo.forEach(function(user) {%>  
                     <% if (user.isAdmin == 1) {%>
-                            <div class="col">
+                            <div class="col-3">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     <% } else {%>
-                            <div class="col">
+                            <div class="col-3">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -123,12 +123,12 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-sm">
+                <div class="col">
                     <div class="slideshow-container">
                         <div class="mySlides">
                             <p class="tip"> Tip!</p>
                             <q>Switch off radiators in the rooms you’re not using and keep internal doors shut.
-                                 Otherwise, draughts and poorly insulated windows will mean you’re burning excess energy</q>
+                                Otherwise, draughts and poorly insulated windows will mean you’re burning excess energy</q>
                         </div>
                         <div class="mySlides">
                             <p class="tip"> Tip!</p>
@@ -143,17 +143,17 @@
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
+
                     <br>
-                    
 
-                    <div class="card p-4 rounded">
-                            <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
+                    <div class="card p-4 mb-4 rounded">
+                        <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
                             
-                            <% if (faultInfo == ""){ %>
-                                Currently no devices with faults  <br>
-                            <% } %>
+                        <% if (faultInfo == ""){ %>
+                            Currently no devices with faults  <br>
+                        <% } %>
 
-                            <%faultInfo.forEach(function(fault) {%>
+                        <%faultInfo.forEach(function(fault) {%>
                             <div class="systemAlert">
                                 <div class="alert alert-warning" role="alert">
                                     <h5>Fault ID: <%= fault.faultID%></h5>
@@ -162,20 +162,19 @@
                                     <h5>Fault Info: <%= fault.faultInfo%></h5>    
                                 </div>
                             </div>
-                            <% }) %>
-                        </div>
-
+                        <% }) %>
                     </div>
-                <div class="col-sm-6">
-                    <div class="card weather-card">
-                        <div class="card-body pb-3">
+                </div>
+                <div class="col">
+                    <div class="card weather-card p-2">
+                        <div class="card-body">
                             <h4 class="card-title font-weight-bold"><%= timezone %></h4>
                             <p class="card-text"><%= summary %></p>
                             <div class="d-flex justify-content-between">
                                 <p class="display-1 degree"><%= temperature %>°C</p>
                                 <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
                             </div>
-                            <div class="d-flex justify-content-between mb-4">
+                            <div class="d-flex justify-content-between">
                                 <p><i class="fas fa-tint fa-lg text-info pr-2"></i><%= precipProbability %> % <%= precipType %></p>
                                 <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><%= windSpeed %> mph Winds</p>
                             </div>
@@ -185,11 +184,8 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-   
 
+<br>
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
@@ -197,9 +193,7 @@
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
 
 
-        <footer>
           <%- include ('partials/footer'); -%>
-        </footer>
 
 
         <script>

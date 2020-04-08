@@ -181,6 +181,15 @@
             responsive: true
             }
             });
+
+            //Refresh
+            let counter = 1;
+            setInterval(() => {
+                // document.querySelector('h1').innerText = counter;
+                counter++;
+                if (counter > 5) location.reload();
+            }, 10000);
+            
           </script>
     </body>
 </html>

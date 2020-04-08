@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
-
 const queryWrapper = (statement) => {
   return new Promise((resolve, reject) => {
       connection.query(statement, (err, result) => {

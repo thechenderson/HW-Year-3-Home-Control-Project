@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var mysql = require('mysql');
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  global.text = 0;
+  console.log(global.text);
   if (req.session.loggedin){
     res.render('help', { title: 'Express' });
   } else {

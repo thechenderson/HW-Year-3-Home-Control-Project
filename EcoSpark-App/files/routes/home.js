@@ -8,6 +8,7 @@ var settings = require('./settings');
 var myaccount = require('./my-account');
 var mysql = require('mysql');
 
+
 var connection = mysql.createConnection({
   host: process.env.hostname,
   user: process.env.username,
@@ -70,6 +71,5 @@ router.get('/my-account', function(req, res, next) {
     res.redirect('/');
   }
 });
-
 
 module.exports = router;

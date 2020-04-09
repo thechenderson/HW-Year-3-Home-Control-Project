@@ -1,185 +1,224 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
-	<head>
-        <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">  
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/mdb.min.css">
-		<title> Eco Spark - Room </title>
-    </head>
 
-    <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/addRoom.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+  <link rel="stylesheet" href="/stylesheets/style (2).css">
+  <title> Eco Spark - Room </title>
+</head>
 
-      <%- include ('partials/header') -%>
-        
+<body>
+
+  <%- include ('partials/header') -%>
+
+
+
+  <div style="height: 100">
+    <div class="flex-column" align="center">
+      <h2>
+        <u> Overview of
+          <%roomInfo.forEach(function(room) {%>
+          <%=room.roomDisplayName%>'s Energy Usage
+          <% }) %>
+        </u>
+      </h2>
+      <div>
+        <p class="fas fa-thermometer-half"> Current Room Temp _°C</p>
         <br>
+        <p class="fas fa-lightbulb"> Current Room Energy Usage _ KW </p>
+      </div>
+      <br></br>
+      <canvas id="lineChart" style="max-width: 800px;"></canvas>
+    </div>
+  </div>
 
-        <div style="height: 100">
-            <div class="flex-column" align="center">
-              <h2> Overview of
-                <%roomInfo.forEach(function(room) {%>
-                  <%=room.roomDisplayName%>'s Energy Usage
-                <% }) %>
-              </h2>
-              
-              <br>
 
-              <canvas id="lineChart" style="max-width: 800px;"></canvas>
-            </div>
+
+  </br>
+  </br>
+
+  <div class="container" align="center">
+    <h2 class="titles">
+      <u> Devices in Room </u>
+    </h2>
+    </br>
+    <ul class="list-group">
+      <div class="row">
+        <div class="col-sm" align="center">
+          <h2 style="font-size:20px">DEVICE NAME</h2>
         </div>
+        <div class="col-sm" align="center">
+          <h2 style="font-size:20px">POWER OUTAGE </h2>
+        </div>
+      </div>
 
-        <br>
-        <br>
+      <% deviceInfo.forEach(function(device) {%>
+      <% if (device.devicePower <= 10000) {%>
+      <li class="list-group-item list-group-item-success">
+        <div class="row">
+          <div class="col-sm" align="center">
+            <h2><%= device.deviceDisplayName %> :</h2>
+          </div>
+          <div class="col-sm" align="center">
+            <h2><%= device.devicePower %></h2>
+          </div>
+        </div>
+      </li>
+      <% } %>
 
-          <div class="container" align="center">
-            <h2 class="titles">
-              <u> List of Devices </u>
-            </h2>
-            
-            <br>
-           
-            <ul class="list-group">
-              <div class="row">
-                <div class="col-sm" align="center">
-                  <h2 style="font-size:20px">DEVICE NAME</h2>
+      <% if (device.devicePower > 10000) {%>
+      <li class="list-group-item list-group-item-warning">
+        <div class="row">
+          <div class="col-sm" align="center">
+            <h2><%= device.deviceDisplayName %> :</h2>
+          </div>
+          <div class="col-sm" align="center">
+            <h2><%= device.devicePower %></h2>
+          </div>
+        </div>
+      </li>
+      <% } %>
+      <% }) %>
+    </ul>
+  </div>
+
+  <br></br>
+
+  <div class="flex-column" align="center">
+    <h2 class="titles ">
+      <u> Room Control </u>
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="loginCardHolder white">
+          <div class="card  teal lighten-3">
+            <div class="card-body">
+              <%roomInfo.forEach(function(room) {%>
+              <form action="<%=room.roomID%>/updateHeating" method="post">
+                <p class="h4 text-center py-4">Heating</p>
+                <div class="md-form">
+                  <i class="fas fa-fire-alt prefix"></i>
+                  <label> Select Room Temperature</label>
+                  <input type="range" class="custom-range mt-5 ml-3" id="customRange1">
                 </div>
-                <div class="col-sm" align="center">
-                  <h2 style="font-size:20px">POWER OUTAGE </h2>
+                <div class="text-center">
+                  <div class="form-group">
+                    <button class="btn  green lighten-2" type="submit">Update Heating</button>
+                  </div>
                 </div>
+              </form>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm">
+        <div class="loginCardHolder white">
+          <div class="card  teal lighten-3">
+            <div class="card-body">
+              <p class="h4 text-center py-4">Devices</p>
+              <%roomInfo.forEach(function(room) {%>
+              <%deviceInfo.forEach(function(device) {%>
+              <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="switch" value="on" onChange="this.form.submit()"
+                    <% runningDevices.forEach(function(runningD) {%>
+                      <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
+                        <%= 'checked' %>
+                        <% } %>
+                    <% }) %>
+                    >
+                    <label class="custom-control-label" for="customSwitch1"> <%= device.deviceDisplayName %>   ON / OFF
+                    </label>
+                  </div>
+                </form>
+              <% }) %>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit">
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <%roomInfo.forEach(function(room) {%>
+          <form action="<%=room.roomID%>/updateRoomName" method="post">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Edit Room</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <i class="fas fa-edit prefix grey-text"></i>
+                <input type="text" id="roomName" name="roomName" class="form-control">
+                <label>New Room Name</label>
               </div>
-              
-              <% deviceInfo.forEach(function(device) {%>
-                <% if (device.devicePower <= 10000) {%>
-                  <li class="list-group-item list-group-item-success">
-                    <div class="row">
-                      <div class="col-sm" align="center">
-                        <h2><%= device.deviceDisplayName %> :</h2>
-                      </div>
-                      <div class="col-sm" align="center">
-                        <h2><%= device.devicePower %></h2>
-                      </div>
-                    </div>
-                  </li>
-                <% } %>
-
-              <% if (device.devicePower > 10000) {%>
-                <li class="list-group-item list-group-item-warning">
-                  <div class="row">
-                    <div class="col-sm" align="center">
-                      <h2><%= device.deviceDisplayName %> :</h2>
-                    </div>
-                    <div class="col-sm" align="center">
-                      <h2><%= device.devicePower %></h2>
-                    </div>
-                  </div>
-                </li>
-              <% } %>
-            <% }) %>
-           </ul>
-        </div>
-
-        <br>
-        <br>
-
-        <h2 class="titles"> Room Control: </h2>
-        
-        <br>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-                        <br>
-                        <label for="customRange1">Change Room Temperature</label>
-                        <input type="range" class="custom-range" id="customRange1">
-                        <br>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches">
-                            <label class="custom-control-label" for="customSwitches">Main Lights off/on</label>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-                <% averagesRInfo.forEach(function(aver) { %>
-                  <div class="col-sm-6">
-                      <h4 class="fas fa-thermometer-half"> Current Room Temp _°C</h4>
-                      <h4 class="fas fa-lightbulb"> Current Room Energy Usage <%= aver.averRoomPower%> KW </h4>
-                  </div>
-                <% }) %>
             </div>
-        </div>
-        
-          
-             <div class="edit">
-            <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <%roomInfo.forEach(function(room) {%>
-                        <form action="<%=room.roomID%>/updateRoomName" method="post">
-                            <div class="modal-header text-center">
-                                <h4 class="modal-title w-100 font-weight-bold">Edit Room</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body mx-3">
-                                <div class="md-form mb-5">
-                                    <i class="fas fa-edit prefix grey-text"></i>
-                                    <input type="text" id="roomName" name="roomName" class="form-control">
-                                    <label>New Room Name</label>
-                                </div>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-default" type="submit">Update</button>
-                            </div>
-                        </form>
-                        <% }) %>
-                    </div>
-                </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-default" type="submit">Update</button>
             </div>
-            <div class="text-center">
-                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-                    <i class="fas fa-edit"></i> Edit Room</a>
-            </div>
+          </form>
+          <% }) %>
         </div>
-        
-            
-        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
-        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+        <i class="fas fa-edit"></i> Edit Room</a>
+    </div>
+  </div>
 
-          <script type="text/javascript">
-            var ctxL = document.getElementById("lineChart").getContext('2d');
-            var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
-            gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
-            gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
-            var myLineChart = new Chart(ctxL, {
-            type: 'line',
-            data: {
-            labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
-            datasets: [
-            {
-            label: "Energy Consumption from ROOM",
+
+  <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+
+  <script type="text/javascript">
+    var ctxL = document.getElementById("lineChart").getContext('2d');
+    var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
+    gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
+    gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
+    var myLineChart = new Chart(ctxL, {
+      type: 'line',
+      data: {
+        labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
+        datasets: [
+          {
+            label: "Energy Consumption",
             data: [0, 65, 45, 65, 35, 65, 0],
             backgroundColor: gradientFill,
             borderColor: [
-            '#8bc34a',
+              '#8bc34a',
             ],
             borderWidth: 2,
             pointBorderColor: "#8bc34a",
             pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
-            }
-            ]
-            },
-            options: {
-            responsive: true
-            }
-            });
+          }
+        ]
+      },
+      options: {
+        responsive: true
+      }
+    });
 
             //Refresh
             let counter = 1;

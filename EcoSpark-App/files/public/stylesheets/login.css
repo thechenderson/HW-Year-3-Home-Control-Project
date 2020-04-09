@@ -10,10 +10,6 @@
 }
 
 .loginCardHolder {
-  align-items: center;
-  margin-top: 2%;
-  margin-left: 15%;
-  width: 70%;
   padding: 1%;
   border-radius: 8px;
 }
@@ -34,12 +30,6 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover;
-}
-
-h2 {
-margin-left: 50%;
-color: white;
-font-size: 70pt;
 }
 
 

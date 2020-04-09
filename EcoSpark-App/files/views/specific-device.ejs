@@ -92,6 +92,17 @@
                             </div>
                         </div>
                     <% } %>
+                    <% if (device.deviceType == "Solar Panel") { %>
+                        <div class="col">
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                        </div>
+                    <% } %>
                 <% }) %>
               <div class="media-body">
                 <div class="modal fade" id="deleteDevice"></div> 
@@ -223,6 +234,5 @@
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-
     </body>
 </html>

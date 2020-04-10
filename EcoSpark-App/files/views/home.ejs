@@ -45,7 +45,7 @@
        
         <div class="container">
             <div class="row">
-                    <div class="col">
+                    <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                         <div class="view overlay text-center">
                             <span class="fa-stack fa-6x ">
@@ -87,7 +87,7 @@
                 
                 <% userInfo.forEach(function(user) {%>  
                     <% if (user.isAdmin == 1) {%>
-                            <div class="col">
+                            <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     <% } else {%>
-                            <div class="col">
+                            <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
                                     <span class="fa-stack fa-6x ">
@@ -168,8 +168,8 @@
                         <div class="card-body">
                             <h4 class="card-title font-weight-bold"><%= timezone %></h4>
                             <p class="card-text"><%= summary %></p>
-                            <div class="d-flex justify-content-between">
-                                <p class="display-1 degree"><%= temperature %>°C</p>
+                            <div class="justify-content-between">
+                                <p class="display-3 degree pl-1"><%= temperature %>°C</p>
                                 <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
                             </div>
                             <div class="d-flex justify-content-between">

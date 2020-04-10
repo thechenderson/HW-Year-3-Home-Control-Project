@@ -106,9 +106,7 @@
                 <% }) %>
               <div class="media-body">
                 <div class="modal fade" id="deleteDevice"></div> 
-                <h5 class="mt-0 font-weight-bold">Device Details:</h5>
-                
-                    
+                <h4 class="mt-0 font-weight-bold">Device Details:</h4>
                     <% deviceInfo.forEach(function(device) { %>
                         <form action="<%=device.deviceID%>/deleteDevice" method="post">
                             <h2 id="deviceID" style="display:none"> <%= device.deviceID %> </h2>
@@ -118,19 +116,119 @@
                                 <h2> Device Location: <%= room.roomDisplayName %></h2><br>
                             <% }) %>
                             
-                            <%userInfo.forEach(function(user) {%>
-                                <%if (user.isAdmin == 1) {%>
-                                    <div class="modal-footer d-flex" style="display:block">
-                                        <button class="btn btn-default" type="submit">Delete Device</button>
-                                    </div>
-                                    </div>
-                                <% } %>
-                            <% }) %>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="loginCardHolder white">
+                                    <div class="card  teal lighten-3">
+                                        <div class="card-body">
+                                        <p class="h4  py-4">Device Control: 
+                                            <% var isEmpty = function(obj) {
+                                                return Object.keys(obj).length === 0;
+                                            }
+                                            if (isEmpty(runningDeviceInfo)) { %>
+                                                <h4 class="fas fa-lightbulb"> Current device is off</h4>
+                                            <% } else { %>
+                                                <% runningDeviceInfo.forEach (function(deviceR) { %>
+                                                    <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= deviceR.rDevicePower%></h4>      
+                                                <% }) %>
+                                            <% } %>
+                                        </p>
+                                        <p>
+                                        <div class="custom-control custom-switch">
+                                            <% var isEmpty = function(obj) {
+                                                return Object.keys(obj).length === 0;
+                                            }
+                                            if (isEmpty(runningDeviceInfo)) { %>
+                                                <!--set toggle to off-->
+                                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches">
+                                                <label class="custom-control-label" for="customSwitches">Off/On</label>
+                                            <% } else {%>
+                                                <!--set toggle to on-->
+                                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches" checked>
+                                                <label class="custom-control-label" for="customSwitches">Off/On</label>
+                                            <% } %>
+                                        </div>
+                                    </p>
+                                        <div class="modal-footer d-flex justify-content-center" style="display:block">
+                                            <button class="btn btn-default" type="submit">Update Device</button>
+                                        </div>
 
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </br>
+
+                            <% if (device.deviceType == "Solar Panel") { %>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="loginCardHolder white">
+                                        <div class="card  teal lighten-3">
+                                            <div class="card-body">
+                                            <p class="h4  py-4">Power Production: 
+                                                <% var isEmpty = function(obj) {
+                                                    return Object.keys(obj).length === 0;
+                                                }
+                                                if (isEmpty(runningDeviceInfo)) { %>
+                                                    <h4 class="fas fa-lightbulb"> Current device is off</h4>
+                                                <% } else { %>
+                                                    <% runningDeviceInfo.forEach (function(deviceR) { %>
+                                                        <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= deviceR.rDevicePower%></h4>      
+                                                    <% }) %>
+                                                <% } %>
+                                            </p>
+                                            <p>
+                                            <div class="custom-control custom-switch">
+                                                <% var isEmpty = function(obj) {
+                                                    return Object.keys(obj).length === 0;
+                                                }
+                                                if (isEmpty(runningDeviceInfo)) { %>
+                                                    <!--set toggle to off-->
+                                                    <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches">
+                                                    <label class="custom-control-label" for="customSwitches">Off/On</label>
+                                                <% } else {%>
+                                                    <!--set toggle to on-->
+                                                    <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches" checked>
+                                                    <label class="custom-control-label" for="customSwitches">Off/On</label>
+                                                <% } %>
+                                            </div>
+                                        </p>
+                                            <div class="modal-footer d-flex justify-content-center" style="display:block">
+                                                <button class="btn btn-default" type="submit">Update Device</button>
+                                            </div>
+    
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="text-center h1 my-4">
+                                        <div class="modal-footer d-flex justify-content-center" style="display:block">
+                                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+                                        <i class="fas fa-edit"></i> Edit Device</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%userInfo.forEach(function(user) {%>
+                                    <%if (user.isAdmin == 1) {%>
+                                    <div class="col-sm">
+                                        <div class="text-center h1 my-4">
+                                            <div class="modal-footer d-flex justify-content-center" style="display:block">
+                                                <button class="btn btn-default" type="submit">Delete Device</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                            
                         </form>
                     <% }) %>
-                        
-                    
                 </div>
                 </div>
               </div>
@@ -138,52 +236,7 @@
             </li>
           </ul>
         </div>
-        
-
-        <br>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="sliders rounded mb-0 green lighten-2 z-depth-1">
-                        <br>
-
-                        <div class="custom-control custom-switch">
-                            <% var isEmpty = function(obj) {
-                                return Object.keys(obj).length === 0;
-                            }
-                            if (isEmpty(runningDeviceInfo)) { %>
-                                <!--set toggle to off-->
-                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches">
-                                <label class="custom-control-label" for="customSwitches">off/on</label>
-                            <% } else {%>
-                                <!--set toggle to on-->
-                                <input type="checkbox" class="custom-control-input" onclick="changes();" id="customSwitches" checked>
-                                <label class="custom-control-label" for="customSwitches">off/on</label>
-                            <% } %>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-                
-                <% var isEmpty = function(obj) {
-                    return Object.keys(obj).length === 0;
-                  }
-
-                if (isEmpty(runningDeviceInfo)) { %>
-                    <div class="col-sm-6">
-                        <h4 class="fas fa-lightbulb"> Current device is off</h4>
-                    </div>
-                <% } else {%>
-                    <% runningDeviceInfo.forEach (function(deviceR) {%>
-                    <div class="col-sm-6">
-                        <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= deviceR.rDevicePower%></h4>
-                    </div>
-                    <% }) %>
-                <% } %>
-                
-            </div>
-        </div>
-
+                        
         <div class="edit">
             <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -211,25 +264,13 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-                    <i class="fas fa-edit"></i> Edit Device</a>
             </div>
         </div>
         
-        <!-- <%userInfo.forEach(function(user) {%>
-            <%if (user.isAdmin == 1) {%>
-                <div class="text-center" style="display:block">
-                    <a href="" class="btn btn-default btn-rounded mb-4" data-target="#deleteDevice">
-                        <i class="fas fa-edit"></i> Delete Device</a>
-                </div>
-            <% } else { %>
-                <div class="text-center" style="display:none">
-                    <a href="" class="btn btn-default btn-rounded mb-4">
-                        <i class="fas fa-edit"></i> Delete Device</a>
-                </div>
-            <% } %>
-        <% }) %> -->
+        
+        
+      </div>
+    </div>
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>

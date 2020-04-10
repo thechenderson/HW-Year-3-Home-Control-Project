@@ -19,7 +19,6 @@ const queryWrapper = (statement) => {
   });
 };
 
-
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     // var $ = require('jQuery');
@@ -98,49 +97,24 @@ router.post('/:deviceID/updateDeviceName', function(request, response) {
 });
 
 router.post('/:deviceID/deleteDevice', function(request, response) {
+  console.log(request.params.deviceID);
   var sqlF = "DELETE FROM faults WHERE deviceID = '"+ request.params.deviceID + "';";  
    connection.query(sqlF, function (err, result, fields) {
-      if(result== ""){
-        response.redirect('/home');
-      } else {
-        if (result.affectRows == 0) {
-          console.log("No deviceID in faults");
-        }
         var sqlC = "DELETE FROM changes WHERE deviceID = '" + request.params.deviceID + "';";
         connection.query(sqlC, function (err, result, fields) {
-          if(result== ""){
-            response.redirect('/home');
-          } else {
-            if (result.affectRows == 0) {
-              console.log("No deviceID in changes");
-            }
-
-            var sqlR = "DELETE FROM runningdevices WHERE rID = '" + request.params.deviceID + "';";
+            var sqlR = "DELETE FROM runningdevices WHERE deviceID = '" + request.params.deviceID + "';";
             connection.query(sqlR, function (err, result, fields) {
-              if(result== ""){
-                response.redirect('/home');
-              } else {
-                if (result.affectRows == 0) {
-                  console.log("No deviceID in runningdevices");
-                }
-                
                 var sqlD = "DELETE FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
                 connection.query(sqlD, function (err, result, fields) {
                   if(result== ""){
                     response.redirect('/home');
                   } else {
-                    if (result.affectRows == 0) {
-                      console.log("No deviceID in devices");
-                    }
                     console.log("Record deleted");
                     response.redirect('/home/devices/');
                   }
                 }); 
-              }
             });
-          }
         });
-      }
     });
 });
 

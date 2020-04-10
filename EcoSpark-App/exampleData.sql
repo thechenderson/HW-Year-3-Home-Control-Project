@@ -2,10 +2,10 @@
 insert into homes values(1, 'RebeccaHome', 'Rebecca');
 
 
-insert into users values ('Rebecca', 'password', 1, 'Becca', 1);
-insert into users values ('John', 'Jpass', 1, 'John', 1);
-insert into users values ('Jessica', 'jenspass', 0, 'Jess', 1);
-insert into users values ('Ben', 'benspass', 0, 'Benny', 1);
+insert into users values ('Rebecca', 'password', 'No', 'Becca', 1);
+insert into users values ('John', 'Jpass', 'No', 'John', 1);
+insert into users values ('Jessica', 'jenspass', 'Yes', 'Jess', 1);
+insert into users values ('Ben', 'benspass', 'Yes', 'Benny', 1);
 
 
 insert into rooms values (1, "Kitchen", "Kitchen", NULL ,1);

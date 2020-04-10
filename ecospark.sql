@@ -9,7 +9,7 @@ CREATE TABLE `homes` (
 CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
+  `isAdmin` varchar(3) NOT NULL,
   `displayName` varchar(30) DEFAULT NULL,
   `homeID` varchar(20),
   PRIMARY KEY (username),

@@ -15,34 +15,44 @@
     <body>
         
         <%- include ('partials/header') -%>
-        <div class="row">
-            <div class="container">
-                <div class="card p-4 rounded" style="text-align: center;">
-                    <h3> Help Page</h3>
-                </div>
-            </div>
-        </div>
         
-        <br>
-
-        <div class="row">
-            <div class="container">
-                <div class="card p-4 rounded" style="text-align: center;">
-                    <div class="py-3 col-md-6 text-center text-md-left">
-						<div class="change-font">
-							<h2>Choose Text Size: </h2>
-							<h3><u>Small</u></h3>
-							<h2><u>Medium</u></h2>
-							<h1><u>Large</u></h1>
-                            </br>
-                            </br>
-							<button class="Reset" type="button">Reset</button>
-						</div>
-					</div>
+        <div class="container-flex px-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action active" href="#welcome">Welcome</a>
+                        <a class="list-group-item list-group-item-action" href="#getting-started">Getting Started</a>
+                        <a class="list-group-item list-group-item-action" href="#managing-home">Managing Your Home</a>
+                        <a class="list-group-item list-group-item-action" href="#managing-devices">Managing Your Devices</a>
+                      </div>
                 </div>
+                <div class="col-md-9 pt-3">
+                    <div data-spy="scroll" data-offset="0" class="scrollspy" style="overflow-y: scroll; height: 620px;">
+                        <h4 id="welcome">Welcome</h4>
+                        <p>Welcome to the EcoSpark dashboard. Here you can find everything you need to manage your smart home.</p>
+                        <h4 id="getting-started">Getting Started</h4>
+                        <p>...</p>
+                        <h4 id="managing-home">Managing Your Home</h4>
+                        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+                        <h4 id="managing-devices">Managing Your Devices</h4>
+                        <p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+                      </div>
+                </div>
+                
             </div>
+           
+              
+
+            
+      
+      
         </div>
-        <h1>test</h1></br>
+
+       
+        
+        <%- include ('partials/footer') -%>
+
+       
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

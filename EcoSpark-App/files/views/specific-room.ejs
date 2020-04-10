@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/addRoom.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
@@ -134,14 +134,14 @@
               <%deviceInfo.forEach(function(device) {%>
               <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
                   <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="switch" value="on" onChange="this.form.submit()"
+                    <input type="checkbox" class="custom-control-input" id="<%= device.deviceDisplayName %>" name="switch" value="on" onChange="this.form.submit()"
                     <% runningDevices.forEach(function(runningD) {%>
                       <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
                         <%= 'checked' %>
                         <% } %>
                     <% }) %>
                     >
-                    <label class="custom-control-label" for="customSwitch1"> <%= device.deviceDisplayName %>   ON / OFF
+                    <label class="custom-control-label" for="<%= device.deviceDisplayName %>"> <%= device.deviceDisplayName %>   ON / OFF
                     </label>
                   </div>
                 </form>

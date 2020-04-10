@@ -146,10 +146,10 @@ router.post('/createHome', function(request, response) {
   console.log(homeID + "   " + homeName);
   if (homeID && homeName) {
     
-    var sql9 = "INSERT INTO homes VALUES ('" + homeID + "', '" + homeName + "', '"+ request.session.user + "')";
-    connection.query(sql9, function (err, result4, fields) {
-      console.log(result4 + "      insert homes"); 
-      if (!result4) {
+    var sql1 = "INSERT INTO homes VALUES ('" + homeID + "', '" + homeName + "', '"+ request.session.user + "')";
+    connection.query(sql1, function (err, result1, fields) {
+      console.log(result1 + "      insert homes"); 
+      if (!result1) {
         response.redirect('/home/rooms/add-home');
       } else {
     
@@ -157,9 +157,13 @@ router.post('/createHome', function(request, response) {
         connection.query(sql2, function (err, result2, fields) {
         });
 
-        var sql3 = "SELECT homeName FROM homes WHERE homeID = '" + homeID + "'";
+        var sql3 = "UPDATE users SET isAdmin = 'Yes' WHERE username = '" + request.session.user + "'";
         connection.query(sql3, function (err, result3, fields) {
-          if (result3 != "") {
+        });
+
+        var sql4 = "SELECT homeName FROM homes WHERE homeID = '" + homeID + "'";
+        connection.query(sql4, function (err, result4, fields) {
+          if (result4 != "") {
             response.redirect('/home/rooms');
           } else {
             response.redirect('/home/rooms/add-home');

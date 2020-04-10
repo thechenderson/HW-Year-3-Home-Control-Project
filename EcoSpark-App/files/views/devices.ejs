@@ -24,9 +24,9 @@
     <body>
 
         <%- include ('partials/header') -%>
-    <div class="container">
-        <div style="height: 100;">
-            <div class="flex-column" style="text-align: center;">
+
+        <div style="height: 100">
+            <div class="flex-column" align="center">
               <h2> Currently Running Devices </h2>
             <br>
                 <!-- This is the graph using ajax -->
@@ -34,8 +34,7 @@
                     <canvas id="lineChart"></canvas>
                 </div>
             </div>
-    </div>
-        
+        </div>
         <br>
 
         <div class="dark green lighten-2">
@@ -190,7 +189,6 @@
                             </div>
                         </div>
                     </div>
-
                     <% } %>
                     <% if (device.deviceType == "Miscellaneous") { %>
                         <div class="col">
@@ -206,7 +204,21 @@
                             </div>
                         </div>
                     </div>
-
+                    <% } %>
+                    <% if (device.deviceType == "Solar Panel") { %>
+                        <div class="col">
+                        <div class="shadow-none card green lighten-4">
+                            <div class="view overlay text-center">
+                                <span class="fa-stack fa-6x ">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                            </div>
+                        </div>
+                    </div>
                     <% } %>
                 <% }) %>
                 <div class="col">

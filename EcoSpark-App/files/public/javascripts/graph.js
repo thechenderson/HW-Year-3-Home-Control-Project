@@ -2,7 +2,7 @@ var $ = require('jQuery');
 
 $(document).ready(function(){
   $.ajax({
-    src: "/files/public/php/data.php",
+    src: "/php/data.php",
     method: "GET",
     success: function(data) {
       console.log(data);

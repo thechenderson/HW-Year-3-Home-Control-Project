@@ -7,11 +7,7 @@ var mysql = require('mysql');
 router.get('/', function(req, res, next) {
   global.text = 0;
   console.log(global.text);
-  if (req.session.loggedin){
     res.render('help', { title: 'Express' });
-  } else {
-    res.redirect('/');
-  }
 });
 
 router.get('/my-account', function(req, res, next) {

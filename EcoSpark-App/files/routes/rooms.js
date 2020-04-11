@@ -181,16 +181,14 @@ router.post('/createHome', function(request, response) {
 
 router.post('/createRoom', function(request, response) {
   var roomNameOld = request.body.roomName;
-  var roomIDOld = request.body.roomID;
   var roomTypeOld = request.body.roomType;
 
   var roomName = roomNameOld.replace(/[^a-zA-Z0-9\s]/g,"");
-  var roomID = roomIDOld.replace(/[^a-zA-Z0-9]/g,"");
   var roomType = roomTypeOld.replace(/[^a-zA-Z0-9]/g,"");
   
-  if (roomName && roomType && roomID) {
+  if (roomName && roomType) {
     
-        var sql4 = "INSERT INTO rooms VALUES ('" + roomID + "', '" + roomName + "', '" + roomType + "', NULL, '" + request.session.homeID + "')";
+        var sql4 = "INSERT INTO rooms VALUES ('0', '" + roomName + "', '" + roomType + "', NULL, '" + request.session.homeID + "')";
         connection.query(sql4, function (err, result4, fields) {
           if (!result4) {
             response.redirect('/home/rooms/add-room');

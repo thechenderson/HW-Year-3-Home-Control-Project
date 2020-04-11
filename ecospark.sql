@@ -18,7 +18,7 @@ CREATE TABLE `users` (
 
 
 CREATE TABLE `rooms` (
-  `roomID` varchar(20) NOT NULL,
+  `roomID` int(11) NOT NULL AUTO_INCREMENT,
   `roomDisplayName` varchar(20) NOT NULL,
   `roomType` varchar(20) NOT NULL DEFAULT 0,
   `temperature` int(2),
@@ -33,7 +33,7 @@ CREATE TABLE `devices` (
   `deviceDisplayName` varchar(20) NOT NULL,
   `devicePower` int(11) NOT NULL DEFAULT 0,
   `deviceType` VARCHAR(20) NOT NULL DEFAULT 0,
-  `roomID`varchar(20) NOT NULL,
+  `roomID` int(11) NOT NULL,
   PRIMARY KEY (deviceID),
   FOREIGN KEY (roomID) REFERENCES rooms(roomID)
 ) ENGINE=INNODB;
@@ -52,7 +52,7 @@ CREATE TABLE `runningDevices`(
   `rDevicePower` int(11) NOT NULL DEFAULT 0,
   `rDeviceType` varchar(20) NOT NULL,
   `deviceID` int(11) NOT NULL, 
-  `roomID`varchar(20) NOT NULL,
+  `roomID` int(11) NOT NULL,
   PRIMARY KEY (rID),
   FOREIGN KEY (roomID) REFERENCES rooms(roomID),
   FOREIGN KEY (deviceID) REFERENCES devices(deviceID)
@@ -78,7 +78,7 @@ CREATE TABLE `averagesForH` (
 ) ENGINE=INNODB;
 
 CREATE TABLE `averagesForR` (
-  `roomID` varchar(20) NOT NULL,
+  `roomID` int(11) NOT NULL,
   `date` varchar(20) NOT NULL,
   `averRoomPower` int(20) NOT NULL,
   PRIMARY KEY (roomID),

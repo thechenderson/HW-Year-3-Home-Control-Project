@@ -19,66 +19,50 @@
 
         <% users.forEach(function(user) {%>
         <div class="container">
-            <h3> User Account Details for: <%=user.username%></h3>
-            
-            <br>
-            <br>
-            
-            <div class="media">
-                <!-- <img class="d-flex align-self-center mr-3" src="/user.png" alt="Generic placeholder image" style="width:200px;height:200px;"> -->
-                        <div class="shadow-none card green lighten-4">
-                    <div class="view overlay text-center">
-                        <span class="fa-stack fa-6x ">
-                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-user-circle fa-stack-1x icon" style="color:white"></a>
-                        </span>
+            <div class="ecoSparkCard white mx-auto" style="width: fit-content;">
+                <div class="card green lighten-3">
+                    <div class="card-title pt-4">
+                        <h3 style="text-align: center;"> User Account Details for: <%=user.username%></h3>  
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="shadow-none card green lighten-3">
+                                    <div class="view overlay text-center">
+                                        <span class="fa-stack fa-6x ">
+                                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                            <i class="fas fa-user-circle fa-stack-1x" style="color:white"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col py-4">
+                                <h3>Password: <%=user.password%></h3>
+                                <h3>Is the user an Admin?
+                                    <% if (user.isAdmin == 0) {%>
+                                         No
+                                      <% } else { %>
+                                         Yes
+                                    <% } %>
+                                </h3>
+                                <h3>Home Name: <%=user.homeName%></h3>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <a class="btn btn-default" href="/">Log out</a>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="media-body">
-                    <div class="container">
-                        <div class="row">
-                          <div class="col-sm">
-                            <p><h3>Password:</h3></p>
-                          </div>
-                          <div class="col-sm">
-                            <p><h3><%=user.password%></h3></p>
-                          </div>
-                        </div>
-            
-                        <div class="row">
-                            <div class="col-sm">
-                                <p><h3>Is the user an Admin?</h3></p>
-                            </div>
-                            <div class="col-sm">
-                                <% if (user.isAdmin == 0) {%>
-                                    <p><h3> No </h3></p>
-                                  <% } else { %>
-                                    <p><h3> Yes </h3></p>
-                                <% } %>
-                            </div>
-                          </div>
-            
-                        <div class="row">
-                            <div class="col-sm">
-                                <p><h3>Home Name:</h3></p>
-                            </div>
-                            <div class="col-sm">
-                                <p><h3><%=user.homeName%></h3></p>
-                            </div>
-                        </div>
-                      </div>
-                </div>
             </div>
-            
 
+
+            <br>
+            <br>
+            
         </div>
     
-    <br>
 
-    <div class="modal-footer d-flex justify-content-center">
         <!-- <button class="btn btn-default" type="submit" href="/">Log out</button> -->
-        <a class="btn btn-default" href="/">Log out</a>
     </div>
 
         <% }) %>

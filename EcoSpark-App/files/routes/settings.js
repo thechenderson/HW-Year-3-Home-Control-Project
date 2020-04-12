@@ -64,17 +64,12 @@ router.get('/manage-users/:username', function(req, res, next) {
   }
 });
 
-/*Button for updating user details
-router.post('/manage-users/:username/updateUser', function(req, response) {
-  var username = req.params.username;
-  var displayNameOld = req.body.displayName;
-  var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g,"");
-  var passwordOld = req.body.password;
-  var password = passwordOld.replace(/[^a-zA-Z0-9]/g,"");
-  var isAdminOld = req.body.isAdmin;
-  var isAdmin = isAdminOld.replace(/[^a-zA-Z0-9]/g,"");
 
-  var sql = "UPDATE users SET users.displayName = '" + displayName + "', users.password = '"+ password +"', users.isAdmin = '"+ isAdmin +"' WHERE users.username = '" + username + "'";
+router.post('/manage-users/:username/updateUserName', function(req, response) {
+  var username = req.params.username;
+  var displayNameOld = req.body.username;
+  var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g,"");
+  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
   connection.query(sql, function (err, result, fields) {
     if(result== ""){
       response.redirect('/home/settings/manage-users');
@@ -85,7 +80,24 @@ router.post('/manage-users/:username/updateUser', function(req, response) {
   });
 });
 
-//Button to delete a user
+
+router.post('/manage-users/:username/updateUserPW', function(req, response) {
+  var username = req.params.username;
+  var PWOld = req.body.password;
+  var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g,"");
+  var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home/settings/manage-users');
+    } else {
+      console.log(result);
+      response.redirect('/home/settings/manage-users/' + req.params.username );
+    }
+  });
+});
+
+
+
 router.post('/manage-users/:username/deleteUser', function(req, response) {
   var username = req.params.username;
   var sql = "DELETE FROM users WHERE users.username = '" + username + "'";
@@ -97,11 +109,11 @@ router.post('/manage-users/:username/deleteUser', function(req, response) {
       response.redirect('/home/settings/manage-users/');
     }
   });
-});*/
+});
 
 
 
-router.post('/manage-users/:username/remove:username', function(req, response) {
+router.post('/manage-users/:username/removeFromHome', function(req, response) {
   var username = req.params.username;
   var sql = "UPDATE users SET homeID = NULL WHERE username ='" + username + "'";
   connection.query(sql, function (err, result, fields) {

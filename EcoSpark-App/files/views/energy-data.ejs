@@ -54,7 +54,7 @@
 			<p class="white-text">
 				<% if (averagesHInfo == "") { %>
 					<div class="row justify-content-center">
-						<div class="col-6">
+						<div class="col-sm-6">
 							<div class="ecoSparkCard white">
 								<div class="card green lighten-3">
 									<div class="card-body">
@@ -95,38 +95,37 @@
 
 		<br>
 		<br>
-
-		<div class="container" align="center">
-			<h2 class="titles"> What type of reports would you like to see? </h2>
+		
+			<div class="container pb-4">
+				<h2 class="titles"> What type of reports would you like to see? </h2>
 			<br>
-			<div class="col-md-12 pb-4">
-			<div class="row">
-				<div class="col-sm">
-				<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="dayAverage()">Day Overview</button>
-				</div>
-				<div class="col-sm" align="center">
-				<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="weekAverage()">Week Overview</button>
-				</div>
-				<div class="col-sm" align="center">
-				<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="monthAverage()">Month Overview</button>
-				</div>
-				<div class="col-sm" align="center">
-				<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="yearAverage()">Year Overview</button>
+				<div class="row justify-content-center">
+					<div class="col-3-sm">
+						<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="dayAverage()">Day Overview</button>
+					</div>
+					<div class="col-3-sm" align="center">
+						<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="weekAverage()">Week Overview</button>
+					</div>
+					<div class="col-3-sm" align="center">
+						<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="monthAverage()">Month Overview</button>
+					</div>
+					<div class="col-3-sm" align="center">
+						<button type="button" class="btn dusty-grass-gradient btn-rounded" onclick="yearAverage()">Year Overview</button>
+					</div>
 				</div>
 			</div>
-			</div>
-		</div>
+			
 
 		<div class="container justify-content-center" id="graphDayContainer" style="display: none;">
-			<div class="container-flex green lighten-4">
-			<h1> Graph for Days Energy Consumption </h1>
-			<br>
-			<canvas id="lineChartA"></canvas>
+			<div class="container-flex green lighten-4 pb-4">
+				<h1> Graph for Days Energy Consumption </h1>
+				<br>
+				<canvas id="lineChartA"></canvas>
 			</div>
 		</div>
 
 		<div class="container justify-content-center" id="graphWeekContainer" style="display: none;">
-			<div class="container-flex green lighten-4">
+			<div class="container-flex green lighten-4 pb-4">
 				<h1> Graph for Weeks Energy Consumption </h1>
 			<br>
 			<canvas id="lineChartB"></canvas>
@@ -134,7 +133,8 @@
 		</div>
 		
 		<div class="container justify-content-center" id="graphMonthContainer" style="display: none;">
-			<div class="container-flex green lighten-4">
+			<div class="container-flex green lighten-4 pb-4">
+
 				<h1> Graph for Month Energy Consumption </h1>
 			<br>
 			<canvas id="lineChartC"></canvas>
@@ -142,7 +142,7 @@
 		</div>
 
 		<div class="container justify-content-center" id="graphYearContainer" style="display: none;">
-			<div class="container-flex green lighten-4">
+			<div class="container-flex green lighten-4 pb-4">
 				<h1> Graph for Year Energy Consumption </h1>
 			<br>
 			<canvas id="lineChartD"></canvas>

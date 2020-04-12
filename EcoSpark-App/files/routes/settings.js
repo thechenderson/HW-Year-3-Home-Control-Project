@@ -64,7 +64,7 @@ router.get('/manage-users/:username', function(req, res, next) {
   }
 });
 
-//Button for updating user details
+/*Button for updating user details
 router.post('/manage-users/:username/updateUser', function(req, response) {
   var username = req.params.username;
   var displayNameOld = req.body.displayName;
@@ -97,7 +97,29 @@ router.post('/manage-users/:username/deleteUser', function(req, response) {
       response.redirect('/home/settings/manage-users/');
     }
   });
+});*/
+
+
+
+router.post('/manage-users/:username/remove:username', function(req, response) {
+  var username = req.params.username;
+  var sql = "UPDATE users SET homeID = NULL WHERE username ='" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if(result== ""){
+      response.redirect('/home/settings/manage-users');
+    } else {
+      console.log(result);
+      response.redirect('/home/settings/manage-users');
+    }
+  });
 });
+
+
+
+
+
+
+
 
 router.post('/manage-home/:homeID/updateHome', function(req, response) {
   var homeID = req.params.homeID;

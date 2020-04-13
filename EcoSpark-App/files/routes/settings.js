@@ -138,11 +138,8 @@ router.post('/manage-home/:homeID/updateHome', function(req, response) {
   console.log(homeID);
   var homeName = req.body.homeName;
   console.log(homeName);
-  var homeCreator = req.body.homeCreator;
-  // console.log(homeName);
-  console.log(homeCreator);
 
-  var sql = "UPDATE homes SET homes.homeName = '" + homeName + "', homes.homeCreator = '"+ homeCreator +"' WHERE homes.homeID = '" + homeID + "'";
+  var sql = "UPDATE homes SET homes.homeName = '" + homeName + "' WHERE homes.homeID = '" + homeID + "'";
   connection.query(sql, function (err, result, fields) {
     if(result== ""){
       response.redirect('/home/settings/manage-home');

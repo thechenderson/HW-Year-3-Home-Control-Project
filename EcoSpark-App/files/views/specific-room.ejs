@@ -112,7 +112,7 @@
   <br></br>
   <div class="container">
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm-8">
         <div class="loginCardHolder white">
           <div class="card  teal lighten-3">
             <div class="card-body">
@@ -132,8 +132,8 @@
           </div>
         </div>
       </div>
-
-      <div class="col-sm">
+      
+      <div class="col-sm-4">
         <div class="loginCardHolder white">
           <div class="card  teal lighten-3">
             <div class="card-body">
@@ -143,17 +143,22 @@
               <% } %>
               <%roomInfo.forEach(function(room) {%>
               <%deviceInfo.forEach(function(device) {%>
-              <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="<%= device.deviceDisplayName %>" name="switch"
-                    value="on" onChange="this.form.submit()" <% runningDevices.forEach(function(runningD) {%>
-                    <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %> <%= 'checked' %> <% } %>
-                    <% }) %>>
-                  <label class="custom-control-label" for="<%= device.deviceDisplayName %>"></label>
-                  <%= device.deviceDisplayName %> ON / OFF
-                  </label>
-                </div>
-              </form>
+              <div class="row d-flex justify-content-center">
+                <form action="<%=room.roomID%>/update<%=device.deviceID%>" method="post">
+                  <h5> <%= device.deviceDisplayName %> </h5>
+                  <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                      id="<%= device.deviceDisplayName %>" onChange="this.form.submit()"
+                      <% runningDevices.forEach(function(runningD) {%>
+                      <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %> <%= 'checked' %> <% } %>
+                      <% }) %>>
+                    <label class="onoffswitch-label" for="<%= device.deviceDisplayName %>">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+                </form>
+              </div>
               <% }) %>
               <% }) %>
             </div>
@@ -162,7 +167,7 @@
       </div>
     </div>
   </div>
-
+  <br></br>
   <div class="edit">
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
       aria-hidden="true">

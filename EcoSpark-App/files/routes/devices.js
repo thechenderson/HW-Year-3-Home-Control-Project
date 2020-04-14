@@ -22,7 +22,7 @@ const queryWrapper = (statement) => {
 router.get('/', function(req, res, next) {
   if (req.session.loggedin){
     // var $ = require('jQuery');
-  
+    
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID, devices.devicePower AS devicePower, devices.roomID AS roomID FROM devices, rooms, users, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND rooms.roomID = devices.roomID AND users.username = '" + req.session.user + "'";
     var sqlF = "SELECT faults.deviceID AS fDeviceID, faults.deviceDisplayName AS fDeviceDisplayName, faults.roomDisplayName AS fRoomDisplayName, faults.faultInfo AS faultInfo FROM faults";
@@ -63,7 +63,7 @@ router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
     var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
-    var sqlC = "SELECT runningdevices.rID AS rDeviceID, runningdevices.rDevicePower AS rDevicePower FROM runningdevices WHERE runningdevices.rID = '" + req.params.deviceID + "';";
+    var sqlC = "SELECT runningdevices.rID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.rDeviceType AS rDeviceType FROM runningdevices WHERE runningdevices.deviceID = '" + req.params.deviceID + "';";
     var sqlU = "SELECT users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "'"; 
     Promise.all([
       queryWrapper(sqlR),
@@ -97,7 +97,7 @@ router.post('/:deviceID/updateDeviceName', function(request, response) {
 });
 
 router.post('/:deviceID/deleteDevice', function(request, response) {
-  console.log(request.params.deviceID);
+  // console.log(request.body.Update);
   var sqlF = "DELETE FROM faults WHERE deviceID = '"+ request.params.deviceID + "';";  
    connection.query(sqlF, function (err, result, fields) {
         var sqlC = "DELETE FROM changes WHERE deviceID = '" + request.params.deviceID + "';";
@@ -116,6 +116,41 @@ router.post('/:deviceID/deleteDevice', function(request, response) {
             });
         });
     });
+});
+
+
+router.post('/:deviceID/On-Off', function(request, response) {
+  // console.log(request.params.roomID);
+  var sqlCheck = "SELECT deviceID FROM runningDevices WHERE deviceID = '" + request.params.deviceID + "'";
+  connection.query(sqlCheck, function (err, result, fields) {
+    if(result== ""){
+      var sql1 = "SELECT devicePower, deviceType, deviceDisplayName, roomID FROM devices WHERE deviceID = '" + request.params.deviceID + "'";
+      connection.query(sql1, function (err, result2, fields) {
+        var power = result2[0].devicePower;
+        var type = result2[0].deviceType;
+        var deviceDisplayName = result2[0].deviceDisplayName;
+        var roomID = result2[0].roomID;
+        console.log(roomID);
+        var sql2 = "INSERT INTO runningDevices VALUES ('0', '" + deviceDisplayName + "', '" + power + "', '" + type + "', '" +  request.params.deviceID + "', '" + roomID + "')";
+        connection.query(sql2, function (err, result2, fields) {
+          if(result2== ""){
+            response.redirect('/home/');
+          } else {
+            response.redirect('/home/devices/');
+          }
+        });
+      });
+    } else {
+      var sql3 = "DELETE FROM runningDevices WHERE runningDevices.deviceID='" + request.params.deviceID  + "';"
+      connection.query(sql3, function (err, result3, fields) {
+        if(result3== ""){
+          response.redirect('/home/');
+        } else {
+          response.redirect('/home/devices/');
+        }
+      });
+    }
+  });
 });
 
 router.post('/turnOffDevice:rdeviceID', function(request, response) {

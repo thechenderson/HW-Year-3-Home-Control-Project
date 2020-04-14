@@ -42,6 +42,6 @@ insert into devices values (18, 'Light', 80, 'Light', 8);
 insert into devices values (19, 'Wifi Box', 20, 'Socket', 8);
 insert into devices values (20, 'Light', 90, 'Light', 10);
 insert into devices values (21, 'Light', 90, 'Light', 5);
-insert into devices values (22, 'Oven', 160, 'Light', 1);
+insert into devices values (22, 'Oven', 160, 'Appliance', 1);
 insert into devices values (23, 'Phone Charger', 3, 'Socket', 2);
 insert into devices values (24, 'Solar Panel', -100, 'Solar Panel', 11);

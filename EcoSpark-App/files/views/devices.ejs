@@ -237,7 +237,6 @@
         </div>
     </div>
 
-        
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
@@ -250,81 +249,81 @@
         <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
 
         <script>
-            // $(document).ready(function(){
-            //     $.ajax({
-            //         //might be the problem here as it linking to my other server file, the data.php file is in the php folder
-            //         url: "/php/data.php",
-            //         method: "GET",
-            //         datatype: "json",
-            //         success: function(data) {
-            //             var list = JSON.parse(data);
-            //             var tr = "";
-            //             var device = [];
-            //             var power = [];
-            //             $.each(list, function(i, v) {
-            //             // for(var i in data) {
-            //                 device.push("Device " + v[rDeviceDisplayName]);
-            //                 power.push(v[rDevicePower]);
-            //             });
+            $(document).ready(function(){
+                $.ajax({
+                    //might be the problem here as it linking to my other server file, the data.php file is in the php folder
+                    url: "/php/data.php",
+                    method: "GET",
+                    datatype: "json",
+                    success: function(data) {
+                        var list = JSON.parse(data);
+                        var tr = "";
+                        var device = [];
+                        var power = [];
+                        $.each(list, function(i, v) {
+                        // for(var i in data) {
+                            device.push("Device " + v[rDeviceDisplayName]);
+                            power.push(v[rDevicePower]);
+                        });
 
-            //             var chartdata = {
-            //                 labels: device,
-            //                 datasets : [
-            //                 {
-            //                     label: 'DevicePower',
-            //                     backgroundColor: 'rgba(200, 200, 200, 0.75)',
-            //                     borderColor: 'rgba(200, 200, 200, 0.75)',
-            //                     hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-            //                     hoverBorderColor: 'rgba(200, 200, 200, 1)',
-            //                     data: power
-            //                 }
-            //                 ]
-            //             };
+                        var chartdata = {
+                            labels: device,
+                            datasets : [
+                            {
+                                label: 'DevicePower',
+                                backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                                borderColor: 'rgba(200, 200, 200, 0.75)',
+                                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                                hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                                data: power
+                            }
+                            ]
+                        };
                         
-            //             alert(device);
-            //             alert(power);
+                        alert(device);
+                        alert(power);
                         
-            //             var ctx = $("#mycanvas");
+                        var ctx = $("#mycanvas");
 
-            //             var barGraph = new Chart(ctx, {
-            //                 type: 'bar',
-            //                 data: chartdata
-            //             });
-            //         },
-            //         error: function(data) {
-            //             console.log("error");
-            //         }
-            //     });
-            // });
+                        var barGraph = new Chart(ctx, {
+                            type: 'bar',
+                            data: chartdata
+                        });
+                    },
+                    error: function(data) {
+                        console.log("error");
+                    }
+                });
+            });
 
 
             //temporary graph
-            var ctxL = document.getElementById("lineChart").getContext('2d');
-            var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
-            gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
-            gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
-            var myLineChart = new Chart(ctxL, {
-            type: 'line',
-            data: {
-            labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
-            datasets: [
-            {
-            label: "Energy Consumption from ROOM",
-            data: [0, 65, 45, 65, 35, 65, 0],
-            backgroundColor: gradientFill,
-            borderColor: [
-            '#8bc34a',
-            ],
-            borderWidth: 2,
-            pointBorderColor: "#8bc34a",
-            pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
-            }
-            ]
-            },
-            options: {
-            responsive: true
-            }
-            });
+            // var ctxL = document.getElementById("lineChart").getContext('2d');
+            // var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
+            // gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
+            // gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
+            // var myLineChart = new Chart(ctxL, {
+            // type: 'line',
+            // data: {
+            // labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
+            // datasets: [
+            // {
+            // label: "Energy Consumption from ROOM",
+            // data: [0, 65, 45, 65, 35, 65, 0],
+            // backgroundColor: gradientFill,
+            // borderColor: [
+            // '#8bc34a',
+            // ],
+            // borderWidth: 2,
+            // pointBorderColor: "#8bc34a",
+            // pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
+            // }
+            // ]
+            // },
+            // options: {
+            // responsive: true
+            // }
+            // });
 
             let counter = 1;
             setInterval(() => {

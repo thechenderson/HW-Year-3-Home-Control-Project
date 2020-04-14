@@ -121,7 +121,7 @@ router.post('/manage-users/:username/removeFromHome', function (req, response) {
     connection.query(sql2, function (err, result2, fields) {
       console.log(result2[0]);
       console.log(result2[0].number == 1);
-      if (result2[0].number == 1) {
+      if ((result2[0].number == 1) && (req.params.username == req.session.user)) {
         response.redirect('/home/settings/manage-users/' + req.params.username);
       } else {
         var sql3 = "UPDATE users SET homeID = NULL WHERE username ='" + req.params.username + "'";
@@ -133,9 +133,11 @@ router.post('/manage-users/:username/removeFromHome', function (req, response) {
             connection.query(sql4, function (err, result4, fields) {
               if (result4 == "") {
                 response.redirect('/home/settings/manage-users/' + req.params.username);
-              } else {
-                console.log(result4);
+              } 
+              if (req.params.username == req.session.user) {
                 response.redirect('/home');
+              } else {
+                response.redirect('/home/settings/manage-users/');
               }
             });
           }

@@ -58,20 +58,16 @@ const queryWrapper = (statement) => {
 // after clicking on a room button, it redirects to here by the path /home/rooms/roomID
 // remember on the rooms.js page, '/' is the same as /rooms/
 router.get('/:roomID', function (req, res, next) {
-
   if (req.session.loggedin) {
     let currDate = new Date().toLocaleDateString('en-GB');
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID, rooms.temperature AS temperature FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
     var sqlD = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';";
     var sqlAR = "SELECT averagesForR.roomID AS roomID, averagesForR.date AS date, averagesForR.averRoomPower AS averRoomPower FROM averagesForR WHERE averagesForR.date = '" + currDate + "' AND averagesForR.roomID = '" + req.params.roomID + "';";
     var sqlRD = "SELECT rDeviceDisplayName FROM runningdevices WHERE roomID = '" + req.params.roomID + "';";
-
-
     connection.query(sqlD, function (err, result, fields) {
       if (result != "") {
         var isDevice = result[0].deviceID;
       }
-
       Promise.all([
         queryWrapper(sqlR),
         queryWrapper(sqlD),

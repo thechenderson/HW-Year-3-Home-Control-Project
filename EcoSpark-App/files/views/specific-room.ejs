@@ -29,12 +29,15 @@
           <% }) %>
         </u>
       </h2>
+      
       <%roomInfo.forEach(function(room) {%>
-      <div>
-        <p class="fas fa-thermometer-half"> Current Room Temp <%=room.temperature%>°C</p>
-        <br>
-        <p class="fas fa-lightbulb"> Current Room Energy Usage _ KW </p>
-      </div>
+        <div>
+          <p class="fas fa-thermometer-half"> Current Room Temp <%=room.temperature%>°C</p>
+          <br>
+          <%averagesRInfo.forEach(function(aver) {%>
+          <p class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </p>
+          <% }) %>
+          </div>
       <% }) %>
       <br></br>
       <canvas id="lineChart" style="max-width: 800px;"></canvas>

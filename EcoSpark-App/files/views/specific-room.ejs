@@ -110,9 +110,10 @@
                 <p class="h4 text-center py-4">Heating</p>
                 <div class="md-form">
                   <i class="fas fa-fire-alt prefix"></i>
-                  <label> Select Room Temperature</label>
-                  <input type="range" class="custom-range mt-5 ml-3" name="heating" id="heating" min="0" max="30" value="<%= room.temperature %>" onChange="this.form.submit()">
-                  <p>Temperature: <span id="temp"></span></p>
+                  <label> Use Slider to Select Room Temperature</label>
+                  <input type="range" class="custom-range mt-5 ml-3" name="heating" id="heating" min="10" max="30"
+                    value="<%= room.temperature %>" onChange="this.form.submit()">
+                  <p>Temperature: <span id="temp"></span>°C</p>
                 </div>
               </form>
               <% }) %>
@@ -137,8 +138,8 @@
                     value="on" onChange="this.form.submit()" <% runningDevices.forEach(function(runningD) {%>
                     <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %> <%= 'checked' %> <% } %>
                     <% }) %>>
-                  <label class="custom-control-label" for="<%= device.deviceDisplayName %>">
-                    <%= device.deviceDisplayName %> ON / OFF
+                  <label class="custom-control-label" for="<%= device.deviceDisplayName %>"></label>
+                  <%= device.deviceDisplayName %> ON / OFF
                   </label>
                 </div>
               </form>
@@ -229,15 +230,19 @@
 
   </script>
 
-<script>
-  var slider = document.getElementById("heating");
-  var output = document.getElementById("temp");
-  output.innerHTML = slider.value;
-  
-  slider.oninput = function() {
-    output.innerHTML = this.value;
-  }
+  <script>
+    var slider = document.getElementById("heating");
+    var output = document.getElementById("temp");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+      output.innerHTML = this.value;
+    }
   </script>
+
+
+
+
 </body>
 
 </html>

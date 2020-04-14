@@ -16,48 +16,57 @@
         <%- include ('partials/header') -%>
 
         <div class="container"> 
-            <div class="row">
-              <div class="col-sm">
-                <div class="card p-4 rounded" style="text-align: center;">
-                  <% homes.forEach(function(home) { %>
-                    <h3>Details for <%= home.homeName %></h3>
-                    <% }) %>
-                    <small class="form-text text-muted">These details can be changed to suit the home.</small>
-                </div>
-              </div>
-            </div>
+            
             <br>
 
           <% homes.forEach(function(home) { %>
-            <div class="row">
-              <div class="col">
-                <div class="card p-4 rounded">
-                  <form action="/home/settings/manage-home/<%=home.homeID%>/updateHome" method="post">
-                    <div class="form-row align-items-center">
-                      <div class="col-9">
-                        <h5>Home Name:</h5>
-                        <input class="form-control rounded" placeholder="<%= home.homeName%>" id="homeName" name="homeName">
-                        <small class="form-text text-muted">Name displayed for the home. Change the name above and press the button to save the change.</small>
-                      </div>
-                      <div class="col">
-                        <button class="btn  btn-default" type="submit">Update Home Name</button>
+
+            <div class="ecoSparkCard white mx-auto" style="width: fit-content;">
+              <div class="card green lighten-3">
+                <div class="card-title pt-4">
+                  <h3 style="text-align: center;"> Home Details for: <%=home.homeName%></h3>  
+                </div>
+                <div class="card-body">
+                  <div class="form-row">
+                    <div class="col">
+                        <form action="/home/settings/manage-home/<%=home.homeID%>/updateHome" method="post">
+                          <div class="form-row align-items-center">
+                            <div class="col">
+                              <h5>Home Name:</h5>
+                              <input class="form-control rounded" placeholder="<%= home.homeName%>" id="homeName" name="homeName">
+                              <small class="form-text text-muted">Name displayed for the home. Change the name above and press the button to save the change.</small>
+                            </div>
+                            <div class="col-auto">
+                              <button class="btn  btn-default" type="submit">Update Home Name</button>
+                            </div>
+                          </div>
+                        </form>
+                        <br>
+                          <div class="form-row">
+                            <div class="col-12">
+                              <h5>Home Creator:</h5>
+                              <input class="form-control disabled rounded" placeholder="<%= home.homeCreator%>" name="homeCreator">
+                              <small class="form-text text-muted">User that created the home. This cannot be changed.</small>
+                            </div>
+                          </div>  
                       </div>
                     </div>
-                    <br>
-                    <div class="form-row">
-                      <div class="col w-100">
-                        <h5>Home Creator:</h5>
-                        <input class="form-control disabled rounded" placeholder="<%= home.homeCreator%>" id="homeCreator" name="homeCreator">
-                        <small class="form-text text-muted">User that created the home. This cannot be changed.</small>
-                      </div>
-                    </div>  
-
-                      
-                  </form>
+                  </div>
+              <% }) %>
                 </div>
               </div>
-        </div>
-        <% }) %>
+            </div>
+                          
+
+
+
+
+
+
+
+
+
+            
 
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>

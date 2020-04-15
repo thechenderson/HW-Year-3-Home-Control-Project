@@ -1,269 +1,303 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
-	<head>
 
-        <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">  
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/mdb.min.css">
-		<title> Eco Spark - Device </title>
-    </head>
+<head>
 
-    <body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+    <title> Eco Spark - Device </title>
+</head>
 
-        <%- include ('partials/header') -%>
-        <% deviceInfo.forEach(function(device) {%>
-            <div class="text-center h1 my-4">
-                <%=device.deviceDisplayName%>
-            </div>
-        <% }) %>
-        
-        <div class="container">
+<body>
+
+    <%- include ('partials/header') -%>
+    <% deviceInfo.forEach(function(device) {%>
+    <div class="text-center h1 my-4">
+        <%=device.deviceDisplayName%>
+    </div>
+    <% }) %>
+
+    <div class="container">
         <ul class="list-unstyled" style="padding-left: 100;">
             <li class="media">
                 <% deviceInfo.forEach(function(device) {%>
-                    <% if (device.deviceType == "Appliance") {%>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-sitemap fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
-                                </span>
-                            </div>
+                <% if (device.deviceType == "Appliance") {%>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-sitemap fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID %>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "Light") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-lightbulb fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
-                                </span>
-                            </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "Light") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-lightbulb fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID %>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "Heating") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "Heating") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID%>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "Socket") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-plug fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "Socket") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-plug fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID%>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "TV") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-tv fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "TV") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-tv fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID%>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "Miscellaneous") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "Miscellaneous") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID%>"></a>
+                            </span>
                         </div>
-                    <% } %>
-                    <% if (device.deviceType == "Solar Panel") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
+                    </div>
+                </div>
+                <% } %>
+                <% if (device.deviceType == "Solar Panel") { %>
+                <div class="col">
+                    <div class="shadow-none card green lighten-4">
+                        <div class="view overlay text-center">
+                            <span class="fa-stack fa-6x ">
+                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white"
+                                    href="/home/devices/<%=device.deviceID%>"></a>
+                            </span>
                         </div>
-                    <% } %>
+                    </div>
+                </div>
+                <% } %>
                 <% }) %>
-              <div class="media-body">
-                <div class="modal fade" id="deleteDevice"></div> 
-                <h4 class="mt-0 font-weight-bold">Device Details:</h4>
-                    <% deviceInfo.forEach(function(device) { %>
-                        
-                            <h2 id="deviceID" style="display:none"> <%= device.deviceID %> </h2>
-                            <h2> Device Type: <%= device.deviceType %></h2><br>
-                            
-                            <% roomInfo.forEach(function(room) {%>
-                                <h2> Device Location: <%= room.roomDisplayName %></h2><br>
-                            <% }) %>
-                            
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="loginCardHolder white">
-                                    <div class="card  teal lighten-3">
-                                        <div class="card-body">
-                                        <p class="h4  py-4">Device Control: 
-                                            <% var isEmpty = function(obj) {
-                                                return Object.keys(obj).length === 0;
-                                            }
-                                            if (isEmpty(runningDeviceInfo)) { %>
-                                                <h4 class="fas fa-lightbulb"> Current device is off</h4>
-                                            <% } else { %>
-                                                <% runningDeviceInfo.forEach (function(deviceR) { %>
-                                                    <% if (deviceR.rDeviceType == "Solar Panel") { %>
-                                                        <h4 class="fas fa-lightbulb"> Current device energy consumption : 400</h4>
-                                                    <% } else { %>
-                                                        <h4 class="fas fa-lightbulb"> Current device energy consumption : <%= deviceR.rDevicePower%></h4>      
-                                                    <% } %>
-                                                <% }) %>
-                                            <% } %>
-                                        </p>
-                                        <p>
-                                            
-                                            <form action="<%=device.deviceID%>/On-Off" method="post">
-                                                <div class="custom-control custom-switch">
-                                                    <% var isEmpty = function(obj) {
-                                                        return Object.keys(obj).length === 0;
-                                                    }
-                                                    if (isEmpty(runningDeviceInfo)) { %>
-                                                        <input type="checkbox" class="custom-control-input" id="<%= device.deviceDisplayName %>" name="switch" value="on" onChange="this.form.submit()">
-                                                    <% } else { %>
-                                                        <input type="checkbox" class="custom-control-input" id="<%= device.deviceDisplayName %>" name="switch" value="on" onChange="this.form.submit()" checked>
-                                                    <% } %>
-                                                  
-                                                  <label class="custom-control-label" for="<%= device.deviceDisplayName %>"> <%= device.deviceDisplayName %>   ON / OFF
-                                                  </label>
-                                                </div>
-                                              </form>
-                                             
-                                        </p>
-                                        </div>
-                                    </div>
-                                    </div>                                
-                                </div>
-                            </div>
+            </li>
+        </ul>
+    </div>
 
-                            </br>
+    <div class="media-body">
+        <div class="text-center">
+            <h4 class="mt-0 font-weight-bold">Device Details:</h4>
+            <% deviceInfo.forEach(function(device) { %>
 
-                            <% if (device.deviceType == "Solar Panel") { %>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <div class="loginCardHolder white">
-                                        <div class="card teal lighten-3">
-                                            <div class="card-body">
-                                            <p class="h4 py-4">Power Production: 
+            <h2 id="deviceID" style="display:none"> <%= device.deviceID %> </h2>
+            <h2> Device Type: <%= device.deviceType %></h2><br>
+
+            <% roomInfo.forEach(function(room) {%>
+            <h2> Device Location: <%= room.roomDisplayName %></h2><br>
+            <% }) %>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="loginCardHolder white w-70" style="margin-left: 15%; margin-right: 15%;">
+                        <div class="card  teal lighten-3">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <p class="h4  py-2">
+                                                Device Control:
                                                 <% var isEmpty = function(obj) {
-                                                    return Object.keys(obj).length === 0;
-                                                }
-                                                if (isEmpty(runningDeviceInfo)) { %>
-                                                    <h4 class="fas fa-sun"> Solar Panel is off</h4>
+                                    return Object.keys(obj).length === 0;
+                                }
+                                if (isEmpty(runningDeviceInfo)) { %>
+                                                <h4 class="fas fa-lightbulb"> Current device is
+                                                    off</h4>
                                                 <% } else { %>
-                                                    <% runningDeviceInfo.forEach (function(deviceR) { %>
-                                                        <h4 class="fas fa-sun"> Current energy production : <%= Math.abs(deviceR.rDevicePower) %></h4>
-                                                    <% }) %>
+                                                <% runningDeviceInfo.forEach (function(deviceR) { %>
+                                                <% if (deviceR.rDeviceType == "Solar Panel") { %>
+                                                <h4 class="fas fa-lightbulb"> Current device
+                                                    energy consumption : 400</h4>
+                                                <% } else { %>
+                                                <h4 class="fas fa-lightbulb"> Current device
+                                                    energy consumption :
+                                                    <%= deviceR.rDevicePower%></h4>
+                                                <% } %>
+                                                <% }) %>
                                                 <% } %>
                                             </p>
-                                            </div>
                                         </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% } %>
-
-                            <form action="<%=device.deviceID%>/deleteDevice" method="post">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="text-center h1 my-4">
-                                        <div class="modal-footer d-flex justify-content-center" style="display:block">
-                                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
-                                        <i class="fas fa-edit"></i> Edit Device</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%userInfo.forEach(function(user) {%>
-                                    <%if (user.isAdmin == 1) {%>
-                                        <h1 style="display: none;"><%=device.deviceID%></h1>
                                         <div class="col-sm">
-                                            <div class="text-center h1 my-4">
-                                                <div class="modal-footer d-flex justify-content-center" style="display:block">
-                                                    <button class="btn btn-default" type="submit" formaction="<%=device.deviceID%>/deleteDevice">Delete Device</button>
-                                                </div>
-                                            </div>
+                                            <p>
+                                                <form action="<%=device.deviceID%>/On-Off" method="post">
+                                                    <div class="onoffswitch2">
+                                                        <input type="checkbox" name="onoffswitch2"
+                                                            class="onoffswitch2-checkbox"
+                                                            id="<%= device.deviceDisplayName %>"
+                                                            onChange="this.form.submit()"
+                                                            <% runningDeviceInfo.forEach(function(runningD) {%>
+                                                            <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %>
+                                                            <%= 'checked' %> <% } %> <% }) %>>
+                                                        <label class="onoffswitch2-label"
+                                                            for="<%= device.deviceDisplayName %>">
+                                                            <span class="onoffswitch2-inner"></span>
+                                                            <span class="onoffswitch2-switch"></span>
+                                                        </label>
+                                                    </div>
+                                                </form>
+                                            </p>
                                         </div>
-                                    <% } %>
-                                <% }) %>
-                            </div>
-                        </form>
-                    <% }) %>
-                </div>
-                </div>
-              </div>
-           
-            </li>
-          </ul>
-        </div>
-                        
-        <div class="edit">
-            <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <%deviceInfo.forEach(function(device) {%>
-                            <form action="<%=device.deviceID%>/updateDeviceName" method="post">
-                                <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">Edit device</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body mx-3">
-                                    <div class="md-form mb-5">
-                                        <i class="fas fa-edit prefix grey-text"></i>
-                                        <input type="text" id="deviceName" name="deviceName" class="form-control">
-                                        <label>New Device Name</label>
                                     </div>
                                 </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn  green lighten-2" type="submit">Update</button>
-                                </div>
-                            </form>
-                        <% }) %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        </br>
+
+        <% if (device.deviceType == "Solar Panel") { %>
+        <div class="row">
+            <div class="col-sm">
+                <div class="loginCardHolder white">
+                    <div class="card teal lighten-3">
+                        <div class="card-body">
+                            <p class="h4 py-4">Power Production:
+                                <% var isEmpty = function(obj) {
+                                                    return Object.keys(obj).length === 0;
+                                                }
+                                                if (isEmpty(runningDeviceInfo)) { %>
+                                <h4 class="fas fa-sun"> Solar Panel is off</h4>
+                                <% } else { %>
+                                <% runningDeviceInfo.forEach (function(deviceR) { %>
+                                <h4 class="fas fa-sun"> Current energy
+                                    production :
+                                    <%= Math.abs(deviceR.rDevicePower) %></h4>
+                                <% }) %>
+                                <% } %>
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        
-        
-      </div>
     </div>
-        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
-        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-    </body>
-    <script>
-        function OnOff(){
-            console.log('hello');
-        }
-    </script>
+
+    <form action="<%=device.deviceID%>/deleteDevice" method="post">
+        <div class="row">
+            <div class="col-sm">
+                <div class="text-center h1 my-4">
+                    <div class="modal-footer d-flex justify-content-center" style="display:block">
+                        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal"
+                            data-target="#modalLoginForm">
+                            <i class="fas fa-edit"></i> Edit Device</a>
+                    </div>
+                </div>
+            </div>
+            <%userInfo.forEach(function(user) {%>
+            <%if (user.isAdmin == "Yes") {%>
+            <h1 style="display: none;"><%=device.deviceID%></h1>
+            <div class="col-sm">
+                <div class="text-center h1 my-4">
+                    <div class="modal-footer d-flex justify-content-center" style="display:block">
+                        <button class="btn btn-default" type="submit"
+                            formaction="<%=device.deviceID%>/deleteDevice">Delete
+                            Device</button>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% }) %>
+        </div>
+    </form>
+    <% }) %>
+
+
+
+
+    <div class="edit">
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <%deviceInfo.forEach(function(device) {%>
+                    <form action="<%=device.deviceID%>/updateDeviceName" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Edit device</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="fas fa-edit prefix grey-text"></i>
+                                <input type="text" id="deviceName" name="deviceName" class="form-control">
+                                <label>New Device Name</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn  teal lighten-3" type="submit">Update</button>
+                        </div>
+                    </form>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+</body>
+<script>
+    function OnOff() {
+        console.log('hello');
+    }
+</script>
+
 </html>

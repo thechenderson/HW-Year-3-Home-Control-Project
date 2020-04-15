@@ -1,232 +1,255 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
-	<head>
-        <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">  
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-		<link rel="stylesheet" href="/stylesheets/mdb.min.css">
-        <title> Eco Spark - devices </title>
-        
-        <!-- Style for ajax graph-->
-        <style type="text/css">
-            #chart-container {
-              width: 640px;
-              height: auto;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+    <title> Eco Spark - devices </title>
+
+    <!-- Style for ajax graph-->
+    <style type="text/css">
+        #chart-container {
+            width: 640px;
+            height: auto;
         }
-        </style>
+    </style>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <%- include ('partials/header') -%>
+    <%- include ('partials/header') -%>
+    <% if (runningDeviceInfo == ""){ %>
 
-        <div style="height: 100">
-            <div class="flex-column" align="center">
-              <h2> Currently Running Devices </h2>
+    <h1 align="center"> Devices Overview</h2 align="center">
+    </h1>>
+    <br>
+
+    <% } %>
+    <% if (runningDeviceInfo != ""){ %>
+    <div style="height: 100">
+        <div class="flex-column" align="center">
+            <h1> Devices Overview </h1>
             <br>
-                <!-- This is the graph using ajax -->
-                <div id="chart-container">
-                    <canvas id="lineChart"></canvas>
-                </div>
+            <!-- This is the graph using ajax -->
+            <div id="chart-container">
+                <canvas id="lineChart"></canvas>
             </div>
         </div>
-        <br>
+    </div>
+    <% } %>
+    <br>
 
-        <div class="dark green lighten-2">
-            <h2 class="titles"> Devices currently running: 
+    <div class="card dark teal lighten-3 w-80 px-4 py-4" style="margin-left: 10%; margin-right: 10%;">
+        <h2 class="titles"> Devices currently running:
             <% if (runningDeviceInfo == ""){ %>
-                <div style="color:white;" >Currently no devices running<br></div>
+            <div style="color:white;">Currently no devices running<br></div>
             <% } %>
-            </h2>
-            
-            <% roomInfo.forEach(function(room) { %>
-                <% if (roomInfo == ""){ %>
-                    Currently no rooms in application  <br> 
-                <% } %>
-                
-                <% runningDeviceInfo.forEach(function(device) { %>
-                    <% if (room.roomID == device.rRoomID) { %>
-                        <div class="container">
-                            <div class="row">
-                                <h2 class="titles"><%= room.roomDisplayName%></h2> 
-                                <br>
-                            </div>
-                            <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
-                                <div class="row">
-                                    <div class="col-sm" style="color:white">
-                                        <h2 id="deviceID" id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
-                                        <h2 id="deviceDisplayName" id="deviceName" name="deviceName" style="text-align:center"><%= device.rDeviceDisplayName%> : </h2>
-                                    </div>
-                                    <div class="col-sm" style="color:white">
-                                        <h2 id="devicePower" id="devicePower" name="devicePower" style="text-align:center"><%= device.rDevicePower%> </h2>
-                                    </div>
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-default" type="submit">Turn Off Device</button>
-                                </div>
-                            </form>
-                        </div>
-                    <% } %> 
-                <% }) %>
-            <% }) %>
-            
-            <br>
-        </div>
+        </h2>
 
-          <br>
-          <br>
-          <br>
+        <% roomInfo.forEach(function(room) { %>
+        <% if (roomInfo == ""){ %>
+        Currently no rooms in application <br>
+        <% } %>
 
-          <div class="container" >
-            <!-- no of columns depends on no of rooms similar to rooms page-->
-            <div class="row">
-              <div class="col-sm" align="center">
-                <h1>Faults</h1>
-                <% if (faultInfo == ""){ %>
-                    Currently no devices with faults  
-                    <br>
-                <% } %>
-                
-                <% faultInfo.forEach(function(fault) {%>
-                    Device Name: <%= fault.fDeviceDisplayName%>  
-                    <br>
-                    Device Location: <%= fault.fRoomDisplayName%>  
-                    <br>
-                    Fault Info: <%= fault.faultInfo%>  
-                    <br>
-                <% }) %>
-              </div>
-            </div>
-          </div>
-
-
-
-          <br>
-        <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
+        <% runningDeviceInfo.forEach(function(device) { %>
+        <% if (room.roomID == device.rRoomID) { %>
         <div class="container">
             <div class="row">
-                <% deviceInfo.forEach(function(device) {%>
-                    <% if (device.deviceType == "Appliance") {%>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-sitemap fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
+                <h2 class="titles"><%= room.roomDisplayName%></h2>
+                <br>
+            </div>
+            <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
+                <div class="row">
+                    <div class="col-sm" style="color:white">
+                        <h2 id="deviceID" id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%>
+                        </h2>
+                        <h2 id="deviceDisplayName" id="deviceName" name="deviceName" style="text-align:center">
+                            <%= device.rDeviceDisplayName%> : </h2>
                     </div>
+                    <div class="col-sm" style="color:white">
+                        <h2 id="devicePower" id="devicePower" name="devicePower" style="text-align:center">
+                            <%= device.rDevicePower%> </h2>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" type="submit">Turn Off Device</button>
+                </div>
+            </form>
+        </div>
+        <% } %>
+        <% }) %>
+        <% }) %>
 
-                    <% } %>
-                    <% if (device.deviceType == "Light") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-lightbulb fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID %>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
+        <br>
+    </div>
 
-                    <% } %>
-                    <% if (device.deviceType == "Heating") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
+    <br>
+    <br>
+    <br>
 
-                    <% } %>
-                    <% if (device.deviceType == "Socket") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-plug fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <!-- no of columns depends on no of rooms similar to rooms page-->
+        <div class="row">
+            <div class="col-sm" align="center">
+                <h1>Faults</h1>
+                <% if (faultInfo == ""){ %>
+                Currently no devices with faults
+                <br>
+                <% } %>
 
-                    <% } %>
-                    <% if (device.deviceType == "TV") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-tv fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-                    <% if (device.deviceType == "Miscellaneous") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-                    <% if (device.deviceType == "Solar Panel") { %>
-                        <div class="col">
-                        <div class="shadow-none card green lighten-4">
-                            <div class="view overlay text-center">
-                                <span class="fa-stack fa-6x ">
-                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                    <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white" href="/home/devices/<%=device.deviceID%>"></a>
-                                </span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
+                <% faultInfo.forEach(function(fault) {%>
+                Device Name: <%= fault.fDeviceDisplayName%>
+                <br>
+                Device Location: <%= fault.fRoomDisplayName%>
+                <br>
+                Fault Info: <%= fault.faultInfo%>
+                <br>
                 <% }) %>
-                <div class="col">
-                        <div class="shadow-none card green lighten-4">
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
+    <div class="container">
+        <div class="row">
+            <% deviceInfo.forEach(function(device) {%>
+            <% if (device.deviceType == "Appliance") {%>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">
                             <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                            <a class="fas fa-plus fa-stack-1x icon" style="color:white" href="/home/devices/add-device"></a>
+                            <a class="fas fa-sitemap fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID %>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+            <% if (device.deviceType == "Light") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-lightbulb fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID %>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+            <% if (device.deviceType == "Heating") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-thermometer-half fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID%>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+            <% if (device.deviceType == "Socket") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-plug fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID%>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+            <% if (device.deviceType == "TV") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-tv fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID%>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% if (device.deviceType == "Miscellaneous") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-exclamation-circle fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID%>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% if (device.deviceType == "Solar Panel") { %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-solar-panel fa-stack-1x icon" style="color:white"
+                                href="/home/devices/<%=device.deviceID%>"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><%= device.deviceDisplayName %></h4>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% }) %>
+            <div class="col">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-plus fa-stack-1x icon" style="color:white"
+                                href="/home/devices/add-device"></a>
                         </span>
                     </div>
                     <div class="card-body">
@@ -237,38 +260,38 @@
         </div>
     </div>
 
-        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
-        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
-        
-        <!-- javascript for ajax and graph -->
-        <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
-        <script type="text/javascript" src="/javascripts/chart.min.js"></script>
-        <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> i put this below -->
-        <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
 
-        <script>
-            $(document).ready(function(){
-                $.ajax({
-                    //might be the problem here as it linking to my other server file, the data.php file is in the php folder
-                    url: "/php/data.php",
-                    method: "GET",
-                    datatype: "json",
-                    success: function(data) {
-                        var list = JSON.parse(data);
-                        var tr = "";
-                        var device = [];
-                        var power = [];
-                        $.each(list, function(i, v) {
+    <!-- javascript for ajax and graph -->
+    <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+    <script type="text/javascript" src="/javascripts/chart.min.js"></script>
+    <!-- <script type="text/javascript" src="/files/public/javascripts/graph.js"></script> i put this below -->
+    <!--<script type="text/php" src="/files/public/php/data.php"></script> this is called by the js below-->
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                //might be the problem here as it linking to my other server file, the data.php file is in the php folder
+                url: "/php/data.php",
+                method: "GET",
+                datatype: "json",
+                success: function (data) {
+                    var list = JSON.parse(data);
+                    var tr = "";
+                    var device = [];
+                    var power = [];
+                    $.each(list, function (i, v) {
                         // for(var i in data) {
-                            device.push("Device " + v[rDeviceDisplayName]);
-                            power.push(v[rDevicePower]);
-                        });
+                        device.push("Device " + v[rDeviceDisplayName]);
+                        power.push(v[rDevicePower]);
+                    });
 
-                        var chartdata = {
-                            labels: device,
-                            datasets : [
+                    var chartdata = {
+                        labels: device,
+                        datasets: [
                             {
                                 label: 'DevicePower',
                                 backgroundColor: 'rgba(200, 200, 200, 0.75)',
@@ -277,62 +300,63 @@
                                 hoverBorderColor: 'rgba(200, 200, 200, 1)',
                                 data: power
                             }
-                            ]
-                        };
-                        
-                        alert(device);
-                        alert(power);
-                        
-                        var ctx = $("#mycanvas");
+                        ]
+                    };
 
-                        var barGraph = new Chart(ctx, {
-                            type: 'bar',
-                            data: chartdata
-                        });
-                    },
-                    error: function(data) {
-                        console.log("error");
-                    }
-                });
+                    alert(device);
+                    alert(power);
+
+                    var ctx = $("#mycanvas");
+
+                    var barGraph = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartdata
+                    });
+                },
+                error: function (data) {
+                    console.log("error");
+                }
             });
+        });
 
 
-            //temporary graph
-            // var ctxL = document.getElementById("lineChart").getContext('2d');
-            // var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
-            // gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
-            // gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
-            // var myLineChart = new Chart(ctxL, {
-            // type: 'line',
-            // data: {
-            // labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
-            // datasets: [
-            // {
-            // label: "Energy Consumption from ROOM",
-            // data: [0, 65, 45, 65, 35, 65, 0],
-            // backgroundColor: gradientFill,
-            // borderColor: [
-            // '#8bc34a',
-            // ],
-            // borderWidth: 2,
-            // pointBorderColor: "#8bc34a",
-            // pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
-            // }
-            // ]
-            // },
-            // options: {
-            // responsive: true
-            // }
-            // });
+        //temporary graph
+        // var ctxL = document.getElementById("lineChart").getContext('2d');
+        // var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
+        // gradientFill.addColorStop(0, "rgba(139, 195, 74, 0.7)");
+        // gradientFill.addColorStop(1, "rgba(139, 195, 74, 0.1)");
+        // var myLineChart = new Chart(ctxL, {
+        // type: 'line',
+        // data: {
+        // labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
+        // datasets: [
+        // {
+        // label: "Energy Consumption from ROOM",
+        // data: [0, 65, 45, 65, 35, 65, 0],
+        // backgroundColor: gradientFill,
+        // borderColor: [
+        // '#8bc34a',
+        // ],
+        // borderWidth: 2,
+        // pointBorderColor: "#8bc34a",
+        // pointBackgroundColor: "rgba(139, 195, 74, 0.1)",
+        // }
+        // ]
+        // },
+        // options: {
+        // responsive: true
+        // }
+        // });
 
-            let counter = 1;
-            setInterval(() => {
-                // document.querySelector('h1').innerText = counter;
-                counter++;
-                if (counter > 5) location.reload();
-            }, 10000);
-          
+        let counter = 1;
+        setInterval(() => {
+            // document.querySelector('h1').innerText = counter;
+            counter++;
+            if (counter > 5) location.reload();
+        }, 10000);
 
-        </script>
-    </body>
+
+    </script>
+</body>
+
 </html>

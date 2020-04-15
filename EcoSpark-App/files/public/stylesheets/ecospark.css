@@ -319,3 +319,50 @@ input[type=range]::-moz-range-thumb:active {
 
 
 
+.onoffswitch2 {
+  position: relative; width: 113px;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch2-checkbox {
+  display: none;
+}
+.onoffswitch2-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch2-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch2-inner:before, .onoffswitch2-inner:after {
+  display: block; float: left; width: 50%; height: 52px; padding: 0; line-height: 52px;
+  font-size: 22px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch2-inner:before {
+  content: "ON";
+  padding-left: 10px;
+  background-color: #00ED14; color: #FFFFFF;
+}
+.onoffswitch2-inner:after {
+  content: "OFF";
+  padding-right: 10px;
+  background-color: #FF0000; color: #FFFFFF;
+  text-align: right;
+}
+.onoffswitch2-switch {
+  display: block; width: 44px; margin: 4px;
+  background: #FFFFFF;
+  position: absolute; top: 0; bottom: 0;
+  right: 57px;
+  border: 2px solid #999999; border-radius: 20px;
+  transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch2-checkbox:checked + .onoffswitch2-label .onoffswitch2-inner {
+  margin-left: 0;
+}
+.onoffswitch2-checkbox:checked + .onoffswitch2-label .onoffswitch2-switch {
+  right: 0px; 
+}
+
+

@@ -22,7 +22,18 @@ router.get('/', function(req, res, next) {
     } else {
       res.redirect('/');
     }
-  });
+});
 
+
+router.get('/:username/updateUserDetails', function(req, res, next) {
+  if (req.session.loggedin){
+    var sql = "UPDATE users SET password = '" + req.body.password + "', isAdmin = '" + req.body.isAdmin + "', displayName = '" + req.body.displayName + "' WHERE username ='" + req.session.user + "';" ;
+    connection.query(sql, function(err, result, fields) {
+      res.render('my-account', ({ title: 'Express' }, {users: result}));
+    });
+  } else {
+    res.redirect('/');
+  }
+});
   
 module.exports = router;

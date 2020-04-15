@@ -59,7 +59,7 @@
                             <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
                                 <div class="row">
                                     <div class="col-sm" style="color:white">
-                                        <h2 id="deviceID" id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
+                                        <h2 id="deviceID" name="deviceID" style="display:none"><%= device.rDeviceID%> </h2>
                                         <h2 id="deviceDisplayName" id="deviceName" name="deviceName" style="text-align:center"><%= device.rDeviceDisplayName%> : </h2>
                                     </div>
                                     <div class="col-sm" style="color:white">
@@ -236,7 +236,6 @@
             </div>
         </div>
     </div>
-
         <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/popper.min.js"></script>
         <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
@@ -250,6 +249,9 @@
 
         <script>
             $(document).ready(function(){
+                var myElement = document.getElementById("deviceID");
+                console.log("hello" + JSON.stringify(myElement));
+
                 $.ajax({
                     //might be the problem here as it linking to my other server file, the data.php file is in the php folder
                     url: "/php/data.php",
@@ -332,7 +334,7 @@
                 if (counter > 5) location.reload();
             }, 10000);
           
-
+            
         </script>
     </body>
 </html>

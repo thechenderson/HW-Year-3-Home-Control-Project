@@ -61,7 +61,7 @@ router.get('/add-device', function(req, res, next) {
 
 router.get('/:deviceID', function(req, res, next) {
   if (req.session.loggedin){
-    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users WHERE  users.username = 'Rebecca' AND homes.homeID = users.homeID AND homes.homeID = users.homeID AND devices.deviceID =  '" + req.params.deviceID + "'";
+    var sqlD = "SELECT devices.deviceDisplayName AS deviceDisplayName, devices.deviceType AS deviceType, devices.deviceID AS deviceID FROM devices, homes, users, rooms WHERE  users.username = '" + req.session.user + "' AND homes.homeID = users.homeID AND rooms.homeID = homes.homeID AND rooms.roomID = devices.roomID AND devices.deviceID =  '" + req.params.deviceID + "'";
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomID AS roomID FROM rooms WHERE rooms.roomID = "+ req.params.deviceID + ";"; 
     var sqlC = "SELECT runningdevices.rID AS rDeviceID, runningdevices.rDeviceDisplayName AS rDeviceDisplayName, runningdevices.rDevicePower AS rDevicePower, runningdevices.rDeviceType AS rDeviceType FROM runningdevices WHERE runningdevices.deviceID = '" + req.params.deviceID + "';";
     var sqlU = "SELECT users.isAdmin AS isAdmin FROM users WHERE users.username = '"+ req.session.user + "'"; 
@@ -136,7 +136,7 @@ router.post('/:deviceID/On-Off', function(request, response) {
           if(result2== ""){
             response.redirect('/home/');
           } else {
-            response.redirect('/home/devices/');
+            response.redirect('/home/devices/' + request.params.deviceID );
           }
         });
       });
@@ -146,7 +146,7 @@ router.post('/:deviceID/On-Off', function(request, response) {
         if(result3== ""){
           response.redirect('/home/');
         } else {
-          response.redirect('/home/devices/');
+          response.redirect('/home/devices/' + request.params.deviceID );
         }
       });
     }

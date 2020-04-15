@@ -21,13 +21,12 @@
 
   <div style="height: 100">
     <div class="flex-column" align="center">
-      <h2>
-        <u> Overview of
+      <h1>
+          Overview of
           <%roomInfo.forEach(function(room) {%>
           <%=room.roomDisplayName%>'s Energy Usage
           <% }) %>
-        </u>
-      </h2>
+      </h1>
 
       <%roomInfo.forEach(function(room) {%>
       <div>
@@ -58,9 +57,9 @@
   <% if (isDevice) { %>
 
   <div class="container" align="center">
-    <h2 class="titles">
-      <u> Devices in Room </u>
-    </h2>
+    <h1 class="titles">
+      Devices in Room 
+    </h1>
     </br>
     <ul class="list-group">
       <div class="row">
@@ -105,9 +104,9 @@
   <br></br>
 
   <div class="flex-column" align="center">
-    <h2 class="titles ">
-      <u> Room Control </u>
-    </h2>
+    <h1 class="titles ">
+     Room Control
+    </h1>
   </div>
   <br></br>
   <div class="container">

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var deviceNameGraph = [], devicePowerGraph = [];
+var jsonArray;
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -8,6 +10,29 @@ var connection = mysql.createConnection({
   password: process.env.password,
   database: process.env.database
 });
+
+
+
+
+
+
+function formatData(dataArray) {
+  console.log(dataArray);
+  for (var i = 0; i < dataArray.length; i++) {
+    deviceNameGraph[i] = dataArray[i].rDeviceDisplayName;
+    devicePowerGraph[i] = dataArray[i].rDevicePower;
+  }
+  jsonArray = [deviceNameGraph, devicePowerGraph];
+  console.log("in FormatData()...\n");
+  console.log(jsonArray);
+}
+
+
+
+
+
+
+
 
 
 router.get('/', function (req, res, next) {
@@ -20,7 +45,7 @@ router.get('/', function (req, res, next) {
           req.session.homeID = result2[0].homeID;
           var homeName = result2[0].homeName;
         }
-        res.render('rooms', ({ title: 'Express' }, { rooms: result, home: req.session.homeID, homeName: homeName }));
+        res.render('rooms', ({ title: 'Express' }, { rooms: result, home: req.session.homeID, homeName: homeName}));
       });
     });
   } else {
@@ -63,27 +88,35 @@ router.get('/:roomID', function (req, res, next) {
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID, rooms.temperature AS temperature FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
     var sqlD = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';";
     var sqlAR = "SELECT averagesForR.roomID AS roomID, averagesForR.date AS date, averagesForR.averRoomPower AS averRoomPower FROM averagesForR WHERE averagesForR.date = '" + currDate + "' AND averagesForR.roomID = '" + req.params.roomID + "';";
-    var sqlRD = "SELECT rDeviceDisplayName FROM runningdevices WHERE roomID = '" + req.params.roomID + "';";
-    connection.query(sqlD, function (err, result, fields) {
-      if (result != "") {
-        var isDevice = result[0].deviceID;
-      }
-      Promise.all([
-        queryWrapper(sqlR),
-        queryWrapper(sqlD),
-        queryWrapper(sqlAR),
-        queryWrapper(sqlRD)
-      ])
-        .then(([roomInfo, deviceInfo, averagesRInfo, runningDevices]) => {
-          res.render('specific-room', {
-            title: 'Express',
-            roomInfo,
-            deviceInfo,
-            averagesRInfo,
-            runningDevices,
-            isDevice
+    var sqlRD = "SELECT rDeviceDisplayName, rDevicePower FROM runningdevices WHERE roomID = '" + req.params.roomID + "';";
+    req.session.room = req.params.roomID
+    connection.query(sqlRD, function (err, data, fields) {
+      console.log(data);
+      formatData(data);
+
+
+      connection.query(sqlD, function (err, result, fields) {
+        if (result != "") {
+          var isDevice = result[0].deviceID;
+        }
+        Promise.all([
+          queryWrapper(sqlR),
+          queryWrapper(sqlD),
+          queryWrapper(sqlAR),
+          queryWrapper(sqlRD)
+        ])
+          .then(([roomInfo, deviceInfo, averagesRInfo, runningDevices]) => {
+            res.render('specific-room', {
+              title: 'Express',
+              roomInfo,
+              deviceInfo,
+              averagesRInfo,
+              runningDevices,
+              isDevice,
+              jsonArray
+            });
           });
-        });
+      });
     });
   } else {
     res.redirect('/');

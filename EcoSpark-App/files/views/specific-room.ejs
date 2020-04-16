@@ -30,19 +30,19 @@
       <%roomInfo.forEach(function(room) {%>
       <div>
         <p class="fas fa-thermometer-half"> Current Room Temp <%=room.temperature%>°C</p>
-        <br>
         <%averagesRInfo.forEach(function(aver) {%>
         <p class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </p>
         <% }) %>
       </div>
       <% }) %>
-      <br></br>
       <div class="container">
         <div class="row">
           <div class="col-sm">
-            <div class="card teal lighten-3 py-4">
-              <button id="Get_Graph" onclick="gData(); return false">Get Graph - CLICK ME<button />
-                <canvas id="mycanvas" style="max-width: 800px;"></canvas>
+            <div class="card white p-2">
+              <div class="card green lighten-3 p-2">
+                <button id="Get_Graph" onclick="gData(); return false">Get Graph - CLICK ME<button />
+                  <canvas id="mycanvas" style="max-width: 800px;"></canvas>
+              </div>
             </div>
           </div>
         </div>
@@ -52,8 +52,8 @@
 
 
 
-  </br>
-  </br>
+  <br>
+  <br>
   <% if (isDevice) { %>
 
   <div class="container" align="center">

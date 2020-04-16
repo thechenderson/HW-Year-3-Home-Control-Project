@@ -64,10 +64,29 @@ router.get('/manage-users/:username', function (req, res, next) {
   }
 });
 
-//update name
-router.post('/manage-users/:username/updateUserName', function (req, response) {
+
+// update password
+router.post('/manage-users/:username/updateUsername', function (req, response) {
   var username = req.params.username;
-  var displayNameOld = req.body.username;
+  var usernameOld = req.body.username;
+  var usernameNew = usernameOld.replace(/[^a-zA-Z0-9]/g, "");
+  var sql = "UPDATE users SET username = '" + usernameNew + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home/settings/manage-users');
+    } else {
+      console.log(result);
+      response.redirect('/home/settings/manage-users/' + usernameNew);
+    }
+  });
+});
+
+
+
+//update display name
+router.post('/manage-users/:username/updateDisplayName', function (req, response) {
+  var username = req.params.username;
+  var displayNameOld = req.body.displayName;
   var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
   var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
   connection.query(sql, function (err, result, fields) {

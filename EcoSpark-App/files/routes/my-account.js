@@ -25,15 +25,36 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/:username/updateUserDetails', function(req, res, next) {
-  if (req.session.loggedin){
-    var sql = "UPDATE users SET password = '" + req.body.password + "', isAdmin = '" + req.body.isAdmin + "', displayName = '" + req.body.displayName + "' WHERE username ='" + req.session.user + "';" ;
-    connection.query(sql, function(err, result, fields) {
-      res.render('my-account', ({ title: 'Express' }, {users: result}));
-    });
-  } else {
-    res.redirect('/');
-  }
+//update name
+router.post('/my-account/:username/updateUserName', function (req, response) {
+  var username = req.params.username;
+  var displayNameOld = req.body.username;
+  var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
+  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home/my-account');
+    } else {
+      console.log(result);
+      response.redirect('/home/my-account/');
+    }
+  });
 });
-  
+
+// update password
+router.post('/my-account/:username/updateUserPW', function (req, response) {
+  var username = req.params.username;
+  var PWOld = req.body.password;
+  var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g, "");
+  var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home/my-account');
+    } else {
+      console.log(result);
+      response.redirect('/home/my-account/');
+    }
+  });
+});
+
 module.exports = router;

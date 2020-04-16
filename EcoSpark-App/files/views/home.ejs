@@ -86,7 +86,7 @@
                 </div>
                 
                 <% userInfo.forEach(function(user) {%>  
-                    <% if (user.isAdmin == 'Yes') {%>
+                    <% if (user.isAdmin == '1') {%>
                             <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                    <% } else {%>
+                    <% } else { %>
                             <div class="col-sm">
                         <div class="shadow-none card green lighten-4">
                                 <div class="view overlay text-center">

@@ -64,7 +64,6 @@
 							</div>
 						</div>
 					</div>
-					
 				<% } %>
 				<% averagesHInfo.forEach(function(aver) { %>
 					<% if ((aver.averOverallPower) <= (aver.powerLimit)) {%>
@@ -89,7 +88,19 @@
 				<% }) %>
 				</p>
 			</div>
-			<div class="container" align=center">
+		</br>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-sm" style="text-align: right;">
+						<h2> Energy Data For :</h2>
+					</div>
+					<div class="col-sm">
+						<h2 id="date"></h2> 
+					</div>
+				</div>
+				</br>
+				
 				<canvas id="lineChart"></canvas>
 			</div>
 
@@ -154,7 +165,12 @@
 		<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/javascripts/mdb.min.js"></script>
 		<script>
-		
+			n =  new Date();
+			y = n.getFullYear();
+			m = n.getMonth() + 1;
+			d = n.getDate();
+			document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+
 			var ctxL = document.getElementById("lineChart").getContext('2d');
 			var myLineChart = new Chart(ctxL, {
 			type: 'line',

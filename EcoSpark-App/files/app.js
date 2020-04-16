@@ -14,6 +14,7 @@ var energyDataRouter = require('./routes/energy-data'); //Energy data
 var myAccountRouter = require('./routes/my-account'); //View current account details
 var settingsRouter = require('./routes/settings'); //Settings
 var helpRouter = require('./routes/help'); //Help usng the site
+var graphRouter = require('./routes/graph');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/home', homeRouter);
 app.use('/energy-data', energyDataRouter);
 app.use('/my-account', myAccountRouter);
 app.use('/settings', settingsRouter);
+app.use('/graph', graphRouter);
 app.use('/help', helpRouter);
 
   var connection = mysql.createConnection({

@@ -14,7 +14,7 @@
   <title> Eco Spark - Room </title>
 </head>
 
-<body>
+<body onload="gData()">
 
   <%- include ('partials/header') -%>
 
@@ -29,7 +29,11 @@
       </h1>
       <%roomInfo.forEach(function(room) {%>
       <div>
-        <p class="fas fa-thermometer-half"> Current Room Temp <%=room.temperature%>°C</p>
+        <div class="h5 text-center">
+          Current Room Temp <%=room.temperature%>°C &nbsp;
+            <i class="fas fa-thermometer-half"></i>
+        </div>
+        <h4 class=""></h4>
         <%averagesRInfo.forEach(function(aver) {%>
         <p class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </p>
         <% }) %>
@@ -38,10 +42,9 @@
       <div class="container">
         <div class="row">
           <div class="col-sm">
-            <div class="card white p-2">
-              <div class="card green lighten-3 p-2">
-                <button id="Get_Graph" onclick="gData(); return false">Get Graph - CLICK ME<button />
-                  <canvas id="mycanvas" style="max-width: 800px;"></canvas>
+            <div class="card green lighten-3 py-4">
+              <div class="card white mx-4">
+                <canvas id="mycanvas"></canvas>
               </div>
             </div>
           </div>
@@ -52,8 +55,7 @@
 
 
 
-  <br>
-  <br>
+
   <% if (isDevice) { %>
 
   <div class="container" align="center">
@@ -104,16 +106,16 @@
   <br></br>
 
   <div class="flex-column" align="center">
-    <h1 class="titles ">
+    <h1 class="titles">
       Room Control
     </h1>
   </div>
-  <br></br>
+  <br>
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
-        <div class="loginCardHolder white">
-          <div class="card  teal lighten-3">
+        <div class="ecoSparkCard white">
+          <div class="card teal lighten-3">
             <div class="card-body">
               <%roomInfo.forEach(function(room) {%>
               <form action="<%=room.roomID%>/updateHeating" method="post">
@@ -133,12 +135,12 @@
       </div>
 
       <div class="col-sm-4">
-        <div class="loginCardHolder white">
-          <div class="card  teal lighten-3">
+        <div class="ecoSparkCard white p-2">
+          <div class="card teal lighten-3">
             <div class="card-body">
               <p class="h4 text-center py-4">Devices</p>
               <% if (!isDevice) { %>
-              <p class="h5 text-center py-4">There are no decives in this room</p>
+              <p class="h5 text-center py-4">There are no devices in this room.</p>
               <% } %>
               <%roomInfo.forEach(function(room) {%>
               <%deviceInfo.forEach(function(device) {%>
@@ -173,7 +175,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <%roomInfo.forEach(function(room) {%>
-          <form action="<%=room.roomID%>/updateRoomName" method="post">
+          <form action="<%=room.roomID%>" method="post">
             <div class="modal-header text-center">
               <h4 class="modal-title w-100 font-weight-bold">Edit Room</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -239,28 +241,27 @@
     // code to draw graph
 
     function gData() {
-      $.get("http://localhost:3000/graph", function (result, status) {
-        alert(result[0]);
-        alert("yes");
-        var chartdata = {
-        labels: result[0],
-        datasets : [
-          {
-            label: 'DevicePower',
-            backgroundColor: 'rgba(200, 200, 200, 0.75)',
-            borderColor: 'rgba(200, 200, 200, 0.75)',
-            hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-            hoverBorderColor: 'rgba(200, 200, 200, 1)',
-            data: result[1]
-          }
-        ]
-      };
-      var ctx = $("#mycanvas");
 
-      var barGraph = new Chart(ctx, {
-        type: 'bar',
-        data: chartdata
-      });
+      $.get("http://localhost:3000/graph/room", function (result, status) {
+        var chartdata = {
+          labels: result[0],
+          datasets: [
+            {
+              label: 'Device Power',
+              backgroundColor: 'rgba(255, 235, 59, 0.3)',
+              borderColor: 'rgba(200, 200, 200, 0.75)',
+              hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+              hoverBorderColor: 'rgba(200, 200, 200, 1)',
+              data: result[1]
+            }
+          ]
+        };
+        var ctx = $("#mycanvas");
+
+        var barGraph = new Chart(ctx, {
+          type: 'bar',
+          data: chartdata
+        });
       });
     }
 

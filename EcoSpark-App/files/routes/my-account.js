@@ -22,7 +22,39 @@ router.get('/', function(req, res, next) {
     } else {
       res.redirect('/');
     }
-  });
+});
 
-  
+
+//update name
+router.post('/my-account/:username/updateUserName', function (req, response) {
+  var username = req.params.username;
+  var displayNameOld = req.body.username;
+  var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
+  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home/my-account');
+    } else {
+      console.log(result);
+      response.redirect('/home/my-account/');
+    }
+  });
+});
+
+// update password
+router.post('/my-account/:username/updateUserPW', function (req, response) {
+  var username = req.params.username;
+  var PWOld = req.body.password;
+  var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g, "");
+  var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" + username + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home/my-account');
+    } else {
+      console.log(result);
+      response.redirect('/home/my-account/');
+    }
+  });
+});
+
 module.exports = router;

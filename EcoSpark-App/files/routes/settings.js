@@ -65,7 +65,7 @@ router.get('/manage-users/:username', function (req, res, next) {
 });
 
 
-// update password
+// update username
 router.post('/manage-users/:username/updateUsername', function (req, response) {
   var username = req.params.username;
   var usernameOld = req.body.username;
@@ -76,6 +76,7 @@ router.post('/manage-users/:username/updateUsername', function (req, response) {
       response.redirect('/home/settings/manage-users');
     } else {
       console.log(result);
+      req.session.user = usernameNew;
       response.redirect('/home/settings/manage-users/' + usernameNew);
     }
   });

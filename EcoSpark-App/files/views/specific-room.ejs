@@ -14,7 +14,7 @@
   <title> Eco Spark - Room </title>
 </head>
 
-<body>
+<body onload="gData()">
 
   <%- include ('partials/header') -%>
 
@@ -41,8 +41,9 @@
         <div class="row">
           <div class="col-sm">
             <div class="card teal lighten-3 py-4">
-              <button id="Get_Graph" onclick="gData(); return false">Get Graph - CLICK ME<button />
-                <canvas id="mycanvas" style="max-width: 800px;"></canvas>
+              <div class="card grey lighten-4 py-4 ml-3 mr-3">
+                <canvas class="w-70 px-4" id="mycanvas"></canvas>
+              </div>
             </div>
           </div>
         </div>
@@ -239,28 +240,28 @@
     // code to draw graph
 
     function gData() {
-      $.get("http://localhost:3000/graph", function (result, status) {
-        alert(result[0]);
-        alert("yes");
-        var chartdata = {
-        labels: result[0],
-        datasets : [
-          {
-            label: 'DevicePower',
-            backgroundColor: 'rgba(200, 200, 200, 0.75)',
-            borderColor: 'rgba(200, 200, 200, 0.75)',
-            hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-            hoverBorderColor: 'rgba(200, 200, 200, 1)',
-            data: result[1]
-          }
-        ]
-      };
-      var ctx = $("#mycanvas");
 
-      var barGraph = new Chart(ctx, {
-        type: 'bar',
-        data: chartdata
-      });
+      $.get("http://localhost:3000/graph/room", function (result, status) {
+        alert(result);
+        var chartdata = {
+          labels: result[0],
+          datasets: [
+            {
+              label: 'DevicePower',
+              backgroundColor: 'rgba(255, 235, 59, 0.3)',
+              borderColor: 'rgba(200, 200, 200, 0.75)',
+              hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+              hoverBorderColor: 'rgba(200, 200, 200, 1)',
+              data: result[1]
+            }
+          ]
+        };
+        var ctx = $("#mycanvas");
+
+        var barGraph = new Chart(ctx, {
+          type: 'bar',
+          data: chartdata
+        });
       });
     }
 

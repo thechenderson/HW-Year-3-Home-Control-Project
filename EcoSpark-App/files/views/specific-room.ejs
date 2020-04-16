@@ -39,6 +39,7 @@
         <% }) %>
       </div>
       <% }) %>
+      <br>
       <div class="container">
         <div class="row">
           <div class="col-sm">
@@ -54,8 +55,8 @@
   </div>
 
 
-
-
+  <br>
+  <br>
   <% if (isDevice) { %>
 
   <div class="container" align="center">
@@ -113,7 +114,7 @@
   <br>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-8 pb-3">
         <div class="ecoSparkCard white">
           <div class="card teal lighten-3">
             <div class="card-body">
@@ -134,7 +135,7 @@
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-sm-4 pb-3">
         <div class="ecoSparkCard white p-2">
           <div class="card teal lighten-3">
             <div class="card-body">
@@ -149,11 +150,11 @@
                   <h5> <%= device.deviceDisplayName %> </h5>
                   <div class="onoffswitch">
                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                      id="<%= device.deviceDisplayName %>" onChange="this.form.submit()"
+                      id="<%=device.deviceID%>" onChange="this.form.submit()"
                       <% runningDevices.forEach(function(runningD) {%>
-                      <% if (runningD.rDeviceDisplayName == device.deviceDisplayName) { %> <%= 'checked' %> <% } %>
+                      <% if (runningD.deviceID == device.deviceID) { %> <%= 'checked' %> <% } %>
                       <% }) %>>
-                    <label class="onoffswitch-label" for="<%= device.deviceDisplayName %>">
+                    <label class="onoffswitch-label" for="<%=device.deviceID%>">
                       <span class="onoffswitch-inner"></span>
                       <span class="onoffswitch-switch"></span>
                     </label>
@@ -213,10 +214,6 @@
 
 
   <script>
-
-
-
-
     //Refresh
     let counter = 1;
     setInterval(() => {
@@ -248,7 +245,7 @@
           datasets: [
             {
               label: 'Device Power',
-              backgroundColor: 'rgba(255, 235, 59, 0.3)',
+              backgroundColor: '80cbc4',
               borderColor: 'rgba(200, 200, 200, 0.75)',
               hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
               hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -264,39 +261,6 @@
         });
       });
     }
-
-
-
-    /*
-
-    var ctxL = document.getElementById("lineChart").getContext('2d');
-    var gradientFill = ctxL.createLinearGradient(0, 0, 0, 290);
-    gradientFill.addColorStop(0, "rgba(156, 39, 176, 0.7)");
-    gradientFill.addColorStop(1, "rgba(156, 39, 176, 0.1)");
-    var myLineChart = new Chart(ctxL, {
-      type: 'line',
-      data: {
-        labels: ["Monday", "Tuesday", "Wednessday", "Thursday", "Friday", "Saturday", "Sunday"],
-        datasets: [
-          {
-            label: "Energy Consumption",
-            data: [0, 65, 45, 65, 35, 65, 0],
-            backgroundColor: gradientFill,
-            borderColor: [
-              'rgba(156, 39, 176, 0.7)',
-            ],
-            borderWidth: 2,
-            pointBorderColor: 'rgba(156, 39, 176, 0.7)',
-            pointBackgroundColor: "rgba(156, 39, 176, 0.1)",
-          }
-        ]
-      },
-      options: {
-        responsive: true
-      }
-    });
-
-    */
   </script>
 
 

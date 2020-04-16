@@ -36,4 +36,18 @@ router.get('/room', function (req, res) {
         res.send(formatedData);
     });
 });
+
+router.get('/devices', function (req, res) {
+
+    var sqlH = "SELECT homeID FROM users WHERE username = '" + req.session.user + "'";
+    connection.query(sqlH, function (err, result, fields) {
+        var sqlRD = "SELECT runningdevices.rDeviceDisplayName, runningdevices.rDevicePower FROM runningdevices, homes, rooms WHERE runningdevices.roomID = rooms.roomID AND rooms.homeID = homes.homeID AND homes.homeID = '" + result[0].homeID + "'";
+
+        connection.query(sqlRD, function (err, data, fields) {
+            console.log(data);
+            var formatedData = formatDataRoom(data);
+            res.send(formatedData);
+        });
+    });
+});
 module.exports = router;

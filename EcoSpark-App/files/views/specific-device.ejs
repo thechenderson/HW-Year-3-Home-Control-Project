@@ -23,6 +23,7 @@
     </div>
     <% }) %>
 
+
     <div class="container">
         <ul class="list-unstyled" style="padding-left: 100;">
             <li class="media">
@@ -200,24 +201,26 @@
         <% if (device.deviceType == "Solar Panel") { %>
         <div class="row">
             <div class="col-sm">
-                <div class="loginCardHolder white">
-                    <div class="card teal lighten-3">
-                        <div class="card-body">
-                            <p class="h4 py-4">Power Production:
-                                <% var isEmpty = function(obj) {
+                <div class="ecoSparkCard white p-2">
+                    <div class="loginCardHolder white">
+                        <div class="card teal lighten-3">
+                            <div class="card-body">
+                                <p class="h4 py-4">Power Production:
+                                    <% var isEmpty = function(obj) {
                                                     return Object.keys(obj).length === 0;
                                                 }
                                                 if (isEmpty(runningDeviceInfo)) { %>
-                                <h4 class="fas fa-sun"> Solar Panel is off</h4>
-                                <% } else { %>
-                                <% runningDeviceInfo.forEach (function(deviceR) { %>
-                                <h4 class="fas fa-sun"> Current energy
-                                    production :
-                                    <%= Math.abs(deviceR.rDevicePower) %></h4>
-                                <% }) %>
-                                <% } %>
-                                <% } %>
-                            </p>
+                                    <h4 class="fas fa-sun"> Solar Panel is off</h4>
+                                    <% } else { %>
+                                    <% runningDeviceInfo.forEach (function(deviceR) { %>
+                                    <h4 class="fas fa-sun"> Current energy
+                                        production :
+                                        <%= Math.abs(deviceR.rDevicePower) %></h4>
+                                    <% }) %>
+                                    <% } %>
+                                    <% } %>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

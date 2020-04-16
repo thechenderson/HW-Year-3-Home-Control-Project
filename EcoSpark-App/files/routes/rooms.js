@@ -88,7 +88,7 @@ router.get('/:roomID', function (req, res, next) {
     var sqlR = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID, rooms.temperature AS temperature FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "' AND rooms.roomID =  '" + req.params.roomID + "';";
     var sqlD = "SELECT devices.deviceID AS deviceID, devices.deviceDisplayName AS deviceDisplayName, devices.devicePower AS devicePower, devices.deviceType AS deviceType FROM devices WHERE devices.roomID = '" + req.params.roomID + "';";
     var sqlAR = "SELECT averagesForR.roomID AS roomID, averagesForR.date AS date, averagesForR.averRoomPower AS averRoomPower FROM averagesForR WHERE averagesForR.date = '" + currDate + "' AND averagesForR.roomID = '" + req.params.roomID + "';";
-    var sqlRD = "SELECT rDeviceDisplayName, rDevicePower FROM runningdevices WHERE roomID = '" + req.params.roomID + "';";
+    var sqlRD = "SELECT rDeviceDisplayName, rDevicePower, deviceID FROM runningdevices WHERE roomID = '" + req.params.roomID + "';";
     req.session.room = req.params.roomID
     connection.query(sqlRD, function (err, data, fields) {
       console.log(data);

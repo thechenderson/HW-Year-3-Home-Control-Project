@@ -28,16 +28,18 @@
         <% }) %>
       </h1>
       <%roomInfo.forEach(function(room) {%>
-      <div>
+      
         <div class="h5 text-center">
-          Current Room Temp <%=room.temperature%>°C &nbsp;
-            <i class="fas fa-thermometer-half"></i>
+        
+          Room ID:<%=room.roomID%> <br>   <i class="fas fa-thermometer-half"></i> Current Room Temp <%=room.temperature%>°C &nbsp;
+            
         </div>
-        <h4 class=""></h4>
+       
         <%averagesRInfo.forEach(function(aver) {%>
-        <p class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </p>
+        <h5 class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </h5>
         <% }) %>
-      </div>
+        <h5 class="fas fa-lightbulb"> Current Room Energy Usage <%=roomTotal%> KW </h5>
+          <br>
       <% }) %>
       <br>
       <div class="container">

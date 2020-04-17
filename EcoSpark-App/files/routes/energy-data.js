@@ -22,6 +22,7 @@ const queryWrapper = (statement) => {
 router.get('/', function(req, res, next) {
     if (req.session.loggedin){
       let currDate = new Date().toLocaleDateString('en-GB');
+      console.log(currDate);
       var sqlAH = "SELECT averagesForH.homeID AS homeID, averagesForH.date AS date, averagesForH.averOverallPower AS averOverallPower, averagesForH.powerLimit AS powerLimit FROM averagesForH, homes, users WHERE users.homeID = homes.homeID AND homes.homeID = averagesForH.homeID AND users.username = '" + req.session.user + "' AND averagesForH.date = '" + currDate + "'";
       
       Promise.all([

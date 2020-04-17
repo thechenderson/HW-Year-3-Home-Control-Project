@@ -91,7 +91,6 @@ app.use('/help', helpRouter);
     }
   });
 
-
   app.post('/signUp', function(request, response) {
     var usernameOld = request.body.username;
     var password1Old = request.body.password1;
@@ -103,13 +102,13 @@ app.use('/help', helpRouter);
     var nickname = nicknameOld.replace(/[^a-zA-Z0-9]/g,"");
     var password2 = password2Old.replace(/[^a-zA-Z0-9]/g,"");
 
-
-    if (username && nickname && (password1 == password2)) {
-
+    
+      if (username && nickname && (password1 == password2)) {
         var sql = "INSERT INTO users (username,password,isAdmin,displayName) VALUES ('" + username + "', '" + password1 + "','No', '" + nickname + "')";
         connection.query(sql, function (err, result, fields) {
         console.log(result);
           if (!result) {
+            //when user already exists
             response.redirect('/sign-up');
           } else {
             var sql = "SELECT displayName FROM users WHERE username = '" + username + "'";
@@ -127,11 +126,11 @@ app.use('/help', helpRouter);
             });
           }
         });
-          
-    } else {
-      response.redirect('/sign-up');
-      response.end();
-    }
+      } else {
+        response.redirect('/sign-up');
+        response.end();
+      }
+    
   });
 
 // catch 404 and forward to error handler

@@ -169,10 +169,7 @@
 	<script type="text/javascript" src="/javascripts/chart.min.js"></script>
 
 	<script>
-
-
 		function gData() {
-
 			$.get("http://localhost:3000/graph/home", function (result, status) {
 				var chartdata = {
 					labels: result[0],
@@ -207,12 +204,6 @@
 			counter++;
 			if (counter > 5) location.reload();
 		}, 10000);
-
-
-
-
-
-
 
 		/*
 		n = new Date();

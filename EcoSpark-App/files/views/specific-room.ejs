@@ -32,15 +32,16 @@
         <div class="h5 text-center">
         
           Room ID:<%=room.roomID%> <br>   <i class="fas fa-thermometer-half"></i> Current Room Temp <%=room.temperature%>°C &nbsp;
-            
+        </br>
+        <%averagesRInfo.forEach(function(aver) {%>
+          <i class="fas fa-lightbulb"></i> Current Room Energy Usage <%=aver.averRoomPower%> KW
+          <% }) %>
+          <i class="fas fa-lightbulb"></i> Current Room Energy Usage <%=roomTotal%> KW
+            <br>
+        <% }) %>
         </div>
        
-        <%averagesRInfo.forEach(function(aver) {%>
-        <h5 class="fas fa-lightbulb"> Current Room Energy Usage <%=aver.averRoomPower%> KW </h5>
-        <% }) %>
-        <h5 class="fas fa-lightbulb"> Current Room Energy Usage <%=roomTotal%> KW </h5>
-          <br>
-      <% }) %>
+        
       <br>
       <div class="container">
         <div class="row">

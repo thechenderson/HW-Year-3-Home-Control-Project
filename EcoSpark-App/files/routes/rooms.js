@@ -11,11 +11,6 @@ var connection = mysql.createConnection({
 });
 
 
-
-
-
-
-
 router.get('/', function (req, res, next) {
   if (req.session.loggedin) {
     var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
@@ -76,9 +71,7 @@ router.get('/:roomID', function (req, res, next) {
       req.session.room = req.params.roomID
 
       connection.query(sqlRD, function (err, data, fields) {
-        
-
-
+   
         connection.query(sqlD, function (err, result, fields) {
           if (result != "") {
             var isDevice = result[0].deviceID;
@@ -106,6 +99,19 @@ router.get('/:roomID', function (req, res, next) {
   } else {
     res.redirect('/');
   }
+});
+
+router.post('/:roomID/updateRoomName', function (request, response) {
+  var roomName = request.body.roomName;
+  console.log(roomName);
+  var sql = "UPDATE rooms SET roomDisplayName = '" + roomName + "' WHERE roomID = '" + request.params.roomID + "'";
+  connection.query(sql, function (err, result, fields) {
+    if (result == "") {
+      response.redirect('/home');
+    } else {
+      response.redirect('/home/rooms/' + request.params.roomID);
+    }
+  });
 });
 
 

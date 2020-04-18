@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var deviceNameGraph = [], devicePowerGraph = [];
-var jsonArray;
+
 
 var connection = mysql.createConnection({
   host: process.env.hostname,

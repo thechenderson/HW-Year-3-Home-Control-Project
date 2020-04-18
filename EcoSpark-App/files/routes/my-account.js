@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var bodyParser = require('body-parser');
 
-var app = express();
-var jsonParser = bodyParser.json();
+
 
 var connection = mysql.createConnection({
   host: process.env.hostname,
@@ -13,7 +11,10 @@ var connection = mysql.createConnection({
   database: process.env.database
 });
 
+
+
 router.get('/', function(req, res, next) {
+  console.log("im here!!!!!!!!!!");
     if (req.session.loggedin){
       var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID FROM users WHERE users.username ='" + req.session.user + "'";
       connection.query(sql, function(err, result, fields) {
@@ -26,11 +27,10 @@ router.get('/', function(req, res, next) {
 
 
 //update name
-router.post('/:username/updateUserName', function (req, response) {
-  var username = req.params.username;
+router.post('/updateN', function (req, response) {
   var displayNameOld = req.body.username;
   var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
-  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
+  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE username = '" + req.session.user + "'";
   connection.query(sql, function (err, result, fields) {
     if (result == "") {
       response.redirect('/home/my-account');
@@ -42,11 +42,10 @@ router.post('/:username/updateUserName', function (req, response) {
 });
 
 // update password
-router.post('/:username/updateUserPW', function (req, response) {
-  var username = req.params.username;
+router.post('/updatePW', function (req, response) {
   var PWOld = req.body.password;
   var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g, "");
-  var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" + username + "'";
+  var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" +  req.session.user  + "'";
   connection.query(sql, function (err, result, fields) {
     if (result == "") {
       response.redirect('/home/my-account');

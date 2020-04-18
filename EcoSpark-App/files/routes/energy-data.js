@@ -53,11 +53,14 @@ router.get('/', function (req, res, next) {
     let currDate = new Date().toLocaleDateString('en-GB');
     var sqlAH = "SELECT averagesForH.homeID AS homeID, averagesForH.date AS date, averagesForH.averOverallPower AS averOverallPower, averagesForH.powerLimit AS powerLimit FROM averagesForH, homes, users WHERE users.homeID = homes.homeID AND homes.homeID = averagesForH.homeID AND users.username = '" + req.session.user + "' AND averagesForH.date = '" + currDate + "'";
     var sqlH = "SELECT homeID FROM users WHERE username = '" + req.session.user + "'";
+    var homeName;
     connection.query(sqlH, function (err, result, fields) {
       home = result[0].homeID;
       var sqlHN = "SELECT homeName FROM homes WHERE homeID = '" + home + "'";
       connection.query(sqlHN, function (err, result2, fields) {
+        if (result2 != "") {
         homeName = result2[0].homeName;
+        }
         var sqlT = "SELECT rooms.roomDisplayName AS rDeviceDisplayName, SUM(runningDevices.rDevicePower) AS rDevicePower FROM runningDevices, homes, rooms  WHERE runningdevices.roomID = rooms.roomID AND rooms.homeID = homes.homeID AND homes.homeID = '" + result[0].homeID + "' GROUP BY runningDevices.roomID";
         connection.query(sqlT, function (err, result3, fields) {
           var totalU = totalUsage(result3);

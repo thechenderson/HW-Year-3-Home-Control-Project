@@ -51,6 +51,32 @@
                   <small class="form-text text-muted">User that created the home. This cannot be changed.</small>
                 </div>
               </div>
+              <br>
+              <div class="col-auto text-center">
+                <button class="btn  btn-default"  data-toggle="modal"
+                data-target="#deletehome">Delete Home</button>
+
+                <div class="modal fade" id="deletehome" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">DELETE HOME</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure you would like to delete this home? It can not be undone.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <form action="/home/settings/manage-home/deleteHome<%=home.homeID%>" method="post">
+                          <button class="btn btn-default" type="submit">Delete </button>
+                        </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

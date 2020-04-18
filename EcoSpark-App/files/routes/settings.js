@@ -141,20 +141,35 @@ router.post('/manage-users/:username/removeFromHome', function (req, response) {
     connection.query(sql2, function (err, result2, fields) {
       console.log(result2[0]);
       console.log(result2[0].number == 1);
-      if ((result2[0].number == 1) && (req.params.username == req.session.user)) {
+      console.log(req.params.username);
+      console.log(req.session.user);
+      var userParamO = req.params.username;
+      var userLoginO = req.session.user;
+      var userParamN = userParamO.toLowerCase();
+      var userLoginN = userLoginO.toLowerCase();
+      console.log(userParamN);
+      console.log(userLoginN);
+
+      if ((result2[0].number == 1) && (userParamN == userLoginN)) {
+        console.log("fail0" + (userParamN == userLoginN));
         response.redirect('/home/settings/manage-users/' + req.params.username);
       } else {
         var sql3 = "UPDATE users SET homeID = NULL WHERE username ='" + req.params.username + "'";
         connection.query(sql3, function (err, result3, fields) {
           if (result3 == "") {
+            console.log("fail1");
             response.redirect('/home/settings/manage-users/' + req.params.username);
           } else {
             var sql4 = "UPDATE users SET isAdmin = 'No' WHERE username ='" + req.params.username + "'";
             connection.query(sql4, function (err, result4, fields) {
               if (result4 == "") {
+                console.log("fail2");
                 response.redirect('/home/settings/manage-users/' + req.params.username);
               }
-              if (req.params.username == req.session.user) {
+              if (userParamN == userLoginN) {
+                if (req.session.homeID) {
+                  req.session.homeID.destroy();
+                }
                 response.redirect('/home');
               } else {
                 response.redirect('/home/settings/manage-users/');
@@ -282,11 +297,43 @@ router.post('/manage-home/deleteRoom:roomID', function (req, res, next) {
       connection.query(sql2, function (err, result2, fields) {
         var sql3 = "DELETE FROM rooms WHERE roomID = '" + req.params.roomID + "'";
         connection.query(sql3, function (err, result3, fields) {
-          if ((result3 == "") && (result1 == "") && (result2 == "") ) {
+          if ((result3 == "") && (result1 == "") && (result2 == "")) {
             res.redirect('/home');
           } else {
             res.redirect('/home/settings/manage-home/');
           }
+        });
+      });
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+router.post('/manage-home/deleteHome:homeID', function (req, res, next) {
+  if (req.session.loggedin) {
+    var sql1 = "DELETE FROM runningdevices WHERE EXISTS (SELECT * FROM rooms WHERE rooms.roomID = runningdevices.roomID AND rooms.homeID = '" + req.params.homeID + "')";
+    connection.query(sql1, function (err, result1, fields) {
+      var sql2 = "DELETE FROM devices WHERE EXISTS (SELECT * FROM rooms WHERE rooms.roomID = devices.roomID AND rooms.homeID = '" + req.params.homeID + "')";
+      connection.query(sql2, function (err, result2, fields) {
+        var sql3 = "DELETE FROM rooms WHERE homeID = '" + req.params.homeID + "'";
+        connection.query(sql3, function (err, result3, fields) {
+          var sql5 = "UPDATE users SET isAdmin = 'No' WHERE homeID = '" + req.params.homeID + "'";
+          connection.query(sql5, function (err, result5, fields) {
+            var sql4 = "UPDATE users SET homeID = NULL WHERE homeID = '" + req.params.homeID + "'";
+            connection.query(sql4, function (err, result4, fields) {
+
+              var sql6 = "DELETE FROM homes WHERE homeID = '" + req.params.homeID + "'";
+              connection.query(sql6, function (err, result6, fields) {
+                if ((result3 == "") || (result1 == "") || (result2 == "") || (result4 == "") || (result5 == "") || (result6 == "")) {
+                  res.redirect('/home/settings/manage-home/');
+                } else {
+                  req.session.home.destroy();
+                  res.redirect('/home');
+                }
+              });
+            });
+          });
         });
       });
     });

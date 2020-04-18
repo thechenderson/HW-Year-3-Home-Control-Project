@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 
 //update name
-router.post('/my-account/:username/updateUserName', function (req, response) {
+router.post('/:username/updateUserName', function (req, response) {
   var username = req.params.username;
   var displayNameOld = req.body.username;
   var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
@@ -42,7 +42,7 @@ router.post('/my-account/:username/updateUserName', function (req, response) {
 });
 
 // update password
-router.post('/my-account/:username/updateUserPW', function (req, response) {
+router.post('/:username/updateUserPW', function (req, response) {
   var username = req.params.username;
   var PWOld = req.body.password;
   var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g, "");

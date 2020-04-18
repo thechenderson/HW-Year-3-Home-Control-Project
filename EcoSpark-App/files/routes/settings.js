@@ -153,7 +153,7 @@ router.post('/manage-users/:username/removeFromHome', function (req, response) {
             connection.query(sql4, function (err, result4, fields) {
               if (result4 == "") {
                 response.redirect('/home/settings/manage-users/' + req.params.username);
-              } 
+              }
               if (req.params.username == req.session.user) {
                 response.redirect('/home');
               } else {
@@ -240,14 +240,20 @@ router.get('/manage-home', function (req, res, next) {
   if (req.session.loggedin) {
     var sql = "SELECT homes.homeID AS homeID, homes.homeName AS homeName, homes.homeCreator AS homeCreator FROM users, homes WHERE users.homeID = homes.homeID AND users.username = '" + req.session.user + "'";
     connection.query(sql, function (err, result, fields) {
-      res.render('manage-home', ({ title: 'Express' }, { homes: result }));
+      var sql2 = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'"
+      connection.query(sql2, function (err, result2, fields) {
+
+
+
+        res.render('manage-home', ({ title: 'Express' }, { homes: result, rooms: result2 }));
+      });
     });
   } else {
     res.redirect('/');
   }
 });
 
-// when updating a home
+/* 
 router.get('/manage-home/:homeID/homeUpdate', function (req, res, next) {
   var sql = "UPDATE homes SET homeName = '" + request.params.homeName + "' WHERE homeID = '" + request.params.homeID + "'";
   connection.query(sql, function (err, result, fields) {
@@ -257,7 +263,7 @@ router.get('/manage-home/:homeID/homeUpdate', function (req, res, next) {
       response.redirect('/home/manage-home/');
     }
   });
-});
+});*/
 
 router.get('/help', function (req, res, next) {
   if (req.session.loggedin) {
@@ -267,13 +273,22 @@ router.get('/help', function (req, res, next) {
   }
 });
 
-//account page
-router.get('/my-account', function (req, res, next) {
+
+router.post('/manage-home/deleteRoom:roomID', function (req, res, next) {
   if (req.session.loggedin) {
-    console.log(req.session.user);
-    var sql = "SELECT users.username AS username, users.password AS password, users.isAdmin AS isAdmin, users.displayName AS displayName, users.homeID AS homeID, homes.homeName AS homeName FROM users, homes WHERE users.username ='" + req.session.user + "' AND users.homeID = homes.homeID;";
-    connection.query(sql, function (err, result, fields) {
-      res.render('my-account', ({ title: 'Express' }, { users: result }));
+    var sql1 = "DELETE FROM runningDevices WHERE roomID = '" + req.params.roomID + "'";
+    connection.query(sql1, function (err, result1, fields) {
+      var sql2 = "DELETE FROM devices WHERE roomID = '" + req.params.roomID + "'";
+      connection.query(sql2, function (err, result2, fields) {
+        var sql3 = "DELETE FROM rooms WHERE roomID = '" + req.params.roomID + "'";
+        connection.query(sql3, function (err, result3, fields) {
+          if ((result3 == "") && (result1 == "") && (result2 == "") ) {
+            res.redirect('/home');
+          } else {
+            res.redirect('/home/settings/manage-home/');
+          }
+        });
+      });
     });
   } else {
     res.redirect('/');

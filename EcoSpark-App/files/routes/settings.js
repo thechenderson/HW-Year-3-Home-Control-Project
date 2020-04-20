@@ -167,9 +167,6 @@ router.post('/manage-users/:username/removeFromHome', function (req, response) {
                 response.redirect('/home/settings/manage-users/' + req.params.username);
               }
               if (userParamN == userLoginN) {
-                if (req.session.homeID) {
-                  req.session.homeID.destroy();
-                }
                 response.redirect('/home');
               } else {
                 response.redirect('/home/settings/manage-users/');
@@ -328,9 +325,6 @@ router.post('/manage-home/deleteHome:homeID', function (req, res, next) {
                 if ((result3 == "") || (result1 == "") || (result2 == "") || (result4 == "") || (result5 == "") || (result6 == "")) {
                   res.redirect('/home/settings/manage-home/');
                 } else {
-                  if (req.session.homeID) {
-                    req.session.homeID.destroy();
-                  }
                   res.redirect('/home');
                 }
               });

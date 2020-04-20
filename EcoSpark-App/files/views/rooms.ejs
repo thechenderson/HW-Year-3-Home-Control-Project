@@ -17,7 +17,7 @@
 
     <%- include ('partials/header') -%>
 
-    <% if (!home) { %>
+    <% if (home == "") { %>
     <h4 class="card-title text-center font-weight-bold">You need to create or assign yourself to a home</h4>
     <br></br>
     <div class="col">
@@ -35,7 +35,7 @@
 
         <% } %>
 
-        <% if (home) { %>
+        <% if (home != "") { %>
         <h1 align="center"> <%= homeName %></h1>
         <h2 align="center">Choose a Room</h2>
         <br>

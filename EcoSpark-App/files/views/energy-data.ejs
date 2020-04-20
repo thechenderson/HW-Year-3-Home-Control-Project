@@ -80,7 +80,7 @@
 	</div>
 
 
-	<div class="container-flex px-4">
+	<div class="container-flex px-3">
 		<div class="row">
 			<div class="col-xl-8">
 				<div class="card green lighten-3 py-3">
@@ -153,25 +153,33 @@
 	<% } %>
 
 	<div class="container">
-		<h3>Power Report Options : </h3></br>
-		<div class="row">
-			<div class="col-sm">
-				<div class="row justify-content-center">
-					<a class="btn btn-default" onclick="dayAverage()">Day Average</a>
+		<div class="ecoSparkCard white">
+			<div class="card teal lighten-3 p-3">
+				<div class="h3" align="center">
+					Power Report Options:
 				</div>
+				<div class="row">
+					<div class="col">
+						<div class="row justify-content-center">
+							<a class="btn btn-default" onclick="dayAverage()">Day Average</a>
+						</div>
+					</div>
+					<div class="col">
+						<div class="row justify-content-center">
+							<a class="btn btn-default" onclick="weekAverage()">Week Average</a>
+						</div>
+					</div>
+					<div class="col">
+						<div class="row justify-content-center">
+							<a class="btn btn-default" onclick="monthAverage()">Month Average</a>
+						</div>
+					</div>
+				</div> 
 			</div>
-			<div class="col-sm">
-				<div class="row justify-content-center">
-					<a class="btn btn-default" onclick="weekAverage()">Week Average</a>
-				</div>
 			</div>
-			<div class="col-sm">
-				<div class="row justify-content-center">
-					<a class="btn btn-default" onclick="monthAverage()">Month Average</a>
-				</div>
 			</div>
-		</div> 
-	</div>
+			
+		
 	
 </br>
 

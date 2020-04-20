@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/mdb.min.css">
-    <title> Eco Spark - devices </title>
+    <% deviceInfo.forEach(function(device) {%>
+    <title> Eco Spark - <%=device.deviceDisplayName%> </title>
+    <% }) %>
 
 
 
@@ -19,21 +21,8 @@
 <body onload="gData()">
 
     <%- include ('partials/header') -%>
-    <% if (runningDeviceInfo == ""){ %>
-
-    <h1 align="center"> Devices Overview</h1>
-    <br>
-
-    <% } %>
-
+    
     <% if (runningDeviceInfo != ""){ %>
-    <div style="height: 100">
-        <div class="flex-column" align="center">
-            <h1> Devices Overview </h1>
-            <br>
-        </div>
-    </div>
-
     <div class="container">
         <div class="row">
             <div class="col-sm">
@@ -68,11 +57,10 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-6 pb-4">
                 <div class="ecoSparkCard white">
                     <div class="card teal lighten-3">
-                        <div class="card-body">
-
+                        <div class="card-body py-4" align = "center">
                             <% if (roomInfo == ""){ %>
                             <h2 class="titles">
                                 <p class="h2 text-center">You have not created any rooms yet!</p>
@@ -80,11 +68,10 @@
                             <% } %>
 
                             <% if (roomInfo != ""){ %>
-                            <h2 class="titles"> Devices currently running:
+                            <h2 class="card-title h2"> Devices currently running:</h2>
                                 <% if (runningDeviceInfo == ""){ %>
-                                <div style="color:white;">Currently no devices running<br></div>
+                                Currently no devices running...<br>If you're device isn't appearing try refreshing the page!
                                 <% } %>
-                            </h2>
 
 
                             <% roomInfo.forEach(function(room) { %>
@@ -92,8 +79,9 @@
                             <% if (room.roomID == device.rRoomID) { %>
                             <div class="container">
                                 <div class="row">
-                                    <h2 class="titles"><%= room.roomDisplayName%></h2>
-                                    <br>
+                                    <div class="col">
+                                        <h2 class="titles pb-2"><%= room.roomDisplayName%></h2>
+                                    </div>
                                 </div>
                                 <form action="/home/devices/turnOffDevice<%= device.rDeviceID%>" method="post">
                                     <div class="row">
@@ -120,51 +108,48 @@
                             <% }) %>
                             <% }) %>
                             <% } %>
-                            <br>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <% if (roomInfo != ""){ %>
-    <div class="container">
-        <!-- no of columns depends on no of rooms similar to rooms page-->
-        <div class="row">
-            <div class="col-sm" align="center">
-                <h1>Faults</h1>
-                <% if (faultInfo == ""){ %>
-                Currently no devices with faults
-                <br>
-                <% } %>
-
-                <% faultInfo.forEach(function(fault) {%>
-                Device Name: <%= fault.fDeviceDisplayName%>
-                <br>
-                Device Location: <%= fault.fRoomDisplayName%>
-                <br>
-                Fault Info: <%= fault.faultInfo%>
-                <br>
-                <% }) %>
+            
+            <% if (roomInfo != ""){ %>
+            <!-- no of columns depends on no of rooms similar to rooms page-->
+            <div class="col-sm-6" align="center">
+                <div class="ecoSparkCard white">
+                    <div class="card green lighten-3">
+                        <h2 class="card-title h2 pt-4">Faults</h2>
+                        <% if (faultInfo == ""){ %>
+                        Currently no devices with faults
+                        <br>
+                        <br>
+                        <br>
+                        <% } %>
+        
+                        <% faultInfo.forEach(function(fault) {%>
+                        Device Name: <%= fault.fDeviceDisplayName%>
+                        <br>
+                        Device Location: <%= fault.fRoomDisplayName%>
+                        <br>
+                        Fault Info: <%= fault.faultInfo%>
+                        <br>
+                        <% }) %>
+                    </div>
+                    
+                </div>
+                
             </div>
         </div>
-    </div>
     <% } %>
+    </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
     <% if (roomInfo != ""){ %>
     <h4 class="card-title text-center font-weight-bold">Choose a Device</h4>
     <div class="container">
         <div class="row">
             <% deviceInfo.forEach(function(device) {%>
             <% if (device.deviceType == "Appliance") {%>
-            <div class="col">
+            <div class="col-sm">
                 <div class="shadow-none card green lighten-4">
                     <div class="view overlay text-center">
                         <span class="fa-stack fa-6x ">

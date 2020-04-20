@@ -328,7 +328,9 @@ router.post('/manage-home/deleteHome:homeID', function (req, res, next) {
                 if ((result3 == "") || (result1 == "") || (result2 == "") || (result4 == "") || (result5 == "") || (result6 == "")) {
                   res.redirect('/home/settings/manage-home/');
                 } else {
-                  req.session.home.destroy();
+                  if (req.session.homeID) {
+                    req.session.homeID.destroy();
+                  }
                   res.redirect('/home');
                 }
               });

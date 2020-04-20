@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
 	<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 	<link rel="stylesheet" href="/stylesheets/mdb.min.css">
-
 	<title> Eco Spark - Energy Data </title>
 </head>
 
@@ -160,6 +159,82 @@
 	<br>
 	<br>
 	<% } %>
+
+	<div class="container">
+		<h3>Power Report Options : </h3></br>
+		<div class="row">
+			<div class="col-sm">
+				<div class="row justify-content-center">
+					<a class="btn btn-default" onclick="dayAverage()">Day Average</a>
+				</div>
+			</div>
+			<div class="col-sm">
+				<div class="row justify-content-center">
+					<a class="btn btn-default" onclick="weekAverage()">Week Average</a>
+				</div>
+			</div>
+			<div class="col-sm">
+				<div class="row justify-content-center">
+					<a class="btn btn-default" onclick="monthAverage()">Month Average</a>
+				</div>
+			</div>
+		</div> 
+	</div>
+	
+</br>
+
+		<div class="container" id="graphDayContainer" style="display: none;">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card green lighten-3 py-4">
+						<div class="card white mx-4">
+							
+							</br>
+							<h3 style="text-align: center;">Today's Energy Consumption of Rooms</h3> 
+							
+						</br>
+							<canvas id="dayAver"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<div class="container justify-content-center"  id="graphWeekContainer" style="display: none;">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card green lighten-3 py-4">
+						<div class="card white mx-4">
+						</br>
+
+						</br>
+						<h3 style="text-align: center;">Last Week's Energy Consumption</h3> 
+							<canvas id="weekAver"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container justify-content-center"  id="graphMonthContainer" style="display: none;">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<div class="card green lighten-3 py-4">
+						<div class="card white mx-4">
+						</br>
+						</br>
+						<h3 style="text-align: center;">Last Month's Energy Consumption</h3>
+							<canvas id="monthAver"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/popper.min.js"></script>
 	<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
@@ -167,6 +242,7 @@
 	<script type="text/javascript" src="/javascripts/chart.min.js"></script>
 
 	<script>
+		
 		function gData() {
 			$.get("http://localhost:3000/graph/home", function (result, status) {
 				var chartdata = {
@@ -196,235 +272,133 @@
 			});
 		}
 
-		let counter = 1;
-		setInterval(() => {
-			// document.querySelector('h1').innerText = counter;
-			counter++;
-			if (counter > 5) location.reload();
-		}, 10000);
+		// let counter = 1;
+		// setInterval(() => {
+		// 	// document.querySelector('h1').innerText = counter;
+		// 	counter++;
+		// 	if (counter > 5) location.reload();
+		// }, 10000);
 
-		/*
-		n = new Date();
-		y = n.getFullYear();
-		m = n.getMonth() + 1;
-		d = n.getDate();
-		document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-
-		var ctxL = document.getElementById("lineChart").getContext('2d');
-		var myLineChart = new Chart(ctxL, {
-			type: 'line',
-			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-					"November", "December"],
-				datasets: [{
-					label: "My First dataset",
-					data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-					backgroundColor: [
-						'rgba(105, 0, 132, .2)',
-					],
-					borderColor: [
-						'rgba(200, 99, 132, .7)',
-					],
-					borderWidth: 2
-				},
-				{
-					label: "My Second dataset",
-					data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
-					backgroundColor: [
-						'rgba(0, 137, 132, .2)',
-					],
-					borderColor: [
-						'rgba(0, 10, 130, .7)',
-					],
-					borderWidth: 2
-				}
-				]
-			},
-			options: {
-				responsive: true
-			}
-		});
-
-		var ctxL = document.getElementById("lineChartA").getContext('2d');
-		var myLineChart = new Chart(ctxL, {
-			type: 'line',
-			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-					"November", "December"],
-				datasets: [{
-					label: "My First dataset",
-					data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-					backgroundColor: [
-						'rgba(105, 0, 132, .2)',
-					],
-					borderColor: [
-						'rgba(200, 99, 132, .7)',
-					],
-					borderWidth: 2
-				},
-				{
-					label: "My Second dataset",
-					data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
-					backgroundColor: [
-						'rgba(0, 137, 132, .2)',
-					],
-					borderColor: [
-						'rgba(0, 10, 130, .7)',
-					],
-					borderWidth: 2
-				}
-				]
-			},
-			options: {
-				responsive: true
-			}
-		});
-
-		var ctxL = document.getElementById("lineChartB").getContext('2d');
-		var myLineChart = new Chart(ctxL, {
-			type: 'line',
-			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-					"November", "December"],
-				datasets: [{
-					label: "My First dataset",
-					data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-					backgroundColor: [
-						'rgba(105, 0, 132, .2)',
-					],
-					borderColor: [
-						'rgba(200, 99, 132, .7)',
-					],
-					borderWidth: 2
-				},
-				{
-					label: "My Second dataset",
-					data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
-					backgroundColor: [
-						'rgba(0, 137, 132, .2)',
-					],
-					borderColor: [
-						'rgba(0, 10, 130, .7)',
-					],
-					borderWidth: 2
-				}
-				]
-			},
-			options: {
-				responsive: true
-			}
-		});
-
-		var ctxL = document.getElementById("lineChartC").getContext('2d');
-		var myLineChart = new Chart(ctxL, {
-			type: 'line',
-			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-					"November", "December"],
-				datasets: [{
-					label: "My First dataset",
-					data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-					backgroundColor: [
-						'rgba(105, 0, 132, .2)',
-					],
-					borderColor: [
-						'rgba(200, 99, 132, .7)',
-					],
-					borderWidth: 2
-				},
-				{
-					label: "My Second dataset",
-					data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
-					backgroundColor: [
-						'rgba(0, 137, 132, .2)',
-					],
-					borderColor: [
-						'rgba(0, 10, 130, .7)',
-					],
-					borderWidth: 2
-				}
-				]
-			},
-			options: {
-				responsive: true
-			}
-		});
-
-		var ctxL = document.getElementById("lineChartD").getContext('2d');
-		var myLineChart = new Chart(ctxL, {
-			type: 'line',
-			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-					"November", "December"],
-				datasets: [{
-					label: "My First dataset",
-					data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-					backgroundColor: [
-						'rgba(105, 0, 132, .2)',
-					],
-					borderColor: [
-						'rgba(200, 99, 132, .7)',
-					],
-					borderWidth: 2
-				},
-				{
-					label: "My Second dataset",
-					data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 40, 50, 60],
-					backgroundColor: [
-						'rgba(0, 137, 132, .2)',
-					],
-					borderColor: [
-						'rgba(0, 10, 130, .7)',
-					],
-					borderWidth: 2
-				}
-				]
-			},
-			options: {
-				responsive: true
-			}
-		});
 
 		function dayAverage() {
-
+			// console.log("hell2");
 			var x = document.getElementById("graphDayContainer");
 			if (x.style.display === "none") {
 				x.style.display = "block";
 				window.scrollTo(0, document.body.scrollHeight);
+
+				$.get("http://localhost:3000/graph/averagesDay", function (result, status) {
+                var chartdata = {
+                    labels: result[0],
+                    datasets: [
+                        {
+                            label: 'Average Power',
+                            backgroundColor: '80cbc4',
+                            borderColor: 'rgba(200, 200, 200, 0.75)',
+                            hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                            hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                            data: result[1]
+                        }
+                    ]
+                };
+                var ctx = $("#dayAver");
+
+                var barGraph = new Chart(ctx, {
+                    type: 'bar',
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    data: chartdata
+                });
+            });
+
 			} else {
 				x.style.display = "none";
 			}
 		}
 
+
 		function weekAverage() {
+			// console.log("hell2");
 			var x = document.getElementById("graphWeekContainer");
 			if (x.style.display === "none") {
 				x.style.display = "block";
 				window.scrollTo(0, document.body.scrollHeight);
+
+				$.get("http://localhost:3000/graph/averagesWeek", function (result, status) {
+                var chartdata = {
+                    labels: result[0],
+                    datasets: [
+                        {
+                            label: 'Average Power',
+                            backgroundColor: '80cbc4',
+                            borderColor: 'rgba(200, 200, 200, 0.75)',
+                            hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                            hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                            data: result[1]
+                        }
+                    ]
+                };
+                var ctx = $("#weekAver");
+
+                var barGraph = new Chart(ctx, {
+                    type: 'bar',
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    data: chartdata
+                });
+            });
+
 			} else {
 				x.style.display = "none";
 			}
 		}
 
 		function monthAverage() {
+			// console.log("hell2");
 			var x = document.getElementById("graphMonthContainer");
 			if (x.style.display === "none") {
 				x.style.display = "block";
 				window.scrollTo(0, document.body.scrollHeight);
+
+				$.get("http://localhost:3000/graph/averagesMonth", function (result, status) {
+                var chartdata = {
+                    labels: result[0],
+                    datasets: [
+                        {
+                            label: 'Average Power',
+                            backgroundColor: '80cbc4',
+                            borderColor: 'rgba(200, 200, 200, 0.75)',
+                            hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                            hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                            data: result[1]
+                        }
+                    ]
+                };
+                var ctx = $("#monthAver");
+
+                var barGraph = new Chart(ctx, {
+                    type: 'bar',
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    data: chartdata
+                });
+            });
+
 			} else {
 				x.style.display = "none";
 			}
 		}
 
-		function yearAverage() {
-			var x = document.getElementById("graphYearContainer");
-			if (x.style.display === "none") {
-				x.style.display = "block";
-				window.scrollTo(0, document.body.scrollHeight);
-			} else {
-				x.style.display = "none";
-			}
-		} */
+		
 	</script>
 
 	<% include ('partials/footer') -%>

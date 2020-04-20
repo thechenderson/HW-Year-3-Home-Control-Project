@@ -45,3 +45,37 @@ insert into devices values (21, 'Light', 90, 'Light', 5);
 insert into devices values (22, 'Oven', 160, 'Appliance', 1);
 insert into devices values (23, 'Phone Charger', 3, 'Socket', 2);
 insert into devices values (24, 'Solar Panel', -100, 'Solar Panel', 11);
+
+
+insert into averagesforh values (1, '2020-04-18', 67212, 10000);
+insert into averagesforh values (1, '2020-04-17', 85416, 10000);
+insert into averagesforh values (1, '2020-04-16', 69423, 10000);
+insert into averagesforh values (1, '2020-04-15', 78591, 10000);
+insert into averagesforh values (1, '2020-04-14', 72343, 10000);
+insert into averagesforh values (1, '2020-04-13', 71232, 10000);
+insert into averagesforh values (1, '2020-04-12', 69992, 10000);
+insert into averagesforh values (1, '2020-04-12', 80001, 10000);
+insert into averagesforh values (1, '2020-04-11', 80001, 10000);
+insert into averagesforh values (1, '2020-04-10', 79983, 10000);
+insert into averagesforh values (1, '2020-04-09', 79837, 10000);
+insert into averagesforh values (1, '2020-04-08', 79283, 10000);
+insert into averagesforh values (1, '2020-04-07', 80108, 10000);
+insert into averagesforh values (1, '2020-04-06', 80108, 10000);
+insert into averagesforh values (1, '2020-04-05', 90016, 10000);
+insert into averagesforh values (1, '2020-04-04', 91000, 10000);
+insert into averagesforh values (1, '2020-04-03', 91021, 10000);
+insert into averagesforh values (1, '2020-04-02', 80146, 10000);
+insert into averagesforh values (1, '2020-04-01', 89819, 10000);
+
+
+insert into averagesforr values (1, '2020-04-20', 23);
+insert into averagesforr values (2, '2020-04-20', 15);
+insert into averagesforr values (3, '2020-04-20', 17);
+insert into averagesforr values (4, '2020-04-20', 14);
+insert into averagesforr values (5, '2020-04-20', 19);
+insert into averagesforr values (6, '2020-04-20', 17);
+insert into averagesforr values (7, '2020-04-20', 17.43);
+insert into averagesforr values (8, '2020-04-20', 10.2);
+insert into averagesforr values (9, '2020-04-20', 14);
+insert into averagesforr values (10, '2020-04-20', 9);
+insert into averagesforr values (11, '2020-04-20', 8.5);

@@ -18,10 +18,9 @@ router.get('/', function (req, res, next) {
       var sql2 = "SELECT homes.homeID, homes.homeName FROM users, homes WHERE users.username = '" + req.session.user + "' AND users.homeID = homes.homeID";
       connection.query(sql2, function (err, result2, fields) {
         if (result2 != "") {
-          req.session.homeID = result2[0].homeID;
           var homeName = result2[0].homeName;
         }
-        res.render('rooms', ({ title: 'Express' }, { rooms: result, home: req.session.homeID, homeName: homeName }));
+        res.render('rooms', ({ title: 'Express' }, { rooms: result, home: result2, homeName: homeName }));
       });
     });
   } else {
@@ -71,7 +70,7 @@ router.get('/:roomID', function (req, res, next) {
       req.session.room = req.params.roomID
 
       connection.query(sqlRD, function (err, data, fields) {
-   
+
         connection.query(sqlD, function (err, result, fields) {
           if (result != "") {
             var isDevice = result[0].deviceID;
@@ -230,22 +229,24 @@ router.post('/createRoom', function (request, response) {
   var roomType = roomTypeOld.replace(/[^a-zA-Z0-9]/g, "");
 
   if (roomName && roomType) {
-
-    var sql4 = "INSERT INTO rooms VALUES ('0', '" + roomName + "', '" + roomType + "', NULL, '" + request.session.homeID + "')";
-    connection.query(sql4, function (err, result4, fields) {
-      if (!result4) {
-        response.redirect('/home/rooms/add-room');
-      } else {
-        var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
-        connection.query(sql3, function (err, result3, fields) {
-          if (result3 != "") {
-            response.redirect('/home/rooms');
-          } else {
-            response.redirect('/home/rooms/add-room');
-          }
-          response.end();
-        });
-      }
+    var sql2 = "SELECT homeID FROM users WHERE username = '" + request.session.user + "'";
+    connection.query(sql2, function (err, result2, fields) {
+      var sql4 = "INSERT INTO rooms VALUES ('0', '" + roomName + "', '" + roomType + "', NULL, '" + result2[0].homeID + "')";
+      connection.query(sql4, function (err, result4, fields) {
+        if (!result4) {
+          response.redirect('/home/rooms/add-room');
+        } else {
+          var sql3 = "SELECT roomDisplayName FROM rooms WHERE roomDisplayName = '" + roomName + "'";
+          connection.query(sql3, function (err, result3, fields) {
+            if (result3 != "") {
+              response.redirect('/home/rooms');
+            } else {
+              response.redirect('/home/rooms/add-room');
+            }
+            response.end();
+          });
+        }
+      });
     });
   } else {
     response.redirect('/home/rooms/add-room');

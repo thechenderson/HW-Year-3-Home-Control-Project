@@ -118,16 +118,28 @@ router.post('/manage-users/:username/updateUserPW', function (req, response) {
 
 
 // delete user
-router.post('/manage-users/:username/deleteUser', function (req, response) {
-  var username = req.params.username;
-  var sql = "DELETE FROM users WHERE users.username = '" + username + "'";
-  connection.query(sql, function (err, result, fields) {
-    if (result == "") {
-      response.redirect('/home/settings/manage-users/' + req.params.username);
-    } else {
-      console.log(result);
-      response.redirect('/home/settings/manage-users/');
-    }
+router.post('/deleteUser', function (req, response) {
+  var username = req.session.user;
+  var sqlH = "SELECT homeID FROM users WHERE username = '" + username + "'";
+  connection.query(sqlH, function (err, result1, field) {
+    var sqlC = "SELECT COUNT(username) AS number FROM users WHERE homeID ='" + result1[0].homeID + "' AND isAdmin = 'Yes'";
+    connection.query(sqlC, function (err, result3, fields) {
+      var sqlA = "SELECT isAdmin FROM users WHERE username = '" + username + "'";
+      connection.query(sqlA, function (err, result5, fields) {
+        if ((result3[0].number == 1) && (result5[0].isAdmin == "Yes")) {
+          response.redirect('/home/my-account');
+        } else {
+          var sqlD2 = "DELETE FROM users WHERE users.username = '" + username + "'";
+          connection.query(sqlD2, function (err, result4, fields) {
+            if (result4 == "") {
+              response.redirect('/home/my-account');
+            } else {
+              response.redirect('/');
+            }
+          });
+        }
+      });
+    });
   });
 });
 

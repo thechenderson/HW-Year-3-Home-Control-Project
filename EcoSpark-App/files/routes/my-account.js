@@ -25,16 +25,21 @@ var connection = mysql.createConnection({
 
 router.get('/', function (req, res, next) {
   if (req.session.loggedin) {
-    var sqlU = "SELECT users.displayName, users.password, users.username, users.isAdmin, users.homeID FROM users WHERE users.username = '"+ req.session.user + "'";
-    Promise.all([
-      queryWrapper(sqlU)
-    ])
-      .then(([userInfo]) => {
-        res.render('my-account', {
-          title: 'Express',
-          userInfo
+    var sqlU = "SELECT users.displayName, users.password, users.username, users.isAdmin, users.homeID FROM users WHERE users.username = '" + req.session.user + "'";
+    var sql2 = "SELECT homes.homeID, homes.homeName FROM users, homes WHERE users.username = '" + req.session.user + "' AND users.homeID = homes.homeID";
+    connection.query(sql2, function (err, result2, fields) {
+      var home = result2
+      Promise.all([
+        queryWrapper(sqlU)
+      ])
+        .then(([userInfo]) => {
+          res.render('my-account', {
+            title: 'Express',
+            userInfo,
+            home
+          });
         });
-      });
+    });
   } else {
     res.redirect('/');
   }
@@ -42,10 +47,10 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/updateUsername', function (req, response) {
-  var username = req.params.username;
+  var userID = req.session.user;
   var usernameOld = req.body.username;
   var usernameNew = usernameOld.replace(/[^a-zA-Z0-9]/g, "");
-  var sql = "UPDATE users SET username = '" + usernameNew + "' WHERE users.username = '" + username + "'";
+  var sql = "UPDATE users SET username = '" + usernameNew + "' WHERE username = '" + userID + "'";
   connection.query(sql, function (err, result, fields) {
     if (result == "") {
       response.redirect('/home/my-account');
@@ -60,16 +65,16 @@ router.post('/updateUsername', function (req, response) {
 
 //update display name
 router.post('/updateDisplayName', function (req, response) {
-  var username = req.params.username;
+  var username = req.session.user;
   var displayNameOld = req.body.displayName;
   var displayName = displayNameOld.replace(/[^a-zA-Z0-9]/g, "");
-  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE users.username = '" + username + "'";
+  var sql = "UPDATE users SET displayName = '" + displayName + "' WHERE username = '" + username + "'";
   connection.query(sql, function (err, result, fields) {
     if (result == "") {
-      response.redirect('/home/settings/manage-users');
+      response.redirect('/home/my-account');
     } else {
       console.log(result);
-      response.redirect('/home/settings/manage-users/' + req.params.username);
+      response.redirect('/home/my-account');
     }
   });
 });
@@ -79,16 +84,16 @@ router.post('/updateDisplayName', function (req, response) {
 
 // update password
 router.post('/updateUserPW', function (req, response) {
-  var username = req.params.username;
+  var username = req.session.user;
   var PWOld = req.body.password;
   var passwordNew = PWOld.replace(/[^a-zA-Z0-9]/g, "");
   var sql = "UPDATE users SET password = '" + passwordNew + "' WHERE users.username = '" + username + "'";
   connection.query(sql, function (err, result, fields) {
     if (result == "") {
-      response.redirect('/home/settings/manage-users');
+      response.redirect('/home/my-account');
     } else {
       console.log(result);
-      response.redirect('/home/settings/manage-users/' + req.params.username);
+      response.redirect('/home/my-account');
     }
   });
 });
@@ -97,15 +102,37 @@ router.post('/updateUserPW', function (req, response) {
 
 // delete user
 router.post('/deleteUser', function (req, response) {
-  var username = req.params.username;
-  var sql = "DELETE FROM users WHERE users.username = '" + username + "'";
-  connection.query(sql, function (err, result, fields) {
-    if (result == "") {
-      response.redirect('/home/settings/manage-users/' + req.params.username);
-    } else {
-      console.log(result);
-      response.redirect('/home/settings/manage-users/');
+  var username = req.session.user;
+  var sqlH = "SELECT homeID FROM users WHERE username = '" + username + "'";
+  connection.query(sqlH, function (err, result1, field) {
+    if (result1 == "") {
+      var sqlD = "DELETE FROM users WHERE users.username = '" + username + "'";
+      connection.query(sqlD, function (err, result2, fields) {
+        if (result2 == "") {
+          response.redirect('/home/my-account');
+        } else {
+          response.redirect('/');
+        }
+      });
     }
+    var sqlC = "SELECT COUNT(username) AS number FROM users WHERE homeID ='" + result1[0].homeID + "' AND isAdmin = 'Yes'";
+    connection.query(sqlC, function (err, result3, fields) {
+      var sqlA = "SELECT isAdmin FROM users WHERE username = '" + username + "'";
+      connection.query(sqlA, function (err, result5, fields) {
+        if ((result3[0].number == 1) && (result5[0].isAdmin == "Yes")) {
+          response.redirect('/home/my-account');
+        } else {
+          var sqlD2 = "DELETE FROM users WHERE users.username = '" + username + "'";
+          connection.query(sqlD2, function (err, result4, fields) {
+            if (result4 == "") {
+              response.redirect('/home/my-account');
+            } else {
+              response.redirect('/');
+            }
+          });
+        }
+      });
+    });
   });
 });
 
@@ -114,50 +141,34 @@ router.post('/deleteUser', function (req, response) {
 
 // checks to see if its not the last admin in the home 
 router.post('/removeFromHome', function (req, response) {
-  var sql1 = "SELECT homeID FROM users WHERE username = '" + req.params.username + "'";
-  connection.query(sql1, function (err, result1, fields) {
-    console.log(result1[0]);
+  var username = req.session.user;
+  var sqlH = "SELECT homeID FROM users WHERE username = '" + username + "'";
+  connection.query(sqlH, function (err, result1, field) {
+
     var sql2 = "SELECT COUNT(username) AS number FROM users WHERE homeID ='" + result1[0].homeID + "' AND isAdmin = 'Yes'";
     connection.query(sql2, function (err, result2, fields) {
-      console.log(result2[0]);
-      console.log(result2[0].number == 1);
-      console.log(req.params.username);
-      console.log(req.session.user);
-      var userParamO = req.params.username;
-      var userLoginO = req.session.user;
-      var userParamN = userParamO.toLowerCase();
-      var userLoginN = userLoginO.toLowerCase();
-      console.log(userParamN);
-      console.log(userLoginN);
-
-      if ((result2[0].number == 1) && (userParamN == userLoginN)) {
-        console.log("fail0" + (userParamN == userLoginN));
-        response.redirect('/home/settings/manage-users/' + req.params.username);
-      } else {
-        var sql3 = "UPDATE users SET homeID = NULL WHERE username ='" + req.params.username + "'";
-        connection.query(sql3, function (err, result3, fields) {
-          if (result3 == "") {
-            console.log("fail1");
-            response.redirect('/home/settings/manage-users/' + req.params.username);
-          } else {
-            var sql4 = "UPDATE users SET isAdmin = 'No' WHERE username ='" + req.params.username + "'";
-            connection.query(sql4, function (err, result4, fields) {
-              if (result4 == "") {
-                console.log("fail2");
-                response.redirect('/home/settings/manage-users/' + req.params.username);
-              }
-              if (userParamN == userLoginN) {
-                if (req.session.homeID) {
-                  req.session.homeID.destroy();
+      var sqlA = "SELECT isAdmin FROM users WHERE username = '" + username + "'";
+      connection.query(sqlA, function (err, result5, fields) {
+        if ((result2[0].number == 1) && (result5[0].isAdmin == "Yes")) {
+          response.redirect('/home/my-account');
+        } else {
+          var sql3 = "UPDATE users SET homeID = NULL WHERE username ='" + username + "'";
+          connection.query(sql3, function (err, result3, fields) {
+            if (result3 == "") {
+              response.redirect('/home/my-account');
+            } else {
+              var sql4 = "UPDATE users SET isAdmin = 'No' WHERE username ='" + username + "'";
+              connection.query(sql4, function (err, result4, fields) {
+                if (result4 == "") {
+                  response.redirect('/home/my-account');
+                } else {
+                  response.redirect('/home/');
                 }
-                response.redirect('/home');
-              } else {
-                response.redirect('/home/settings/manage-users/');
-              }
-            });
-          }
-        });
-      }
+              });
+            }
+          });
+        }
+      });
     });
   });
 });

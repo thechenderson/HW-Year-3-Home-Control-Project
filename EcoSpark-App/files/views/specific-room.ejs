@@ -64,50 +64,56 @@
   <% if (isDevice) { %>
 
   <div class="container" align="center">
-    <h1 class="titles">
-      Devices in Room
-    </h1>
-    </br>
-    <ul class="list-group">
-      <div class="row">
-        <div class="col-sm" align="center">
-          <h2 style="font-size:20px">DEVICE NAME</h2>
-        </div>
-        <div class="col-sm" align="center">
-          <h2 style="font-size:20px">POWER OUTAGE </h2>
-        </div>
+    <div class="ecoSparkCard white">
+      <div class="card green lighten-3">
+        <h1 class="h3 pt-3">
+          Devices in Room
+        </h1>
+        </br>
+        <ul class="list-group">
+          <div class="row">
+            <div class="col-sm" align="center">
+              <h2 style="font-size:20px">DEVICE NAME</h2>
+            </div>
+            <div class="col-sm" align="center">
+              <h2 style="font-size:20px">POWER OUTAGE </h2>
+            </div>
+          </div>
+    
+          <% deviceInfo.forEach(function(device) {%>
+          <% if (device.devicePower <= 10000) {%>
+          <li class="list-group-item list-group-item-success">
+            <div class="row">
+              <div class="col-sm" align="center">
+                <h2><%= device.deviceDisplayName %> :</h2>
+              </div>
+              <div class="col-sm" align="center">
+                <h2><%= device.devicePower %></h2>
+              </div>
+            </div>
+          </li>
+          <% } %>
+    
+          <% if (device.devicePower > 10000) {%>
+          <li class="list-group-item list-group-item-warning">
+            <div class="row">
+              <div class="col-sm" align="center">
+                <h2><%= device.deviceDisplayName %> :</h2>
+              </div>
+              <div class="col-sm" align="center">
+                <h2><%= device.devicePower %></h2>
+              </div>
+            </div>
+          </li>
+          <% } %>
+          <% }) %>
+        </ul>
       </div>
-
-      <% deviceInfo.forEach(function(device) {%>
-      <% if (device.devicePower <= 10000) {%>
-      <li class="list-group-item list-group-item-success">
-        <div class="row">
-          <div class="col-sm" align="center">
-            <h2><%= device.deviceDisplayName %> :</h2>
-          </div>
-          <div class="col-sm" align="center">
-            <h2><%= device.devicePower %></h2>
-          </div>
-        </div>
-      </li>
       <% } %>
+      </div>
+    </div>
 
-      <% if (device.devicePower > 10000) {%>
-      <li class="list-group-item list-group-item-warning">
-        <div class="row">
-          <div class="col-sm" align="center">
-            <h2><%= device.deviceDisplayName %> :</h2>
-          </div>
-          <div class="col-sm" align="center">
-            <h2><%= device.devicePower %></h2>
-          </div>
-        </div>
-      </li>
-      <% } %>
-      <% }) %>
-    </ul>
-  </div>
-  <% } %>
+    
   <br></br>
 
   <div class="flex-column" align="center">

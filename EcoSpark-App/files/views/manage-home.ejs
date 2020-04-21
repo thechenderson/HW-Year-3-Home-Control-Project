@@ -85,6 +85,10 @@
     </div>
     <br>
     <div class="card-title pt-4">
+      <% if(rooms == "") { %>
+        <h3 style="text-align: center;"> No rooms in home </h3>
+        <% } %>
+        <% if(rooms != "") { %>
       <h3 style="text-align: center;"> Select a Room to Delete </h3>
     </div>
     <br>
@@ -323,8 +327,10 @@
             </div>
           </div>
         </div>
+       
         <% } %>
         <% }) %>
+        <% } %>
       </div>
       <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
       <script type="text/javascript" src="/javascripts/popper.min.js"></script>

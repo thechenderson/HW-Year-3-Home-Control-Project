@@ -70,8 +70,8 @@
                       <% } else { %>
                       <input type="text" class="form-control rounded disabled" placeholder="No">
                     <% } %>
-                    <small class="form-text text-muted">User's admin privileges.</small>
                   </label>
+                  <small class="form-text text-muted">User's admin privileges. <br> You can not remove yourself from a home or delete your account if you are the only admin</small>
                 </div>
               </form>
             <br>
@@ -84,7 +84,7 @@
                   </form>
                 </div>
                 <div class="col-sm-6">
-                  <form action="<%=user.username%>/delete" method="post">
+                  <form action="<%=user.username%>/deleteUser" method="post">
                     <div class="d-flex justify-content-center">
                       <button class="btn btn-default w-100" type="submit" id="delete">Delete Account</button>
                     </div>

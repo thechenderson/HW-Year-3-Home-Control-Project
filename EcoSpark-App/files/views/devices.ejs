@@ -28,7 +28,11 @@
             <div class="col-sm">
                 <div class="card green lighten-3 py-4">
                     <div class="card white mx-4">
-                        <canvas id="mycanvas"></canvas>
+                    <div class="h3 pt-3" align="center">
+                        Currently Runnning Devices
+                        <div class="h5 pt-3" align="center">(kW / device)</div>
+                    </div>
+                    <canvas id="mycanvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -293,9 +297,7 @@
 
     <script>
         // code to draw graph
-
         function gData() {
-
             $.get("http://localhost:3000/graph/devices", function (result, status) {
                 var chartdata = {
                     labels: result[0],

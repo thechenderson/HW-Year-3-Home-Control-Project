@@ -85,8 +85,14 @@
 			<div class="col-xl-8">
 				<div class="card green lighten-3 py-3">
 					<div class="card white mx-3">
-						<div class="h3 pt-3" align="center">Current Energy Usage Across Rooms in <%= homeName%> </div> 
+						<div class="h3 pt-3" align="center">
+							Current Energy Usage Across Rooms in <%= homeName%> 
+							<div class="h5 pt-3" align="center">(kWh / rooms)</div>
+						</div>
+						
+						<div class="col-sm">
 							<canvas id="mycanvas"></canvas>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -99,10 +105,10 @@
 								<div class="card-body">
 									<div class="container">
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4">
 												<i class="fas fa-long-arrow-alt-up fa-6x green-text pt-3"></i>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8">
 												<h4 align="center">	
 													Total home generation: 	<br><br> <%= totalG*-1 %> kWh 
 												</h4>
@@ -121,10 +127,10 @@
 								<div class="card-body">
 									<div class="container">
 										<div class="row">
-											<div class="col-4">
+											<div class="col-sm-4">
 												<i class="fas fa-long-arrow-alt-down fa-6x red-text pt-2"></i>
 											</div>
-											<div class="col-8">
+											<div class="col-sm-8">
 												<h4 align="center">	
 													Total home usage:	<br><br> <%= totalU %> kWh </h3> 
 												</h4>
@@ -181,9 +187,12 @@
 					<div class="card green lighten-3 py-4">
 						<div class="card white mx-4">
 							
-							</br>
-							<h3 style="text-align: center;">Today's Energy Consumption of Rooms</h3> 
-							
+						</br>
+						<div class="h3 pt-3" align="center">
+							Today's Energy Consumption of Rooms
+							<div class="h5 pt-3" align="center">(kWh / rooms)</div>
+						</div>
+						 
 						</br>
 							<canvas id="dayAver"></canvas>
 						</div>
@@ -199,9 +208,11 @@
 					<div class="card green lighten-3 py-4">
 						<div class="card white mx-4">
 						</br>
-
+						<div class="h3 pt-3" align="center">
+							Previous Weeks's Energy Consumption
+							<div class="h5 pt-3" align="center">(kWh / date)</div>
+						</div>
 						</br>
-						<h3 style="text-align: center;">Last Week's Energy Consumption</h3> 
 							<canvas id="weekAver"></canvas>
 						</div>
 					</div>
@@ -217,8 +228,11 @@
 					<div class="card green lighten-3 py-4">
 						<div class="card white mx-4">
 						</br>
+						<div class="h3 pt-3" align="center">
+							Previous Month's Energy Consumption
+							<div class="h5 pt-3" align="center">(kWh / date)</div>
+						</div>
 						</br>
-						<h3 style="text-align: center;">Last Month's Energy Consumption</h3>
 							<canvas id="monthAver"></canvas>
 						</div>
 					</div>
@@ -299,8 +313,8 @@
                     type: 'bar',
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
-                        }
+							beginAtZero: true
+						}
                     }],
                     data: chartdata
                 });

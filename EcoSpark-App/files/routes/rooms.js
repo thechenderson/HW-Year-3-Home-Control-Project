@@ -170,9 +170,9 @@ router.post('/assignHome', function (request, response) {
     connection.query(sql, function (err, result, fields) {
 
       if (result != "") {
-        response.redirect('/home/rooms');
+        response.redirect('/home/rooms/rooms');
       } else {
-        response.redirect('/home/rooms/add-home');
+        response.redirect('/home/rooms/rooms');
       }
       response.end();
     });

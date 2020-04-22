@@ -2,33 +2,39 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
-
+// create sql connection
 var connection = mysql.createConnection({
+  // secure login stored reomotly
   host: process.env.hostname,
   user: process.env.username,
   password: process.env.password,
   database: process.env.database
 });
 
-
+// render the main rooms page
 router.get('/', function (req, res, next) {
+  // if user is logged in
   if (req.session.loggedin) {
+    // sql for retreiving data
     var sql = "SELECT rooms.roomDisplayName AS roomDisplayName, rooms.roomType AS roomType, rooms.roomID AS roomID FROM users, rooms, homes WHERE users.homeID = homes.homeID AND homes.homeID = rooms.homeID AND users.username = '" + req.session.user + "'";
     connection.query(sql, function (err, result, fields) {
       var sql2 = "SELECT homes.homeID, homes.homeName FROM users, homes WHERE users.username = '" + req.session.user + "' AND users.homeID = homes.homeID";
       connection.query(sql2, function (err, result2, fields) {
         if (result2 != "") {
+          // set home name
           var homeName = result2[0].homeName;
         }
+        // render rooms page with data from sql
         res.render('rooms', ({ title: 'Express' }, { rooms: result, home: result2, homeName: homeName }));
       });
     });
   } else {
+    // if not logged in, load login page
     res.redirect('/');
   }
 });
 
-
+// method for adding a room
 router.get('/add-room', function (req, res, next) {
   if (req.session.loggedin) {
     res.render('add-room', ({ title: 'Express' }));

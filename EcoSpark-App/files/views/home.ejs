@@ -1,230 +1,235 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">  
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/mdb.min.css">
-		<title> Eco Spark - Home </title>
-    </head>
-    
-    <body>
-        <nav class="navbar navbar-dark green lighten-2">
-            <a class="navbar-brand pr-2" href="/home" style="font-size: 210%; font-weight: bold; margin-right: 0px;">
-                <img src="/ecoSpark_Logo.png" alt="ecoSpark Logo" width="70" height="auto" class="d-inline-block">
-            </a>
-            <a class="navbar-brand d-none d-sm-block" href="/home" style="font-size: 210%; font-weight: bold;">
-                EcoSpark
-            </a>
-            <a class="navbar-brand d-none d-md-block" href="/home" style="font-size: 210%; font-weight: bold;">
-                |
-            </a>
-            <a class="d-none d-md-block" style="font-size: 150%; color: white; font-weight: bold;">
-                Welcome <%= user %>
-            </a>
-            <ul class="navbar-nav ml-auto" style="font-weight: bold; font-size:140%; color: white;">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> 
-                        Profile                     
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/home/my-account">My Account</a>
-                        <a class="dropdown-item" href="/">Log out</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>            
 
-        <br>
-        
-       
-        <div class="container">
-            <div class="row">
-                    <div class="col-sm">
-                        <div class="shadow-none card green lighten-4">
-                        <div class="view overlay text-center">
-                            <span class="fa-stack fa-6x ">
-                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/home/rooms"></a>
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title text-center">Your Home</h4>
-                        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/ecospark.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/mdb.min.css">
+    <title> Eco Spark - Home </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark green lighten-2">
+        <a class="navbar-brand pr-2" href="/home" style="font-size: 210%; font-weight: bold; margin-right: 0px;">
+            <img src="/ecoSpark_Logo.png" alt="ecoSpark Logo" width="70" height="auto" class="d-inline-block">
+        </a>
+        <a class="navbar-brand d-none d-sm-block" href="/home" style="font-size: 210%; font-weight: bold;">
+            EcoSpark
+        </a>
+        <a class="navbar-brand d-none d-md-block" href="/home" style="font-size: 210%; font-weight: bold;">
+            |
+        </a>
+        <a class="d-none d-md-block" style="font-size: 150%; color: white; font-weight: bold;">
+            Welcome <%= user %>
+        </a>
+        <ul class="navbar-nav ml-auto" style="font-weight: bold; font-size:140%; color: white;">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/home/my-account">My Account</a>
+                    <a class="dropdown-item" href="/">Log out</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <br>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-home fa-stack-1x icon" style="color:white" href="/home/rooms"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Your Home</h4>
                     </div>
                 </div>
-                <div class="col-sm">
-                        <div class="shadow-none card green lighten-4">
-                        <div class="view overlay text-center">
-                            <span class="fa-stack fa-6x ">
-                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                <a class="fas fa-chart-area fa-stack-1x icon" style="color:white" href="/home/energy-data"></a>
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title text-center">Energy Data</h4>
-                        </div>
+            </div>
+            <div class="col-sm">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-chart-area fa-stack-1x icon" style="color:white"
+                                href="/home/energy-data"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Energy Data</h4>
                     </div>
                 </div>
-                <div class="col-sm">
-                        <div class="shadow-none card green lighten-4">
-                        <div class="view overlay text-center">
-                            <span class="fa-stack fa-6x ">
-                                <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/devices"></a>
-                            </span>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title text-center">Devices</h4>
-                        </div>
+            </div>
+            <div class="col-sm">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-mobile-alt fa-stack-1x icon" style="color:white" href="/home/devices"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Devices</h4>
                     </div>
                 </div>
-                
-                <% userInfo.forEach(function(user) {%>  
-                    <% if (user.isAdmin == 'Yes') {%>
-                            <div class="col-sm">
-                        <div class="shadow-none card green lighten-4">
-                                <div class="view overlay text-center">
-                                    <span class="fa-stack fa-6x ">
-                                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                        <a class="fas fa-cog fa-stack-1x icon" style="color:white" href="/home/settings"></a>
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title text-center">System Settings</h4>
-                                </div>
-                            </div>
-                        </div>
-                    <% } else { %>
-                            <div class="col-sm">
-                        <div class="shadow-none card green lighten-4">
-                                <div class="view overlay text-center">
-                                    <span class="fa-stack fa-6x ">
-                                        <i class="fa fa-circle fa-stack-2x icon-background"></i>
-                                        <a class="fas fa-question fa-stack-1x icon" style="color:white" href="/home/settings/help"></a>
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title text-center">Help</h4>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+
+            <% userInfo.forEach(function(user) {%>
+            <% if (user.isAdmin == 'Yes') {%>
+            <div class="col-sm">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-cog fa-stack-1x icon" style="color:white" href="/home/settings"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">System Settings</h4>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="col-sm">
+                <div class="shadow-none card green lighten-4">
+                    <div class="view overlay text-center">
+                        <span class="fa-stack fa-6x ">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <a class="fas fa-question fa-stack-1x icon" style="color:white"
+                                href="/home/settings/help"></a>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Help</h4>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% }) %>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="slideshow-container">
+                    <div class="mySlides">
+                        <p class="tip"> Tip!</p>
+                        <q>Switch off radiators in the rooms you’re not using and keep internal doors shut.
+                            Otherwise, draughts and poorly insulated windows will mean you’re burning excess energy</q>
+                    </div>
+                    <div class="mySlides">
+                        <p class="tip"> Tip!</p>
+                        <q>Try to get into the habit of turning lights off when you leave a room.
+                            A family could save between £50 and £90 a year just by remembering to flick a switch</q>
+                    </div>
+                    <div class="mySlides">
+                        <p class="tip"> Tip!</p>
+                        <q>Make sure your radiators aren’t blocked by curtains, furniture or clothes
+                            – it’s good to make the best of the heat you’re paying for, and not let it go to waste</q>
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                    <a class="next" onclick="plusSlides(1)">❯</a>
+                </div>
+
+                <br>
+
+                <div class="card p-4 mb-4 rounded">
+                    <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
+
+                    <% if (faultInfo == ""){ %>
+                    Currently no devices with faults <br>
                     <% } %>
-                <% }) %>  
-            </div>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="slideshow-container">
-                        <div class="mySlides">
-                            <p class="tip"> Tip!</p>
-                            <q>Switch off radiators in the rooms you’re not using and keep internal doors shut.
-                                Otherwise, draughts and poorly insulated windows will mean you’re burning excess energy</q>
+                    <%faultInfo.forEach(function(fault) {%>
+                    <div class="systemAlert">
+                        <div class="alert alert-warning" role="alert">
+                            <h5>Fault ID: <%= fault.faultID%></h5>
+                            <h5>Device: <%= fault.deviceDisplayName%></h5>
+                            <h5>Room: <%= fault.roomDisplayName%></h5>
+                            <h5>Fault Info: <%= fault.faultInfo%></h5>
                         </div>
-                        <div class="mySlides">
-                            <p class="tip"> Tip!</p>
-                            <q>Try to get into the habit of turning lights off when you leave a room.
-                                 A family could save between £50 and £90 a year just by remembering to flick a switch</q>
-                        </div>
-                        <div class="mySlides">
-                            <p class="tip"> Tip!</p>
-                            <q>Make sure your radiators aren’t blocked by curtains, furniture or clothes
-                                  –  it’s good to make the best of the heat you’re paying for, and not let it go to waste</q>
-                        </div>
-                        <a class="prev" onclick="plusSlides(-1)">❮</a>
-                        <a class="next" onclick="plusSlides(1)">❯</a>
                     </div>
-
-                    <br>
-
-                    <div class="card p-4 mb-4 rounded">
-                        <h4 class="card-title font-weight-bold" style="text-align: center;">Fault List</h4>
-                            
-                        <% if (faultInfo == ""){ %>
-                            Currently no devices with faults  <br>
-                        <% } %>
-
-                        <%faultInfo.forEach(function(fault) {%>
-                            <div class="systemAlert">
-                                <div class="alert alert-warning" role="alert">
-                                    <h5>Fault ID: <%= fault.faultID%></h5>
-                                    <h5>Device: <%= fault.deviceDisplayName%></h5>
-                                    <h5>Room: <%= fault.roomDisplayName%></h5>
-                                    <h5>Fault Info: <%= fault.faultInfo%></h5>    
-                                </div>
-                            </div>
-                        <% }) %>
-                    </div>
+                    <% }) %>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card weather-card p-2">
-                        <div class="card-body">
-                            <h4 class="card-title font-weight-bold"><%= timezone %></h4>
-                            <p class="card-text"><%= summary %></p>
-                            <div class="justify-content-between">
-                                <p class="display-3 degree pl-1"><%= temperature %>°C</p>
-                                <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <p><i class="fas fa-tint fa-lg text-info pr-2"></i><%= precipProbability %> % <%= precipType %></p>
-                                <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><%= windSpeed %> mph Winds</p>
-                            </div>
-                            <a class="text-muted" href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+            </div>
+            <div class="col-sm-6">
+                <div class="card weather-card p-2">
+                    <div class="card-body">
+                        <h4 class="card-title font-weight-bold"><%= timezone %></h4>
+                        <p class="card-text"><%= summary %></p>
+                        <div class="justify-content-between">
+                            <p class="display-3 degree pl-1"><%= temperature %>°C</p>
+                            <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
                         </div>
+                        <div class="d-flex justify-content-between">
+                            <p><i class="fas fa-tint fa-lg text-info pr-2"></i><%= precipProbability %> %
+                                <%= precipType %></p>
+                            <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i><%= windSpeed %> mph Winds</p>
+                        </div>
+                        <a class="text-muted" href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-<br>
+    <br>
 
-        <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/javascripts/popper.min.js"></script>
-        <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
 
 
 
-        <script>
-            var slideIndex = 1;
-            showSlides(slideIndex);
-            
-            function plusSlides(n) {
-              showSlides(slideIndex += n);
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
             }
-            
-            function currentSlide(n) {
-              showSlides(slideIndex = n);
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
             }
-            
-            function showSlides(n) {
-              var i;
-              var slides = document.getElementsByClassName("mySlides");
-              var dots = document.getElementsByClassName("dot");
-              if (n > slides.length) {slideIndex = 1}    
-              if (n < 1) {slideIndex = slides.length}
-              for (i = 0; i < slides.length; i++) {
-                  slides[i].style.display = "none";  
-              }
-              for (i = 0; i < dots.length; i++) {
-                  dots[i].className = dots[i].className.replace(" active", "");
-              }
-              slides[slideIndex-1].style.display = "block";  
-              dots[slideIndex-1].className += " active";
-            }
-        </script>
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
 
-        <%- include ('partials/footer'); -%>
+    <%- include ('partials/footer'); -%>
 
 
-    </body>
-    
+</body>
+
 
 </html>

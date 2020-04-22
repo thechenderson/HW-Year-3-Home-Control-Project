@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "serverstart": "DEBUG=express-locallibrary-tutorial:= npm run devstart",
-    "build": "nexe nodemon ./bin/www -r app.js"
+    "serverstart": "DEBUG=express-locallibrary-tutorial:= npm run devstart"
   },
   "dependencies": {
     "-": "0.0.1",
